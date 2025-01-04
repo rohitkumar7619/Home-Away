@@ -21,6 +21,7 @@ async function main() {
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.send("hi,i ma root");
@@ -30,6 +31,16 @@ app.get("/", (req, res) => {
 app.get("/listing", async (req, res) => {
   const allListing = await Listing.find({});
   res.render("listings/index.ejs", { allListing });
+});
+
+// Show Rought
+app.get("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  const listing = await Listing.findById(id);
+  if (!listing) {
+    return res.status(404).send("Listing not found.");
+  }
+  res.render("listings/show.ejs", { listing });
 });
 
 // app.get("/testListing", async (req, res) => {
