@@ -1,3 +1,60 @@
-body{
-  background-color: rgb(216, 245, 170);
+/* Navbar background and general styling */
+.navbar {
+  background-color: #c7e0fa; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  padding: 0.5rem 1rem;
+}
+
+/* Brand styling */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000000; /* Dark gray text */
+  text-decoration: none;
+}
+
+.navbar-brand i {
+  margin-right: 8px;
+}
+
+/* Nav links */
+.nav-link {
+  font-size: 2rem;
+  margin-right: 1rem;
+  color: #000000;
+  transition: color 0.3s ease-in-out;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #000000; 
+  text-decoration: underline; 
+}
+
+/* Navbar toggler for smaller screens */
+.navbar-toggler {
+  border: none;
+  background-color: rgb(245, 178, 178);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Navbar collapsible */
+.collapse {
+  flex-grow: 1;
+  justify-content: left; /* Align links to the right */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .nav-link {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  .navbar-nav {
+    text-align: center;
+  }
 }
