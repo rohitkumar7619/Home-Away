@@ -33,6 +33,11 @@ app.get("/listing", async (req, res) => {
   res.render("listings/index.ejs", { allListing });
 });
 
+//new route
+app.get("/listings/new", (req, res) => {
+  res.render("listings/new.ejs");
+});
+
 // Show Rought
 app.get("/listings/:id", async (req, res) => {
   let { id } = req.params;
@@ -41,6 +46,14 @@ app.get("/listings/:id", async (req, res) => {
     return res.status(404).send("Listing not found.");
   }
   res.render("listings/show.ejs", { listing });
+});
+
+//Create Route
+app.post("/listings", async (req, res) => {
+  const newListing = new Listing(req.body.listings);
+  await newListing.save();
+  res.redirect("/listing");
+  console.log(newListing);
 });
 
 // app.get("/testListing", async (req, res) => {
