@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const { render } = require("ejs");
 const path = require("path");
+const methodOverride = require("method-override");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/homeaway";
 
@@ -22,13 +23,14 @@ async function main() {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
   res.send("hi,i ma root");
 });
 
 //index Rought
-app.get("/listing", async (req, res) => {
+app.get("/listings", async (req, res) => {
   const allListing = await Listing.find({});
   res.render("listings/index.ejs", { allListing });
 });
@@ -54,6 +56,20 @@ app.post("/listings", async (req, res) => {
   await newListing.save();
   res.redirect("/listing");
   console.log(newListing);
+});
+
+//Edit Route
+app.get("/listings/:id/edit", async (req, res) => {
+  let { id } = req.params;
+  const listing = await Listing.findById(id);
+  res.render("listings/edit.ejs", { listing });
+});
+
+// Update Route
+app.put("/listings/:id", async (req, res) => {
+  const { id } = req.params;
+  await Listing.findByIdAndUpdate(id, { ...req.body.listings });
+  res.redirect(`/listings/${id}`);
 });
 
 // app.get("/testListing", async (req, res) => {
