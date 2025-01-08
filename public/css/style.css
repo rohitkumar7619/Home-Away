@@ -1,4 +1,4 @@
-/* Navbar background and general styling */
+/* Navbar */
 .navbar {
   background-color: #c7e0fa; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
@@ -57,4 +57,55 @@
   .navbar-nav {
     text-align: center;
   }
+}
+
+
+
+
+/* footer */
+
+.footer {
+  text-align: center;
+  font-size: 14px;
+  color: #120f15;
+  padding: 20px 0;
+  border-top: 1px solid #e0e0e0;
+  background-color: rgb(149, 255, 255);
+}
+
+.footer-top {
+  margin-bottom: 10px;
+}
+
+.language, .currency {
+  margin-right: 15px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.globe-icon {
+  margin-right: 5px;
+}
+
+.social-icon {
+  font-size: 1.2rem;
+  margin-left: 1rem;
+}
+
+.footer-middle {
+  margin-bottom: 10px;
+}
+
+.footer-bottom .footer-link {
+  margin-right: 15px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-bottom .footer-link:last-child {
+  margin-right: 0;
+}
+
+.footer-bottom .footer-link:hover {
+  text-decoration: underline;
 }
