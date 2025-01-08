@@ -83,19 +83,6 @@ app.delete("/listings/:id", async (req, res) => {
   res.redirect("/listings");
 });
 
-// app.get("/testListing", async (req, res) => {
-//   const sampleListing = new Listing({
-//     title: "my Home",
-//     description: "ji mera ghar hai",
-//     Price: 5000,
-//     Location: "Kunraghat",
-//     country: "India",
-//   });
-//   await sampleListing.save();
-//   console.log("sample was saved");
-//   res.send("sucessful testing");
-// });
-
 app.listen(8080, () => {
   console.log("server is listing to port 8080");
 });
