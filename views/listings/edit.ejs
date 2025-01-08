@@ -1,26 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Away</title>
-</head>
+<% layout ("layouts/boilerplate") %>
 <body>
-  <h2>Edit Your Listing</h2>
+  <div class="row">
+    <div class="col-8 offset-2">
+  <h2 class="centered-heading">Edit Your Listing</h2>
   <form method="post" action="/listings/<%= listing._id %>?_method=PUT">
-    <input type="text" name="listings[title]" value="<%= listing.title %>" required />
+
+    <div class="mb-3">
+      <label class="form-lable for="title">Title</label>
+      <input  class="form-control"  type="text" id="title" name="listings[title]" value="<%= listing.title %>" required />
+    </div>
+    
+    <div class="mb-3">
+      <label class="form-lable" for="description">Description</label>
+      <textarea class="form-control" id="description" name="listings[description]" required><%= listing.description %></textarea>
+    </div>
+    
+    <div class="mb-3">
+      <label class="form-lable for="image">Image URL</label>
+      <input class="form-control" type="text" id="image" name="listings[image]" value="<%= listing.image %>" required />
+    </div>
+    
+
+    <div class="row">
+     <div class="col-4">
+      <label class="form-lable for="price">Price</label>
+      <input class="form-control" type="number" id="price" name="listings[price]" value="<%= listing.price %>" required />
+     </div>
+
+     <div class="col-8">
+      <label class="form-lable for="country">Country</label>
+      <input class="form-control" type="text" id="country" name="listings[country]" value="<%= listing.country %>" required />
+    </div>
+    
+   </div>
+    
+    <div class="md-3">
+      <label class="form-lable for="location">Location</label>
+      <input class="form-control" type="text" id="location" name="listings[location]" value="<%= listing.location %>" required />
+    </div>
     <br>
-    <textarea name="listings[description]" required><%= listing.description %></textarea>
+    
+    
+      <button class="btn btn-success" type="submit">Edit</button>
+      <br>
     <br>
-    <input type="text" name="listings[image]" value="<%= listing.image %>" required />
-    <br>
-    <input type="number" name="listings[price]" value="<%= listing.price %>"   required />
-    <br>
-    <input type="text" name="listings[location]" value="<%= listing.location  %>" required />
-    <br>
-    <input type="text" name="listings[country]" value="<%= listing.country  %>" required />
-    <br>
-    <button type="submit">Edit</button>
+    
   </form>
+</div>
+</div>
 </body>
-</html>

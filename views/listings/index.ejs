@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Homeaway</title>
-</head>
+<% layout("layouts/boilerplate") %>
 <body>
-  <h2>All Listing</h2>
-  <form method="get" action="/listings/new">
-    <button>Create New Listing</button>
-  </form>
-
-  <ul>
-    <% for(let listing of allListing) { %>
-      <li> <a href="/listings/<%= listing._id  %>"><%=listing.title %> </a></li>
-      <% } %>
-  </ul>
+  <h2 class="centered-heading">All Listings</h2>
+  <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+    <% for (let listing of allListing) { %>
+    <a href="/listings/<%= listing.id %>" class="card-link">
+      <div class="card" style="width: 20rem;">
+        <img src="<%= listing.image %>" class="card-img-top" alt="listing_image" style="height:20rem">
+        <div class="card-body">
+          <p>
+            <b><%= listing.title %></b>
+            <br>
+            &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+          </p>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
 </body>
-</html>
