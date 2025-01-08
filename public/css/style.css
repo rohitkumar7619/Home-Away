@@ -109,3 +109,49 @@
 .footer-bottom .footer-link:hover {
   text-decoration: underline;
 }
+
+
+
+/* index or card styling */
+
+.card-body {
+  padding: 0 !important;
+}
+
+.card {
+  border: none !important;
+  margin-left: .4rem;
+  margin-bottom: 2rem ;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  background-color: rgb(245, 255, 138);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Image */
+.card-img-top {
+  border-radius: 1rem !important;
+  width: 100% !important;
+  height: 200px;
+  object-fit: cover !important;
+}
+
+
+.listing-link{
+  text-decoration: none;
+}
+
+
+
+.card-link {
+  text-decoration: none;
+}
+
+.card-link:hover .card {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
