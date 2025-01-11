@@ -1,11 +1,13 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const { render } = require("ejs");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const wrapAysnc = require("./utils/wrapAsync.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/homeaway";
 
@@ -54,12 +56,15 @@ app.get("/listings/:id", async (req, res) => {
 });
 
 //Create Route
-app.post("/listings", async (req, res) => {
-  const newListing = new Listing(req.body.listings);
-  await newListing.save();
-  res.redirect("/listing");
-  console.log(newListing);
-});
+app.post(
+  "/listings",
+  wrapAysnc(async (req, res) => {
+    const newListing = new Listing(req.body.listings);
+    await newListing.save();
+    res.redirect("/listings");
+    console.log(newListing);
+  })
+);
 
 //Edit Route
 app.get("/listings/:id/edit", async (req, res) => {
@@ -81,6 +86,10 @@ app.delete("/listings/:id", async (req, res) => {
   const deletedListing = await Listing.findByIdAndDelete(id);
   console.log(deletedListing);
   res.redirect("/listings");
+});
+
+app.use((err, req, res, next) => {
+  res.send("something went wrong");
 });
 
 app.listen(8080, () => {
