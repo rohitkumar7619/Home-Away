@@ -74,8 +74,13 @@ body {
 }
 
 
-/* footer */
+/* Ensure the body and html take full height */
+html, body {
+  height: 100%;
+  margin: 0;
+}
 
+/* Footer styling to stick at the bottom */
 .footer {
   text-align: center;
   font-size: 14px;
@@ -83,6 +88,7 @@ body {
   padding: 20px 0;
   border-top: 1px solid #e0e0e0;
   background-color: rgb(149, 255, 255);
+  margin-top: auto;
 }
 
 .footer-top {
@@ -121,6 +127,7 @@ body {
 .footer-bottom .footer-link:hover {
   text-decoration: underline;
 }
+
 
 
 
