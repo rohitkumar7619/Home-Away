@@ -5,6 +5,7 @@ body {
   display: flex;
   flex-direction: column;
   max-height: 100vh;
+  background-color: rgb(246, 241, 241);
 }
 
 
@@ -21,8 +22,7 @@ body {
 
 /* Brand styling */
 .navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 2rem;
   color: #000000; /* Dark gray text */
   text-decoration: none;
 }
@@ -33,7 +33,7 @@ body {
 
 /* Nav links */
 .nav-link {
-  font-size: 2rem;
+  font-size: 1.3rem;
   margin-right: 1rem;
   color: #000000;
   transition: color 0.3s ease-in-out;
@@ -134,12 +134,16 @@ html, body {
 .card {
   border: none !important;
   margin-bottom: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+  background-color: white;
 }
 
 .card-img-top {
-  border-radius: 1rem !important;
-  width: 100% !important;
-  object-fit: cover !important;
+  border-radius: 1rem ;
+  width: 100% ;
+  object-fit: cover ;
 
 }
 
@@ -178,7 +182,7 @@ html, body {
   text-align: center;     
   font-size: 2rem;         
   font-weight: bold;        
-  color: #333;                       
+  color: #000000;                       
 }
 
 
@@ -200,5 +204,31 @@ html, body {
 
 
 
+/* rating */
 
 
+.card-review {
+  flex: 1 1 calc(50% - 16px); /* Two cards per row */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #251010;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: white;
+}
+
+.card-review h5 {
+  margin: 0 0 8px;
+}
+
+.card-review p {
+  margin: 0;
+}
+
+
+.custom-card {
+  background-color: rgb(233, 159, 159);
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+}

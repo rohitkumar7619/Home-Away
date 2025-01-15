@@ -4,7 +4,7 @@
     <div class="col-8 offset-2">
   <h3 >Listing Details :</h3>
 </div>
-  <div class="card col-6 offset-2">
+  <div class="card col-5 offset-2">
       <img src=<%= listing.image  %>" class="card-img-top show-img" alt="listing image">
       <div class="card-body">
         <p class="card-text">
@@ -33,18 +33,41 @@
   <div class="col-8 offset-2 mb-3 mt-3">
     <hr>
     <h4>Leave a Review</h4>
-    <form action="">
+    <form action="/listings/<%= listing.id %>/reviews" method="post" novalidate class="needs-validation">
       <div>
         <label for="rating" class="form-label  mb-3 mt-3">Rating</label>
-        <input type="range" min:"1" max: "5" id="rating" name="review[rating]">
+        <input type="range" min="1" max="5" id="rating" name="review[rating]">
+
       </div>
       <div>
-        <label for="commit" class="form-label b-3 mt-3">Commit</label>
-        <textarea name="review[commit]" id="commit" cols="30" row="10" class="form-control"></textarea>
+        <label for="comment" class="form-label b-3 mt-3">comment</label>
+        <textarea name="review[comment]" id="comment" cols="30" row="10" class="form-control" required></textarea>
+        <div class="invalid-feedback"> Please submit some commits</div>
       </div>
       <br>
       <button class="btn  btn-success">Submit</button>
     </form>
+
+
+    <hr>
+
+
+    <h4>All Reviews</h4>
+<div class="container-review">
+  <div class="row">
+    <% for (let review of listing.reviews) { %>
+      <div class="col-md-6 mb-3">
+        <div class="card-review  custom-card">
+          <div class="card-review-body">
+            <h5 class="card-review-title">Rating: <%= review.rating %>/5</h5>
+            <p class="card-text"><%= review.comment %></p>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</div>
+
   </div>
 </div>
 
