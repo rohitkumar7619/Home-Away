@@ -102,7 +102,7 @@ app.delete(
   })
 );
 
-//Review
+//Create  Review
 app.post(
   "/listings/:id/reviews",
   wrapAysnc(async (req, res) => {
@@ -114,8 +114,18 @@ app.post(
     await newReview.save();
     await listing.save();
 
-    console.log("new review is save ");
-    res.send("new review is save");
+    res.redirect(`/listings/${listing._id}`);
+  })
+);
+
+// Delete review route
+app.delete(
+  "/listings/:id/reviews/:reviewId",
+  wrapAysnc(async (req, res) => {
+    const { id, reviewId } = req.params; // Correct destructuring
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } }); // Fix typo and use reviewId
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/listings/${id}`); // Use id directly for redirection
   })
 );
 
