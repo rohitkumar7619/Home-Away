@@ -9,6 +9,9 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressErrors.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const userSchema = require("./models/user.js");
 
 const listings = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
