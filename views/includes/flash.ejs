@@ -1,0 +1,29 @@
+<% if (success && success.length) { %>
+  <div id="success-message" class="alert-success">
+    <%= success %>
+  </div>
+  <script>
+    setTimeout(() => {
+      const successMessage = document.getElementById("success-message");
+      if (successMessage) {
+        successMessage.style.display = "none";
+      }
+    }, 2000); // 2000ms = 2 seconds
+  </script>
+  <% } %>
+
+
+  <% if (error && error.length) { %>
+    <div id="success-message" class="alert-success">
+      <%= error %>
+    </div>
+    <script>
+      setTimeout(() => {
+        const errorMessage = document.getElementById("error-message");
+        if (errorMessage) {
+          errorMessage.style.display = "none";
+        }
+      }, 2000); // 2000ms = 2 seconds
+    </script>
+    <% } %>
+  
