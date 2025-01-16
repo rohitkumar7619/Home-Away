@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressErrors.js");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 const listings = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
@@ -37,12 +38,23 @@ const sessionOption = {
   secret: "myrohit",
   resave: false,
   saveinitialized: true,
+  Cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
 };
-
-app.use(session(sessionOption));
 
 app.get("/", (req, res) => {
   res.send("hi,i ma root");
+});
+
+app.use(session(sessionOption));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  next();
 });
 
 app.use("/listings", listings);
