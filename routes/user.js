@@ -49,8 +49,8 @@ router.post(
   }),
   (req, res) => {
     req.flash("success", "Welcome back!");
-    const redirectUrl = req.session.returnTo || "/listings"; // Redirect to intended page or default
-    delete req.session.returnTo; // Clean up session
+    const redirectUrl = req.session.returnTo || "/listings";
+    delete req.session.returnTo;
     res.redirect(redirectUrl);
   }
 );
