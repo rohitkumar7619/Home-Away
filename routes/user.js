@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 const wrapAsync = require("../utils/wrapAsync.js");
 const User = require("../models/user.js"); // Use the model, not the schema
 
@@ -24,16 +25,34 @@ router.post(
 
       // Automatically log the user in after registration
       req.login(registeredUser, (err) => {
-        if (err) return next(err); // Pass login error to error middleware
+        if (err) return next(err);
         req.flash("success", "Welcome to Home Away!");
         res.redirect("/listings");
       });
     } catch (error) {
-      // Handle errors during registration
-      req.flash("error", error.message); // Flash the error message
-      res.redirect("/signup"); // Redirect back to the signup page
+      req.flash("error", error.message);
+      res.redirect("/signup");
     }
   })
+);
+
+router.get("/login", (req, res) => {
+  res.render("users/login.ejs");
+});
+
+// Handle Login Logic
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  (req, res) => {
+    req.flash("success", "Welcome back!");
+    const redirectUrl = req.session.returnTo || "/listings"; // Redirect to intended page or default
+    delete req.session.returnTo; // Clean up session
+    res.redirect(redirectUrl);
+  }
 );
 
 module.exports = router;
