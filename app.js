@@ -15,6 +15,7 @@ const userSchema = require("./models/user.js");
 
 const listings = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/homeaway";
 
@@ -55,6 +56,13 @@ app.get("/", (req, res) => {
 app.use(session(sessionOption));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(userSchema.authenticate()));
+
+passport.serializeUser(userSchema.serializeUser());
+passport.deserializeUser(userSchema.deserializeUser());
+
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -63,6 +71,7 @@ app.use((req, res, next) => {
 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviewsRouter);
+app.use("/", userRouter);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "page not found"));
