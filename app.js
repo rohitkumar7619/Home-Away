@@ -2,16 +2,15 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 const mongoose = require("mongoose");
-const Listing = require("./models/listing.js");
 const { render } = require("ejs");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const wrapAysnc = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressErrors.js");
 const Review = require("./models/review.js");
 
 const listings = require("./routes/listing.js");
+const reviewsRouter = require("./routes/review.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/homeaway";
 
@@ -39,33 +38,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/listings", listings);
-
-//Create  Review
-app.post(
-  "/listings/:id/reviews",
-  wrapAysnc(async (req, res) => {
-    let listing = await Listing.findById(req.params.id);
-    let newReview = new Review(req.body.review);
-
-    listing.reviews.push(newReview);
-
-    await newReview.save();
-    await listing.save();
-
-    res.redirect(`/listings/${listing._id}`);
-  })
-);
-
-// Delete review route
-app.delete(
-  "/listings/:id/reviews/:reviewId",
-  wrapAysnc(async (req, res) => {
-    const { id, reviewId } = req.params; // Correct destructuring
-    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } }); // Fix typo and use reviewId
-    await Review.findByIdAndDelete(reviewId);
-    res.redirect(`/listings/${id}`); // Use id directly for redirection
-  })
-);
+app.use("/listings/:id/reviews", reviewsRouter);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "page not found"));

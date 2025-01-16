@@ -1,16 +1,19 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const wrapAysnc = require("../utils/wrapAsync.js");
-const Review = require("../models/review.js");
+const wrapAsync = require("../utils/wrapAsync.js");
 const Listing = require("../models/listing.js");
+const Review = require("../models/review.js");
+const ExpressError = require("../utils/ExpressErrors.js");
 
-//Create  Review
+// Create Review
 router.post(
   "/",
-  wrapAysnc(async (req, res) => {
-    let listing = await Listing.findById(req.params.id);
-    let newReview = new Review(req.body.review);
-
+  wrapAsync(async (req, res) => {
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+      throw new ExpressError("Listing not found", 404);
+    }
+    const newReview = new Review(req.body.review);
     listing.reviews.push(newReview);
 
     await newReview.save();
@@ -20,14 +23,15 @@ router.post(
   })
 );
 
-// Delete review route
+// Delete Review
 router.delete(
   "/:reviewId",
-  wrapAysnc(async (req, res) => {
-    const { id, reviewId } = req.params; // Correct destructuring
-    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } }); // Fix typo and use reviewId
+  wrapAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
-    res.redirect(`/listings/${id}`); // Use id directly for redirection
+
+    res.redirect(`/listings/${id}`);
   })
 );
 
