@@ -11,6 +11,8 @@ const wrapAysnc = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressErrors.js");
 const Review = require("./models/review.js");
 
+const listings = require("./routes/listing.js");
+
 const MONGO_URL = "mongodb://127.0.0.1:27017/homeaway";
 
 main()
@@ -36,71 +38,7 @@ app.get("/", (req, res) => {
   res.send("hi,i ma root");
 });
 
-//index Rought
-app.get("/listings", async (req, res) => {
-  const allListing = await Listing.find({});
-  res.render("listings/index.ejs", { allListing });
-});
-
-//new route
-app.get("/listings/new", (req, res) => {
-  res.render("listings/new.ejs");
-});
-
-// Show Rought
-app.get(
-  "/listings/:id",
-  wrapAysnc(async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
-    if (!listing) {
-      return res.status(404).send("Listing not found.");
-    }
-    res.render("listings/show.ejs", { listing });
-  })
-);
-
-//Create Route
-app.post(
-  "/listings",
-  wrapAysnc(async (req, res, next) => {
-    const newListing = new Listing(req.body.listings);
-    await newListing.save();
-    res.redirect("/listings");
-    console.log(newListing);
-  })
-);
-
-//Edit Route
-app.get(
-  "/listings/:id/edit",
-  wrapAysnc(async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id);
-    res.render("listings/edit.ejs", { listing });
-  })
-);
-
-// Update Route
-app.put(
-  "/listings/:id",
-  wrapAysnc(async (req, res) => {
-    const { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listings });
-    res.redirect(`/listings/${id}`);
-  })
-);
-
-//delete route
-app.delete(
-  "/listings/:id",
-  wrapAysnc(async (req, res) => {
-    let { id } = req.params;
-    const deletedListing = await Listing.findByIdAndDelete(id);
-    console.log(deletedListing);
-    res.redirect("/listings");
-  })
-);
+app.use("/listings", listings);
 
 //Create  Review
 app.post(
