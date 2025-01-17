@@ -19,15 +19,21 @@ router.get("/new", isLoggedIn, (req, res) => {
 router.get(
   "/:id",
   wrapAysnc(async (req, res) => {
-    let { id } = req.params;
-    const currUser = req.user;
+    const { id } = req.params; // Extract `id` from params
+    const currUser = req.user; // Current logged-in user
+
+    // Find the listing by ID and populate required fields
     const listing = await Listing.findById(id)
-      .populate({ path: "reviews", populate: { path: "author" } })
-      .populate("owner");
+      .populate({ path: "reviews", populate: { path: "author" } }) // Nested populate for reviews
+      .populate("owner"); // Populate owner of the listing
+
+    // If the listing is not found, flash an error and redirect
     if (!listing) {
       req.flash("error", "Cannot find that Listing");
       return res.redirect("/listings");
     }
+
+    // Render the `listings/show.ejs` template with the listing and current user
     res.render("listings/show.ejs", { listing, currUser });
   })
 );
