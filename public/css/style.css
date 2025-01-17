@@ -58,7 +58,7 @@ body {
 /* Navbar collapsible */
 .collapse {
   flex-grow: 1;
-  justify-content: left; /* Align links to the right */
+  justify-content: left;
 }
 
 /* Responsive design for smaller screens */
