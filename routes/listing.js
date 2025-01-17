@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const wrapAysnc = require("../utils/wrapAsync.js");
 const Listing = require("../models/listing.js");
-const { isLoggedIn } = require("../middleware.js");
+const { isLoggedIn, isOwner } = require("../middleware.js");
 
 //index Rought
 router.get("/", async (req, res) => {
@@ -50,6 +50,7 @@ router.post(
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isOwner,
   wrapAysnc(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
@@ -65,9 +66,11 @@ router.get(
 router.put(
   "/:id",
   isLoggedIn,
+  isOwner,
   wrapAysnc(async (req, res) => {
     const { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listings });
+    req.flash("success", "Listing Successfully Updated");
     res.redirect(`/listings/${id}`);
   })
 );
@@ -76,6 +79,7 @@ router.put(
 router.delete(
   "/:id",
   isLoggedIn,
+  isOwner,
   wrapAysnc(async (req, res) => {
     let { id } = req.params;
     const deletedListing = await Listing.findByIdAndDelete(id);

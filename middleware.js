@@ -1,3 +1,5 @@
+const Listing = require("./models/listing");
+
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
     req.session.redirectUrl = req.originalUrl;
@@ -12,4 +14,26 @@ module.exports.saveRedirectUrl = (req, res, next) => {
     res.locals.redirectUrl = req.session.redirectUrl;
   }
   next();
+};
+
+module.exports.isOwner = (req, res, next) => {
+  const { id } = req.params;
+  Listing.findById(id)
+    .populate("owner") // populate owner to ensure we have owner data
+    .then((listing) => {
+      if (!listing) {
+        req.flash("error", "Listing not found");
+        return res.redirect("/listings");
+      }
+      // Compare the current user with the owner of the listing
+      if (!req.user || !listing.owner._id.equals(req.user._id)) {
+        req.flash("error", "You do not have permission to edit this listing");
+        return res.redirect(`/listings/${listing._id}`);
+      }
+      next();
+    })
+    .catch((err) => {
+      req.flash("error", "Something went wrong");
+      res.redirect("/listings");
+    });
 };
