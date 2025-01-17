@@ -10,7 +10,7 @@
         <p class="card-text">
           <b><%= listing.title  %></b>
           <br>
-          <%= listing.owner.username  %>
+          Created by  = <%= listing.owner.username  %>
           <br>
           <%= listing.description  %>
           <br>
@@ -24,13 +24,19 @@
       </div>
   </div>
   <br />
-  <div class="btns">
-   <a href="/listings/<%= listing._id %>/edit" class="btn btn-success col-1 offset-2">Edit</a>
-   <br>
-
-   <form method="post" action="/listings/<%= listing._id %>?_method=DELETE" >
-   <button class="btn btn-danger offset-4">Delete </button>
-   </form>
+  <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
+    <div class="btns">
+      <!-- Edit Button -->
+      <a href="/listings/<%= listing._id %>/edit" class="btn btn-success col-1 offset-2">Edit</a>
+      <br>
+  
+      <!-- Delete Form -->
+      <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
+        <button class="btn btn-danger offset-4">Delete</button>
+      </form>
+    </div>
+  <% } %>
+  
   </div>
   <div class="col-8 offset-2 mb-3 mt-3">
     <hr>

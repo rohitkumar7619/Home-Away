@@ -20,6 +20,7 @@ router.get(
   "/:id",
   wrapAysnc(async (req, res) => {
     let { id } = req.params;
+    const currUser = req.user;
     const listing = await Listing.findById(id)
       .populate("reviews")
       .populate("owner");
@@ -27,7 +28,7 @@ router.get(
       req.flash("error", "Cannot find that Listing");
       return res.redirect("/listings");
     }
-    res.render("listings/show.ejs", { listing });
+    res.render("listings/show.ejs", { listing, currUser });
   })
 );
 
