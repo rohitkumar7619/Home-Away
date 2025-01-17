@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const wrapAsync = require("../utils/wrapAsync.js");
 const User = require("../models/user.js"); // Use the model, not the schema
+const { isLoggedIn, saveRedirectUrl } = require("../middleware.js"); // Import middleware
 
 // Render Signup Form
 router.get("/signup", (req, res) => {
@@ -35,6 +36,7 @@ router.post(
   })
 );
 
+// Render Login Form
 router.get("/login", (req, res) => {
   res.render("users/login.ejs");
 });
@@ -42,23 +44,25 @@ router.get("/login", (req, res) => {
 // Handle Login Logic
 router.post(
   "/login",
+  saveRedirectUrl,
   passport.authenticate("local", {
     failureRedirect: "/login",
     failureFlash: true,
   }),
   (req, res) => {
     req.flash("success", "Welcome back!");
-    const redirectUrl = req.session.returnTo || "/listings";
+    const redirectUrl = res.locals.redirectUrl || "/listings";
     res.redirect(redirectUrl);
   }
 );
 
+// Logout Route
 router.get("/logout", (req, res) => {
   req.logout((err) => {
     if (err) {
       return next(err);
     }
-    req.flash("success", "logged you out!");
+    req.flash("success", "Logged you out!");
     res.redirect("/listings");
   });
 });
