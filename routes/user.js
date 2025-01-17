@@ -21,7 +21,6 @@ router.post(
 
       // Register the user with passport-local-mongoose
       const registeredUser = await User.register(newUser, password);
-      console.log("Registered User:", registeredUser);
 
       // Automatically log the user in after registration
       req.login(registeredUser, (err) => {
@@ -50,7 +49,6 @@ router.post(
   (req, res) => {
     req.flash("success", "Welcome back!");
     const redirectUrl = req.session.returnTo || "/listings";
-    delete req.session.returnTo;
     res.redirect(redirectUrl);
   }
 );
