@@ -188,6 +188,8 @@ html, body {
 
 /* show page */
 
+
+
 .show-img{
   height: 30vh;
 }
@@ -198,6 +200,38 @@ html, body {
 }
 
 
+/* edit page */
+/* Add this to your CSS file or a <style> tag */
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+h2.text-center {
+  font-weight: bold;
+  color: #343a40;
+}
+
+form {
+  background-color: #ffffff;
+}
+
+button.btn-success {
+  background-color: #28a745;
+  border: none;
+  font-size: 16px;
+}
+
+button.btn-success:hover {
+  background-color: #218838;
+}
+
+img.img-fluid {
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 5px;
+}
 
 
 
