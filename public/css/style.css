@@ -292,3 +292,10 @@ img.img-fluid {
   font-size: 18px;
   cursor: pointer;
 }
+
+
+/* map */
+#map  {
+  width: 100%;
+  height: 400px; 
+}
