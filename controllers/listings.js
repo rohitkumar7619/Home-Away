@@ -46,10 +46,25 @@ module.exports.editListing = async (req, res) => {
 };
 
 module.exports.updateListing = async (req, res) => {
-  const { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listings });
-  req.flash("success", "Listing Successfully Updated");
-  res.redirect(`/listings/${id}`);
+  try {
+    const { id } = req.params;
+    const listing = await Listing.findByIdAndUpdate(id, {
+      ...req.body.listings,
+    });
+
+    if (req.file) {
+      const { path: url, filename } = req.file;
+      listing.image = { url, filename };
+      await listing.save();
+    }
+
+    req.flash("success", "Listing Successfully Updated");
+    res.redirect(`/listings/${id}`);
+  } catch (err) {
+    console.error(err);
+    req.flash("error", "An error occurred while updating the listing.");
+    res.redirect("back");
+  }
 };
 
 module.exports.deleteListing = async (req, res) => {
