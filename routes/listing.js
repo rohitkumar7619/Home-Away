@@ -5,17 +5,19 @@ const { isLoggedIn, isOwner } = require("../middleware.js");
 
 const listingController = require("../controllers/listings.js");
 
-//index Rought
-router.get("/", wrapAysnc(listingController.index));
+router
+  .route("/")
+  .get(wrapAysnc(listingController.index)) //index Rought
+  .post(isLoggedIn, wrapAysnc(listingController.createListing)); //Create Route
 
 //new route
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
-// Show Rought
-router.get("/:id", wrapAysnc(listingController.showListing));
-
-//Create Route
-router.post("/", isLoggedIn, wrapAysnc(listingController.createListing));
+router
+  .route("/:id")
+  .get(wrapAysnc(listingController.showListing)) // Show Rought
+  .put(isLoggedIn, isOwner, wrapAysnc(listingController.updateListing)) // Update Route
+  .delete(isLoggedIn, isOwner, wrapAysnc(listingController.deleteListing)); //delete route
 
 //Edit Route
 router.get(
@@ -23,22 +25,6 @@ router.get(
   isLoggedIn,
   isOwner,
   wrapAysnc(listingController.editListing)
-);
-
-// Update Route
-router.put(
-  "/:id",
-  isLoggedIn,
-  isOwner,
-  wrapAysnc(listingController.updateListing)
-);
-
-//delete route
-router.delete(
-  "/:id",
-  isLoggedIn,
-  isOwner,
-  wrapAysnc(listingController.deleteListing)
 );
 
 module.exports = router;
