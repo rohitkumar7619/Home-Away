@@ -1,7 +1,67 @@
 <% layout("layouts/boilerplate") %>
+
 <body>
-  <h2 class="centered-heading">All Listings</h2>
-  <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+  
+  <!-- Filters Section -->
+  <div id="filters-container" class="d-flex justify-content-center align-items-center flex-wrap py-3 bg-light shadow-sm">
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-fire fa-2x text-danger"></i></div>
+      <p class="mt-2">Trending</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-tree fa-2x text-primary"></i></div>
+      <p class="mt-2">Forest</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-screwdriver fa-2x text-warning"></i></div>
+      <p class="mt-2">Rivers</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-person-half-dress fa-2x text-dark"></i></div>
+      <p class="mt-2">Cuples</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-tree-city fa-2x text-muted"></i></div>
+      <p class="mt-2">Nature</p>
+    </div> <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-utensils fa-2x text-secondary"></i></div>
+      <p class="mt-2">Foods</p>
+    </div> <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-bed fa-2x text-primary"></i></div>
+      <p class="mt-2">Rooms</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-mountain-city fa-2x text-success"></i></div>
+      <p class="mt-2">Iconic Cities</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-mountain fa-2x text-warning"></i></div>
+      <p class="mt-2">Mountain</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-brands fa-fort-awesome fa-2x text-secondary"></i></div>
+      <p class="mt-2">Castles</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-person-swimming fa-2x text-info"></i></div>
+      <p class="mt-2">Amazing Pools</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-campground fa-2x text-dark"></i></div>
+      <p class="mt-2">Camping</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-solid fa-cow fa-2x text-muted"></i></div>
+      <p class="mt-2">Farms</p>
+    </div>
+    <div class="filter-item text-center mx-3">
+      <div><i class="fa-regular fa-snowflake fa-2x text-primary"></i></div>
+      <p class="mt-2">Arctic</p>
+    </div>
+  </div>
+
+  <!-- Listings Section -->
+  <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mt-3">
     <% for (let listing of allListing) { %>
     <a href="/listings/<%= listing.id %>" class="card-link">
       <div class="card" style="width: 20rem;">
