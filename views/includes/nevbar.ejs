@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md sticky-top">
   <div class="container-fluid">
     <!-- Brand -->
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href="/listings">
       <i class="fa-solid fa-compass" style="color: #ff0505;"></i>
     </a>
 
@@ -21,18 +21,17 @@
     <!-- Navbar Links -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
+        <a class="nav-link" href="/listings">Explore</a>
         <a class="nav-link" href="/listings/new">Add New Listing</a>
       </div>
 
       <!-- Right-aligned links -->
       <div class="navbar-nav ms-auto">
         <% if (user) { %>
-          <a class="nav-link" href="/logout">Logout</a>
+          <a class="nav-link" href="/logout"><b>Logout</b></a>
         <% } else { %>
-          <a class="nav-link" href="/signup">Signup</a>
-          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/signup"><b>Signup</b></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
         <% } %>
       </div>
     </div>
