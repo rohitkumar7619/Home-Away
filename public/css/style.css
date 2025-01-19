@@ -188,7 +188,10 @@ html, body {
 
 /* show page */
 
-
+#comment {
+  height: 100px; /* Adjust the height to your preference */
+  resize: none; /* Prevent resizing if desired */
+}
 
 .show-img{
   height: 30vh;
