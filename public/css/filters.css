@@ -1,0 +1,27 @@
+/* Add styles for filter items */
+  .filter-item {
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+  }
+
+  /* Hover effect */
+  .filter-item:hover {
+    background-color: rgb(239, 177, 63);
+    transform: scale(1.05); /* Slight zoom effect */
+  }
+
+  .filter-item i {
+    transition: color 0.3s ease;
+  }
+
+  /* Optional: Change icon color on hover */
+  .filter-item:hover i {
+    color: white;
+  }
+
+  .filter-item p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
