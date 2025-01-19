@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md sticky-top">
+<nav class="navbar navbar-expand-md sticky-top bg-light shadow-sm">
   <div class="container-fluid">
     <!-- Brand -->
     <a class="navbar-brand" href="/listings">
@@ -24,6 +24,19 @@
         <a class="nav-link" href="/listings">Explore</a>
         <a class="nav-link" href="/listings/new">Add New Listing</a>
         <a class="nav-link" href="/listings">Contact</a>
+      </div>
+      
+      <!-- Search Box -->
+      <div class="search ms-4">
+        <form class="d-flex" role="search">
+          <input 
+            class="form-control custom-search-input me-2" 
+            type="search" 
+            placeholder="Search" 
+            aria-label="Search"
+          >
+          <button class="btn btn-success custom-search-btn" type="submit">Search</button>
+        </form>
       </div>
 
       <!-- Right-aligned links -->

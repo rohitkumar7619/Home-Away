@@ -1,0 +1,46 @@
+
+  /* Styling for the search input box */
+  .custom-search-input {
+    border-radius: 20px;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 1rem;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* Focus effect for the input box */
+  .custom-search-input:focus {
+    outline: none;
+    border-color: #28a745; /* Matches the button's color */
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  }
+
+  /* Styling for the search button */
+  .custom-search-btn {
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    font-weight: bold;
+  }
+
+  /* Hover effect for the search button */
+  .custom-search-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+
+  /* Adjust layout for smaller screens */
+  @media (max-width: 768px) {
+    .search {
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .custom-search-input {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    .custom-search-btn {
+      width: 100%;
+      background-color: rgb(0, 0, 0);
+    }
+  }
