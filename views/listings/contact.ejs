@@ -1,0 +1,264 @@
+<% layout("layouts/boilerplate") %>
+
+<title>Contact Us</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f7f6;
+    }
+
+    .contact-grid {
+        position: relative;
+        z-index: 2;
+        padding: 4rem 2rem;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin: 3rem auto;
+        max-width: 1200px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .contact-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .contact-header h1 {
+        font-size: 3rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        transition: color 0.3s ease;
+    }
+
+    .contact-header p {
+        color: #7f8c8d;
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+    }
+
+    .contact-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin: 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        overflow: hidden; /* Ensures text doesn't overflow */
+    }
+
+    .contact-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-icon {
+        width: 60px;
+        height: 60px;
+        background: #3498db;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        font-size: 1.5rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .contact-card h3 {
+        color: #2c3e50;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-card p {
+        color: #7f8c8d;
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .contact-card a {
+        color: #3498db;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .contact-card a:hover {
+        color: #2980b9;
+    }
+
+    .contact-icon:hover {
+        background-color: #2980b9;
+        transform: scale(1.1);
+    }
+
+    .bg-youtube {
+        background-color: #ff0000 !important;
+    }
+
+    .bg-linkedin {
+        background-color: #0077b5 !important;
+    }
+
+    .bg-github {
+        background-color: #333 !important;
+    }
+
+    .bg-airbnb {
+        background-color: #ff5a5f !important;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .col-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .col-lg-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+
+    .col-lg-4 {
+        flex: 0 0 33.33%;
+        max-width: 33.33%;
+    }
+
+    @media (max-width: 768px) {
+        .contact-grid {
+            margin: 2rem auto;
+            padding: 2rem 1rem;
+        }
+
+        .contact-header h1 {
+            font-size: 2.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.3rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.1rem;
+        }
+
+        .contact-card p {
+            font-size: 0.9rem;
+        }
+
+        .col-md-6, .col-lg-3, .col-lg-4 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+</style>
+
+<body>
+    <div class="contact-section">
+        <!-- Contact Cards Grid -->
+        <div class="contact-grid">
+            <div class="contact-header">
+                <h1>Get in Touch</h1>
+                <p>We'd love to hear from you! Reach out to our team members below.</p>
+            </div>
+
+            <div class="container">
+                <!-- First Row: Designer, Front-End Developer, Back-End Developer, Tester -->
+                <div class="row g-4 justify-content-center">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>Designer</h3>
+                            <p>Yeshika Arya</p>
+                            <p><a href="mailto:Yeshika@gmail.com"><i class="fas fa-envelope"></i> Yeshika@gmail.com</a></p>
+                            <p><a href="#"><i class="fab fa-linkedin"></i> Yeshika Arya</a></p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Front-End Developer</h3>
+                            <p>Abishek Rawat</p>
+                            <p><a href="mailto:Abishek@gmail.com"><i class="fas fa-envelope"></i> Abishek@gmail.com</a></p>
+                            <p><a href="#"><i class="fab fa-linkedin"></i> Abishek Rawat</a></p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <h3>Back-End Developer</h3>
+                            <p>Rohit Kumar</p>
+                            <p><a href="mailto:rohit76kumargupta@gmail.com"><i class="fas fa-envelope"></i> rohit76kumargupta@gmail.com</a></p>
+                            <p><a href="#"><i class="fab fa-linkedin"></i> Rohit Kumar</a></p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-bug"></i>
+                            </div>
+                            <h3>Tester</h3>
+                            <p>Vikas Gaund</p>
+                            <p><a href="mailto:Vikas@gmail.com"><i class="fas fa-envelope"></i> Vikas@gmail.com</a></p>
+                            <p><a href="#"><i class="fab fa-linkedin"></i> Vikas Gaund</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Row: Github link, inspired by -->
+                <div class="row g-4 justify-content-center mt-4">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="contact-card">
+                            <div class="contact-icon bg-github">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h3>Github Link</h3>
+                            <p><a href="#"><i class="fab fa-github"></i> Special Education Abhay</a></p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="contact-card">
+                            <div class="contact-icon bg-airbnb">
+                                <i class="fab fa-airbnb"></i>
+                            </div>
+                            <h3>Inspired By</h3>
+                            <p><a href="#"><i class="fab fa-airbnb"></i> AirBnb</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>

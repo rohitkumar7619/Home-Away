@@ -18,6 +18,10 @@ router
 
 //new route
 router.get("/new", isLoggedIn, listingController.renderNewForm);
+// Route for contact page
+router.get("/contact", (req, res) => {
+  res.render("listings/contact");
+});
 
 router
   .route("/:id")
