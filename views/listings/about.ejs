@@ -1,293 +1,71 @@
 <% layout("layouts/boilerplate") %>
-<style>
-  /* Second Row: Github link, Inspired By */
-  .container {
-    padding: 2rem;
-  }
+<body>
 
-  h1 {
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin-bottom: 2rem;
-  }
-
-  h4 {
-    font-size: 1.5rem;
-    color: #34495e;
-    margin-top: 1rem;
-  }
-
-  h6 {
-    font-size: 1.1rem;
-    color: #7f8c8d;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    font-size: 1rem;
-    color: #7f8c8d;
-    line-height: 1.6;
-  }
-
-  .bio-toggle {
-    cursor: pointer;
-    color: #3498db;
-    font-weight: bold;
-    margin-top: 1rem;
-    transition: color 0.3s ease;
-  }
-
-  .bio-toggle:hover {
-    color: #2980b9;
-  }
-
-  .bio-content {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: #f9f9f9;
-    border-radius: 0.5rem;
-    border: 1px solid #e0e0e0;
-  }
-
-  .bio-content a {
-    color: #3498db;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .bio-content a:hover {
-    color: #2980b9;
-  }
-
-  .bio-content i {
-    margin-right: 0.5rem;
-  }
-
-  /* Team Member Cards */
-  .col-3 {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .col-3 img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border: 4px solid #3498db;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-  }
-
-  .col-md-3 img:hover {
-    transform: scale(1.1);
-    border-color: #2980b9;
-  }
-
-  /* Contact Cards */
-  .contact-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 1rem;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-  }
-
-  .contact-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-  }
-
-  .contact-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    color: white;
-    font-size: 1.5rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-
-  .contact-icon:hover {
-    transform: scale(1.1);
-  }
-
-  .contact-icon.bg-github {
-    background-color: #333 !important;
-  }
-
-  .contact-icon.bg-airbnb {
-    background-color: #ff5a5f !important;
-  }
-
-  .contact-card h3 {
-    color: #2c3e50;
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .contact-card p {
-    color: #7f8c8d;
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .contact-card a {
-    color: #3498db;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .contact-card a:hover {
-    color: #2980b9;
-  }
-
-  @media (max-width: 768px) {
-    .contact-card {
-      padding: 1.5rem;
-    }
-
-    .contact-icon {
-      width: 50px;
-      height: 50px;
-      font-size: 1.3rem;
-    }
-
-    .contact-card h3 {
-      font-size: 1.1rem;
-    }
-
-    .contact-card p {
-      font-size: 0.9rem;
-    }
-
-    .col-md-3 img {
-      width: 120px;
-      height: 120px;
-    }
-  }
-</style>
-
-
-
-<div class="container">
-  <div class="row p-3 mt-5">
-    <h1 class="text-center">Our Team</h1>
-  </div>
-
-  <div class="row text-center">
-    <!-- First Person -->
-    <div class="col-3">
-      <img src="/images/image (7).png" alt="Yeshika Arya" />
-      <h4 class="mt-3">Yeshika Arya</h4>
-      <h6>Designer</h6>
-      <p class="bio-toggle">Bio ⬇</p>
-      <p class="bio-content" style="display: none;">
-        <a href="mailto:Yeshika@gmail.com"><i class="fas fa-envelope"></i> Yeshika@gmail.com</a>
-        <br>
-        <a href="#"><i class="fab fa-linkedin"></i> Yeshika Arya</a>
-      </p>
+  <main class="container my-5">
+    <div class="about-hero text-center mb-5">
+      <h1 class="display-4 fw-bold mb-3" style="color: #ff385c;">About HomeAway</h1>
+      <p class="lead text-muted">Connecting travelers with unique homes around the world</p>
     </div>
 
-    <!-- Second Person -->
-    <div class="col-3">
-      <img src="/images/image (7).png" alt="Abishek Rawat" />
-      <h4 class="mt-3">Abishek Rawat</h4>
-      <h6>Front-End Developer</h6>
-      <p class="bio-toggle">Bio ⬇</p>
-      <p class="bio-content" style="display: none;">
-        <a href="mailto:Abishek@gmail.com"><i class="fas fa-envelope"></i> Abishek@gmail.com</a>
-        <br>
-        <a href="#"><i class="fab fa-linkedin"></i> Abishek Rawat</a>
-      </p>
-    </div>
-
-    <!-- Third Person -->
-    <div class="col-3">
-      <img src="/images/image (7).png" alt="Rohit Kumar" />
-      <h4 class="mt-3">Rohit Kumar</h4>
-      <h6>Back-End Developer</h6>
-      <p class="bio-toggle">Bio ⬇</p>
-      <p class="bio-content" style="display: none;">
-        <a href="mailto:rohit76kumargupta@gmail.com"><i class="fas fa-envelope"></i> rohit76kumargupta@gmail.com</a>
-        <br>
-        <a href="#"><i class="fab fa-linkedin"></i> Rohit Kumar</a>
-      </p>
-    </div>
-
-    <!-- Fourth Person -->
-    <div class="col-3">
-      <img src="/images/image (7).png" alt="Vikas Gaund" />
-      <h4 class="mt-3">Vikas Gaund</h4>
-      <h6>Tester</h6>
-      <p class="bio-toggle">Bio ⬇</p>
-      <p class="bio-content" style="display: none;">
-        <a href="mailto:Vikas@gmail.com"><i class="fas fa-envelope"></i> Vikas@gmail.com</a>
-        <br>
-        <a href="#"><i class="fab fa-linkedin"></i> Vikas Gaund</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- Second Row: Github link, Inspired By -->
-  <div class="row g-4 justify-content-center mt-4">
-    <div class="col-12 col-md-6 col-lg-4">
-      <div class="contact-card">
-        <div class="contact-icon bg-github">
-          <i class="fab fa-github"></i>
-        </div>
-        <h3>Github Link</h3>
-        <p><a href="#"><i class="fab fa-github"></i> Special Education Abhay</a></p>
+    <div class="row g-5 mb-5">
+      <div class="col-lg-6">
+        <img src="/images/about-hero.jpg" alt="Vacation rental experience" class="img-fluid rounded-3 shadow">
+      </div>
+      <div class="col-lg-6">
+        <h2 class="mb-4" style="color: #484848;">Our Story</h2>
+        <p class="text-secondary mb-4">
+          Founded in 2023, HomeAway emerged from a simple idea: everyone deserves to feel at home while traveling.
+          What started as a small platform for vacation rentals has grown into a global community of hosts and travelers.
+        </p>
+        <p class="text-secondary">
+          We're proud to offer unique accommodations in over 100 countries, from cozy cabins to luxury villas.
+          Our commitment remains to provide authentic travel experiences while maintaining the highest standards of trust and safety.
+        </p>
       </div>
     </div>
 
-    <div class="col-12 col-md-6 col-lg-4">
-      <div class="contact-card">
-        <div class="contact-icon bg-airbnb">
-          <i class="fab fa-airbnb"></i>
+    <div class="bg-light py-5 mb-5">
+      <div class="container">
+        <h2 class="text-center mb-5" style="color: #484848;">Why Choose HomeAway?</h2>
+        <div class="row g-4">
+          <div class="col-md-4 text-center">
+            <div class="h1 mb-3" style="color: #ff385c;">✓</div>
+            <h5>Unique Homes</h5>
+            <p class="text-muted">Discover properties you won't find anywhere else</p>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="h1 mb-3" style="color: #ff385c;">✓</div>
+            <h5>Secure Booking</h5>
+            <p class="text-muted">Protected payments and verified listings</p>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="h1 mb-3" style="color: #ff385c;">✓</div>
+            <h5>24/7 Support</h5>
+            <p class="text-muted">Global customer service team always available</p>
+          </div>
         </div>
-        <h3>Inspired By</h3>
-        <p><a href="#"><i class="fab fa-airbnb"></i> AirBnb</a></p>
-      </div>
-    </div>
-  </div>
-  <!-- Second Row: Github link, Inspired By -->
-  <div class="row g-4 justify-content-center mt-4">
-    <div class="col-12 col-md-6 col-lg-4">
-      <div class="contact-card">
-        <div class="contact-icon bg-github">
-          <i class="fab fa-github"></i>
-        </div>
-        <h3>Github Link</h3>
-        <p><a href="#"><i class="fab fa-github"></i> Special Education Abhay</a></p>
       </div>
     </div>
 
-    <div class="col-12 col-md-6 col-lg-4">
-      <div class="contact-card">
-        <div class="contact-icon bg-airbnb">
-          <i class="fab fa-airbnb"></i>
-        </div>
-        <h3>Inspired By</h3>
-        <p><a href="#"><i class="fab fa-airbnb"></i> AirBnb</a></p>
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <h2 class="mb-4" style="color: #484848;">For Hosts</h2>
+        <p class="text-secondary">
+          Become part of our community and share your space with travelers from around the world. We provide:
+        </p>
+        <ul class="list-unstyled text-secondary">
+          <li class="mb-2">✓ Easy listing management tools</li>
+          <li class="mb-2">✓ Competitive pricing guidance</li>
+          <li class="mb-2">✓ Host protection insurance</li>
+          <li class="mb-2">✓ 24/7 support team</li>
+        </ul>
+        <a href="/listings/new" class="btn btn-primary px-4">Start Hosting</a>
+      </div>
+      <div class="col-lg-6">
+        <img src="/images/host-benefits.jpg" alt="Host benefits" class="img-fluid rounded-3 shadow">
       </div>
     </div>
-  </div>
-</div>
-</div>
+  </main>
 
-<script>
-  document.querySelectorAll('.bio-toggle').forEach(item => {
-    item.addEventListener('click', function() {
-      let content = this.nextElementSibling;
-      content.style.display = content.style.display === 'none' ? 'block' : 'none';
-      this.innerText = content.style.display === 'none' ? 'Bio ⬇' : 'Bio ⬆';
-    });
-  });
-</script>
+</body>
+</html>
