@@ -1,0 +1,195 @@
+<% layout("layouts/boilerplate") %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeAway - Your Vacation Rental Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #ff385c;
+            --secondary-color: #004aad;
+            --text-dark: #333;
+            --text-light: #666;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            padding: 2rem;
+        }
+
+        .hero-content {
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.9);
+            padding: 1.5rem;
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .features-section {
+            padding: 4rem 2rem;
+            background: #f9f9f9;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .cta-section {
+            background: var(--secondary-color);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .property-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .property-card:hover {
+            transform: scale(1.03);
+        }
+
+        .property-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 60%, rgba(0,0,0,0.7));
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .wave-divider {
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23ffffff' d='M0,160L48,138.7C96,117,192,75,288,80C384,85,480,139,576,144C672,149,768,107,864,106.7C960,107,1056,149,1152,165.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'/%3E%3C/svg%3E");
+            background-size: cover;
+            margin-top: -1px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Discover Your Perfect Stay</h1>
+            <p class="lead fs-4 mb-4">Book unique homes, vacation rentals, and more across the world</p>
+            <div class="search-box">
+                <form action="/listings" method="GET" class="d-flex gap-2">
+                    <input type="text" class="form-control py-3" placeholder="Search destinations...">
+                    <button class="btn btn-danger px-4 py-3">Search</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div class="wave-divider"></div>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Why Choose HomeAway?</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-home fa-3x text-primary mb-3"></i>
+                        <h3>Unique Properties</h3>
+                        <p>Discover homes you won't find anywhere else</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+                        <h3>Secure Booking</h3>
+                        <p>Protected payments and verified listings</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock customer service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Showcase -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Featured Listings</h2>
+            <div class="row g-4">
+                <% for(let i=0; i<3; i++) { %>
+                <div class="col-md-4">
+                    <div class="property-card">
+                        <img src="https://source.unsplash.com/random/800x600?vacation<%=i%>" 
+                             class="img-fluid" 
+                             alt="Property Image">
+                        <div class="position-absolute bottom-0 start-0 p-3 text-white">
+                            <h4>Beautiful Vacation Home</h4>
+                            <p>$<%= Math.floor(Math.random()*200 + 100) %>/night</p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="mb-4">Ready to List Your Property?</h2>
+            <p class="fs-5 mb-4">Join thousands of hosts earning extra income</p>
+            <a href="/listings/new" class="btn btn-light btn-lg px-5 py-3">Get Started</a>
+            <div class="mt-4">
+                <p class="mb-0"><i class="fas fa-star"></i> 4.9/5 average host rating</p>
+                <p class="mb-0"><i class="fas fa-home"></i> 10,000+ active listings</p>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>

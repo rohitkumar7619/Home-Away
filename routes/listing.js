@@ -7,42 +7,48 @@ const multer = require("multer");
 const { storage } = require("../cloudconfig.js");
 const upload = multer({ storage });
 
+// Landing Page Route (should be separate)
+router.get("/", (req, res) => {
+  res.render("listings/landing");
+});
+
+// Listings RESTful Routes (properly prefixed)
 router
-  .route("/")
-  .get(wrapAsync(listingController.index)) // Index Route
+  .route("/listings")
+  .get(wrapAsync(listingController.index))
   .post(
     isLoggedIn,
     upload.single("listing[image]"),
     wrapAsync(listingController.createListing)
-  ); // Create Route
+  );
 
-// New Route
-router.get("/new", isLoggedIn, listingController.renderNewForm);
+// New Listing Route
+router.get("/listings/new", isLoggedIn, listingController.renderNewForm);
 
-// Route for contact page
-router.get("/contact", (req, res) => {
-  res.render("listings/contact");
-});
-
-// Route for about page
+// Static Pages (keep these in root)
 router.get("/about", (req, res) => {
   res.render("listings/about");
 });
 
+router.get("/contact", (req, res) => {
+  res.render("listings/contact");
+});
+
+// Individual Listing Routes
 router
-  .route("/:id")
-  .get(wrapAsync(listingController.showListing)) // Show Route
+  .route("/listings/:id")
+  .get(wrapAsync(listingController.showListing))
   .put(
     isLoggedIn,
     isOwner,
     upload.single("listing[image]"),
     wrapAsync(listingController.updateListing)
-  ) // Update Route
-  .delete(isLoggedIn, isOwner, wrapAsync(listingController.deleteListing)); // Delete Route
+  )
+  .delete(isLoggedIn, isOwner, wrapAsync(listingController.deleteListing));
 
 // Edit Route
 router.get(
-  "/:id/edit",
+  "/listings/:id/edit",
   isLoggedIn,
   isOwner,
   wrapAsync(listingController.editListing)
