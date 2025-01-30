@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-md sticky-top bg-light shadow-sm">
   <div class="container-fluid">
     <!-- Brand -->
@@ -39,16 +40,85 @@
         </form>
       </div>
 
-      <!-- Right-aligned links -->
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/contact">Contact</a>
-        <% if (user) { %>
-          <a class="nav-link" href="/logout"><b>Logout</b></a>
-        <% } else { %>
-          <a class="nav-link" href="/signup"><b>Signup</b></a>
-          <a class="nav-link" href="/login"><b>Login</b></a>
-        <% } %>
-      </div>
+    <!-- Right-aligned links -->
+    <div class="navbar-nav ms-auto">
+      <!-- Dark Mode Toggle -->
+      <button class="btn btn-link nav-link" id="darkModeToggle">
+        <i class="fas fa-moon"></i> Dark
+      </button>
+      
+      <a class="nav-link" href="/listings/contact">Contact</a>
+      <% if (user) { %>
+        <a class="nav-link" href="/logout"><b>Logout</b></a>
+      <% } else { %>
+        <a class="nav-link" href="/signup"><b>Signup</b></a>
+        <a class="nav-link" href="/login"><b>Login</b></a>
+      <% } %>
     </div>
   </div>
 </nav>
+
+<style>
+  /* Dark Mode Styles */
+  :root {
+    --bg-color: #ffffff;
+    --text-color: #212529;
+    --nav-bg: #f8f9fa;
+  }
+
+  .dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #f8f9fa;
+    --nav-bg: #2d2d2d;
+    
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+
+  .dark-mode .navbar {
+    background-color: var(--nav-bg) !important;
+  }
+
+  .dark-mode .form-control {
+    background-color: #333;
+    color: #fff;
+    border-color: #555;
+  }
+
+  .dark-mode .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+
+  #darkModeToggle {
+    transition: all 0.3s ease;
+  }
+
+  .dark-mode #darkModeToggle i {
+    color: #ffd700;
+  }
+</style>
+
+<script>
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const body = document.body;
+
+  // Check local storage for dark mode preference
+  const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+  if (isDarkMode) {
+    body.classList.add('dark-mode');
+    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
+  }
+
+  darkModeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    
+    if (body.classList.contains('dark-mode')) {
+      localStorage.setItem('darkMode', 'enabled');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
+    } else {
+      localStorage.setItem('darkMode', 'disabled');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark';
+    }
+  });
+</script>
