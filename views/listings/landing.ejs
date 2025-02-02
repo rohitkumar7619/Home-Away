@@ -156,26 +156,26 @@
     </section>
 
     <!-- Property Showcase -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5 fw-bold">Featured Listings</h2>
-            <div class="row g-4">
-                <% for(let i=0; i<3; i++) { %>
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold">Featured Listings</h2>
+        <div class="row g-4">
+            <% let images = ["/images/image (7).png", "/images/Screenshot 2025-02-02 114259.png", "/images/image3.png"]; %>
+            <% for (let i = 0; i < images.length; i++) { %>
                 <div class="col-md-4">
                     <div class="property-card">
-                        <img src="https://source.unsplash.com/random/800x600?vacation<%=i%>" 
-                             class="img-fluid" 
-                             alt="Property Image">
+                        <img src="<%= images[i] %>" class="img-fluid" alt="Property Image">
                         <div class="position-absolute bottom-0 start-0 p-3 text-white">
                             <h4>Beautiful Vacation Home</h4>
-                            <p>$<%= Math.floor(Math.random()*200 + 100) %>/night</p>
+                            <p>$<%= Math.floor(Math.random() * 200 + 100) %>/night</p>
                         </div>
                     </div>
                 </div>
-                <% } %>
-            </div>
+            <% } %>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- CTA Section -->
     <section class="cta-section">

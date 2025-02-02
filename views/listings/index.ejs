@@ -1,9 +1,11 @@
 <% layout("layouts/boilerplate") %>
 
 <body>
-  
   <!-- Filters Section -->
-  <div id="filters-container" class="d-flex justify-content-center align-items-center flex-wrap py-3 bg-light shadow-sm">
+  <div
+    id="filters-container"
+    class="d-flex justify-content-center align-items-center flex-wrap py-3 bg-light shadow-sm"
+  >
     <div class="filter-item text-center mx-3">
       <div><i class="fa-solid fa-fire fa-2x text-danger"></i></div>
       <p class="mt-2">Trending</p>
@@ -11,10 +13,12 @@
     <div class="filter-item text-center mx-3">
       <div><i class="fa-solid fa-tree-city fa-2x text-muted"></i></div>
       <p class="mt-2">Nature</p>
-    </div> <div class="filter-item text-center mx-3">
+    </div>
+    <div class="filter-item text-center mx-3">
       <div><i class="fa-solid fa-utensils fa-2x text-secondary"></i></div>
       <p class="mt-2">Foods</p>
-    </div> <div class="filter-item text-center mx-3">
+    </div>
+    <div class="filter-item text-center mx-3">
       <div><i class="fa-solid fa-bed fa-2x text-primary"></i></div>
       <p class="mt-2">Rooms</p>
     </div>
@@ -56,12 +60,17 @@
   <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mt-3">
     <% for (let listing of allListing) { %>
     <a href="/listings/<%= listing.id %>" class="card-link">
-      <div class="card" style="width: 20rem;">
-        <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height:20rem">
+      <div class="card" style="width: 20rem">
+        <img
+          src="<%= listing.image.url %>"
+          class="card-img-top"
+          alt="listing_image"
+          style="height: 20rem"
+        />
         <div class="card-body">
           <p>
             <b><%= listing.title %></b>
-            <br>
+            <br />
             &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
           </p>
         </div>
