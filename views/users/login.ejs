@@ -1,35 +1,218 @@
 <% layout("layouts/boilerplate") %>
-<h2 class="centered-heading">Login on Home Away</h2>
-<div class="row mt-3">
-  <div class="col-md-6 offset-md-3">
-    <form action="/login" method="post" novalidate class="needs-validation">
-      <div class="form-group mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          class="form-control"
-          required
-          placeholder="Enter your username"
-        />
-        <div class="invalid-feedback">Please enter your username</div>
-      </div>
 
-      <div class="form-group mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          class="form-control"
-          required
-          placeholder="Enter your password"
-        />
-        <div class="invalid-feedback">Please enter password</div>
-      </div>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
 
-      <button type="submit" class="btn btn-primary w-100">Login</button>
-    </form>
+  /* Background Image */
+  body {
+    font-family: "Quicksand", sans-serif;
+    background-color: rgba(101, 100, 98, 0.182);
+  }
+
+  /* Ring Container */
+  .ring {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(
+      255,
+      255,
+      255,
+      0.8
+    ); /* Semi-transparent white background */
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.395);
+  }
+
+  .ring i {
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(0, 0, 0, 0.277);
+    transition: 0.5s;
+  }
+
+  .ring i:nth-child(1) {
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    animation: animate 6s linear infinite;
+  }
+  .ring i:nth-child(2) {
+    border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+    animation: animate 4s linear infinite;
+  }
+  .ring i:nth-child(3) {
+    border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+    animation: animate2 10s linear infinite;
+  }
+
+  .ring:hover i {
+    border: 6px solid var(--clr);
+    filter: drop-shadow(0 0 20px var(--clr));
+  }
+
+  @keyframes animate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes animate2 {
+    0% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  /* Form Container */
+  .form-container {
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+  }
+
+  /* Heading */
+  .centered-heading {
+    font-size: 2.5em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #000000; /* Dark text for contrast */
+  }
+
+  /* Form Group */
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+  }
+
+  .form-group label {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 14px;
+    background: rgba(
+      255,
+      255,
+      255,
+      0.9
+    ); /* Semi-transparent white background */
+    border: 2px solid rgba(0, 0, 0, 0.77);
+    border-radius: 10px;
+    font-size: 1em;
+    color: #0a0000;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+  }
+
+  .form-group input::placeholder {
+    color: rgba(0, 0, 0, 0.81);
+    font-weight: 500;
+  }
+
+  .form-group input:focus {
+    border-color: #ff357a;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 10px rgba(255, 53, 122, 0.5);
+  }
+
+  .form-group input:hover {
+    border-color: #ff357a;
+    background: rgba(255, 255, 255, 1);
+  }
+
+  /* Button */
+  .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2em;
+    font-weight: 600;
+    background: linear-gradient(45deg, #ff357a, #fff172);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(255, 53, 122, 0.5);
+  }
+
+  /* Invalid Feedback */
+  .invalid-feedback {
+    color: #ff4d4d;
+    font-size: 0.9em;
+    margin-top: 5px;
+  }
+
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .form-container {
+      padding: 30px;
+    }
+
+    .centered-heading {
+      font-size: 2em;
+    }
+  }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="ring">
+    <i style="--clr: #00ff0a"></i>
+    <i style="--clr: #ff0057"></i>
+    <i style="--clr: #8a00ff"></i>
+    <div class="form-container">
+      <h2 class="centered-heading">Login</h2>
+      <form action="/login" method="post" novalidate class="needs-validation">
+        <!-- Username -->
+        <div class="form-group">
+          <label for="username"></label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            class="form-control"
+            required
+            placeholder="Enter your username"
+          />
+          <div class="invalid-feedback">Please enter your username</div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password"></label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control"
+            required
+            placeholder="Enter your password"
+          />
+          <div class="invalid-feedback">Please enter password</div>
+        </div>
+
+        <!-- Login Button -->
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
   </div>
 </div>
