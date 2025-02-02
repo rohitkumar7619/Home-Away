@@ -1,20 +1,166 @@
+<div class="main">
+  <footer class="footer">
+    <div class="bubbles" id="bubbles-container"></div>
 
-<footer class="footer">
-  <div class="footer-top">
-    <span class="language">
-      <span class="globe-icon">🌐</span> English (IN)
-    </span>
-    <span class="currency">₹ INR</span>
-    <a href="#" class="social-icon"><i class="fa-brands fa-square-facebook"></i></a>
-    <a href="#" class="social-icon"><i class="fa-brands fa-square-twitter"></i></a>
-    <a href="#" class="social-icon"><i class="fa-brands fa-square-instagram"></i></a>
-  </div>
-  <div class="footer-middle"><b>Home Away</b></div>
-  <div class="footer-bottom">
-    <a href="#" class="footer-link">Privacy</a>
-    <a href="#" class="footer-link">Terms</a>
-    <a href="#" class="footer-link">Sitemap</a>
-    <a href="#" class="footer-link">Company details</a>
-  </div>
-</footer>
+    <div class="content">
+      <div>
+        <div>
+          <b>Home Away</b>
+          <a href="#" class="footer-link">Privacy</a>
+          <a href="#" class="footer-link">Terms</a>
+          <a href="#" class="footer-link">Sitemap</a>
+          <a href="#" class="footer-link">Company details</a>
+        </div>
+        <div>
+          <span class="language">
+            <span class="globe-icon">🌐</span> English (IN)
+          </span>
+          <span class="currency">₹ INR</span>
+        </div>
+      </div>
+      <div>
+        <div class="social-icons">
+          <a href="#" class="social-icon"
+            ><i class="fa-brands fa-facebook"></i
+          ></a>
+          <a href="#" class="social-icon"
+            ><i class="fa-brands fa-twitter"></i
+          ></a>
+          <a href="#" class="social-icon"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+        </div>
+        <p>©2023 Home Away</p>
+      </div>
+    </div>
+  </footer>
 </div>
+
+<svg style="position: fixed; top: 100vh">
+  <defs>
+    <filter id="blob">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+      <feColorMatrix
+        in="blur"
+        mode="matrix"
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+        result="blob"
+      />
+    </filter>
+  </defs>
+</svg>
+
+<style>
+  .footer {
+    --footer-background: #ed5565;
+    position: relative;
+    min-height: 12rem;
+    z-index: 1;
+  }
+
+  .bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1rem;
+    background: var(--footer-background);
+    filter: url("#blob");
+  }
+
+  .bubble {
+    position: absolute;
+    left: var(--position, 50%);
+    background: var(--footer-background);
+    border-radius: 100%;
+    animation: bubble-size var(--time, 4s) ease-in infinite var(--delay, 0s),
+      bubble-move var(--time, 4s) ease-in infinite var(--delay, 0s);
+    transform: translate(-50%, 100%);
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    padding: 2rem;
+    background: var(--footer-background);
+    color: #f5f7fa;
+  }
+
+  .content a {
+    color: #f5f7fa;
+    text-decoration: none;
+    margin-right: 1rem;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .social-icon i {
+    font-size: 1.5rem;
+  }
+
+  @keyframes bubble-size {
+    0%,
+    75% {
+      width: var(--size);
+      height: var(--size);
+    }
+    100% {
+      width: 0;
+      height: 0;
+    }
+  }
+
+  @keyframes bubble-move {
+    0% {
+      bottom: -4rem;
+    }
+    100% {
+      bottom: var(--distance);
+    }
+  }
+
+  .language,
+  .currency {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const bubblesContainer = document.getElementById("bubbles-container");
+
+    // Generate bubbles dynamically
+    for (let i = 0; i < 50; i++) {
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+
+      // Randomized styles for bubble animation
+      const size = (2 + Math.random() * 4).toFixed(2);
+      const distance = (6 + Math.random() * 4).toFixed(2);
+      const position = (-5 + Math.random() * 110).toFixed(2);
+      const time = (2 + Math.random() * 2).toFixed(2);
+      const delay = (-1 * (2 + Math.random() * 2)).toFixed(2);
+
+      bubble.style = `
+        --size: ${size}rem;
+        --distance: ${distance}rem;
+        --position: ${position}%;
+        --time: ${time}s;
+        --delay: ${delay}s;
+      `;
+
+      bubblesContainer.appendChild(bubble);
+    }
+  });
+</script>
