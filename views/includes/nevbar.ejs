@@ -1,65 +1,105 @@
-
-<nav class="navbar navbar-expand-md sticky-top bg-light shadow-sm">
+<nav
+  class="navbar navbar-expand-md sticky-top bg-white border-gray-200 dark:bg-gray-900 shadow-sm"
+>
   <div class="container-fluid">
     <!-- Brand -->
-    <a class="navbar-brand" href="/">
-      <i class="fa-solid fa-compass" style="color: #ff0505;"></i>
+    <a
+      class="navbar-brand flex items-center space-x-3 rtl:space-x-reverse"
+      href="/"
+    >
+      <i class="fa-solid fa-compass text-2xl text-red-600"></i>
+      <span
+        class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+        >HomeAway</span
+      >
     </a>
 
     <!-- Toggler Button -->
-    <button 
-      class="navbar-toggler" 
-      type="button" 
-      data-bs-toggle="collapse" 
-      data-bs-target="#navbarNavAltMarkup" 
-      aria-controls="navbarNavAltMarkup" 
-      aria-expanded="false" 
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Navbar Links -->
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div
+      class="collapse navbar-collapse justify-between"
+      id="navbarNavAltMarkup"
+    >
       <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-        <a class="nav-link" href="/listings/new">Add New Listing</a>
-        <a class="nav-link" href="/about">About</a>
-      </div>
-      
-      <!-- Search Box -->
-      <div class="search ms-4">
-        <form class="d-flex" role="search">
-          <input 
-            class="form-control custom-search-input me-2" 
-            type="search" 
-            placeholder="Search" 
-            aria-label="Search"
-          >
-          <button class="btn btn-success custom-search-btn" type="submit">Search</button>
-        </form>
+        <a
+          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500"
+          href="/listings"
+          >Explore</a
+        >
+        <a
+          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500"
+          href="/listings/new"
+          >Add Listing</a
+        >
+        <a
+          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500"
+          href="/about"
+          >About</a
+        >
       </div>
 
-    <!-- Right-aligned links -->
-    <div class="navbar-nav ms-auto">
-      <!-- Dark Mode Toggle -->
-      <button class="btn btn-link nav-link" id="darkModeToggle">
-        <i class="fas fa-moon"></i> Dark
-      </button>
-      
-      <a class="nav-link" href="/contact">Contact</a>
-      <% if (user) { %>
-        <a class="nav-link" href="/logout"><b>Logout</b></a>
-      <% } else { %>
-        <a class="nav-link" href="/signup"><b>Signup</b></a>
-        <a class="nav-link" href="/login"><b>Login</b></a>
-      <% } %>
+      <!-- Search Box -->
+      <form class="d-flex">
+        <input
+          class="form-control me-2 bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+
+      <!-- Right-aligned links -->
+      <div class="navbar-nav ms-auto">
+        <!-- Dark Mode Toggle -->
+        <button
+          class="btn btn-link nav-link text-gray-900 dark:text-white"
+          id="darkModeToggle"
+        >
+          <i class="fas fa-moon"></i> <span>Dark</span>
+        </button>
+
+        <a
+          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500"
+          href="/contact"
+          >Contact</a
+        >
+        <% if (user) { %>
+        <a
+          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500"
+          href="/logout"
+          ><b>Logout</b></a
+        >
+        <% } else { %>
+        <a
+          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500"
+          href="/signup"
+          ><b>Signup</b></a
+        >
+        <a
+          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500"
+          href="/login"
+          ><b>Login</b></a
+        >
+        <% } %>
+      </div>
     </div>
   </div>
 </nav>
 
 <style>
-  /* Dark Mode Styles */
   :root {
     --bg-color: #ffffff;
     --text-color: #212529;
@@ -70,13 +110,13 @@
     --bg-color: #1a1a1a;
     --text-color: #f8f9fa;
     --nav-bg: #2d2d2d;
-    
+
     background-color: var(--bg-color);
     color: var(--text-color);
   }
 
   .dark-mode .navbar {
-    background-color: var(--nav-bg) !important;
+    background-color: var(--nav-bg);
   }
 
   .dark-mode .form-control {
@@ -85,13 +125,13 @@
     border-color: #555;
   }
 
-  .dark-mode .btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
+  .dark-mode .btn-primary {
+    background-color: #0056b3;
+    border-color: #004085;
   }
 
   #darkModeToggle {
-    transition: all 0.3s ease;
+    cursor: pointer;
   }
 
   .dark-mode #darkModeToggle i {
@@ -100,25 +140,36 @@
 </style>
 
 <script>
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  const body = document.body;
+  document.addEventListener("DOMContentLoaded", () => {
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const body = document.body;
+    const modeText = darkModeToggle.querySelector("span");
+    const modeIcon = darkModeToggle.querySelector("i");
 
-  // Check local storage for dark mode preference
-  const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-  if (isDarkMode) {
-    body.classList.add('dark-mode');
-    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
-  }
-
-  darkModeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    
-    if (body.classList.contains('dark-mode')) {
-      localStorage.setItem('darkMode', 'enabled');
-      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
-    } else {
-      localStorage.setItem('darkMode', 'disabled');
-      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark';
+    // Apply dark mode immediately if stored in localStorage
+    if (localStorage.getItem("darkMode") === "enabled") {
+      body.classList.add("dark-mode");
+      modeText.textContent = "Light";
+      modeIcon.classList.replace("fa-moon", "fa-sun");
     }
+
+    darkModeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark-mode");
+
+      if (body.classList.contains("dark-mode")) {
+        localStorage.setItem("darkMode", "enabled");
+        modeText.textContent = "Light";
+        modeIcon.classList.replace("fa-moon", "fa-sun");
+      } else {
+        localStorage.setItem("darkMode", "disabled");
+        modeText.textContent = "Dark";
+        modeIcon.classList.replace("fa-sun", "fa-moon");
+      }
+    });
   });
+
+  // Ensure dark mode applies immediately on page load before styles are applied
+  if (localStorage.getItem("darkMode") === "enabled") {
+    document.body.classList.add("dark-mode");
+  }
 </script>
