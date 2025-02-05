@@ -1,160 +1,222 @@
 <% layout("layouts/boilerplate") %>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap")
+  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
-  /* Form Container */
+  body {
+    background-color: #bae3f3c9; /* Sky blue */
+    margin: 0;
+    font-family: "Quicksand", sans-serif;
+  }
+
+  /* Wrapper to center the form container */
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 0 20px; /* Optional: for better responsiveness */
+  }
+
   .form-container {
     padding: 40px;
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  /* Heading */
   .centered-heading {
-    font-size: 2.5em;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #050000; /* Dark text for contrast */
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #333;
+    position: relative;
+    display: inline-block;
   }
 
-  /* Form Group */
+  .centered-heading::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: #ff357a;
+    border-radius: 2px;
+    animation: underline 1.5s ease-in-out infinite;
+  }
+
   .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     text-align: left;
-    position: relative;
   }
 
   .form-group label {
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 600;
-    color: #333;
+    color: #555;
     display: block;
     margin-bottom: 8px;
-    transition: all 0.3s ease;
   }
 
   .form-group input {
     width: 100%;
-    padding: 14px;
-    background: rgba(
-      255,
-      255,
-      255,
-      0.9
-    ); /* Semi-transparent white background */
-    border: 2px solid rgba(0, 0, 0, 0.701);
-    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     font-size: 1em;
-    color: #000;
-    transition: all 0.3s ease-in-out;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     outline: none;
-  }
-
-  .form-group input::placeholder {
-    color: rgba(0, 0, 0, 0.6);
-    font-weight: 500;
+    background: #f9f9f9;
   }
 
   .form-group input:focus {
     border-color: #ff357a;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 10px rgba(255, 53, 122, 0.5);
+    box-shadow: 0 0 12px rgba(255, 53, 122, 0.3);
+    background: #fff;
   }
 
-  .form-group input:hover {
-    border-color: #ff357a;
-    background: rgba(255, 255, 255, 1);
-  }
-
-  /* Button */
   .btn-primary {
     width: 100%;
-    padding: 12px;
-    font-size: 1.2em;
+    padding: 14px;
+    font-size: 1.1em;
     font-weight: 600;
-    background: linear-gradient(45deg, #ff357a, #fff172);
+    background: #ff357a;
     border: none;
     border-radius: 8px;
     color: #fff;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0) 70%
+    );
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+    border-radius: 50%;
   }
 
   .btn-primary:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 15px rgba(255, 53, 122, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 53, 122, 0.4);
   }
 
-  /* Invalid Feedback */
+  .btn-primary:active::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+
   .invalid-feedback {
     color: #ff4d4d;
     font-size: 0.9em;
-    margin-top: 5px;
+    margin-top: 6px;
+    display: block;
+    animation: shake 0.4s ease-in-out;
   }
 
-  /* Responsive Design */
-  @media screen and (max-width: 768px) {
-    .form-container {
-      padding: 30px;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
     }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-    .centered-heading {
-      font-size: 2em;
+  @keyframes underline {
+    0% {
+      width: 60px;
+    }
+    50% {
+      width: 80px;
+    }
+    100% {
+      width: 60px;
+    }
+  }
+
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    75% {
+      transform: translateX(-5px);
+    }
+    100% {
+      transform: translateX(0);
     }
   }
 </style>
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="form-container">
-      <h2 class="centered-heading">Signup</h2>
-      <form action="/signup" method="post" novalidate class="needs-validation">
-        <!-- Username -->
-        <div class="form-group">
-          <label for="username"></label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            class="form-control"
-            required
-            placeholder="Enter your username"
-          />
-          <div class="invalid-feedback">Please enter your username</div>
-        </div>
+<div class="wrapper">
+  <div class="form-container">
+    <h2 class="centered-heading">Signup</h2>
+    <form action="/signup" method="post" novalidate class="needs-validation">
+      <!-- Username -->
+      <div class="form-group">
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="form-control"
+          required
+        />
+        <label for="username">Username</label>
+      </div>
 
-        <!-- Email -->
-        <div class="form-group">
-          <label for="email"></label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            class="form-control"
-            required
-            placeholder="Enter your email"
-          />
-          <div class="invalid-feedback">Please enter a valid email</div>
-        </div>
+      <!-- Email -->
+      <div class="form-group">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="form-control"
+          required
+        />
+        <label for="email">Email</label>
+      </div>
 
-        <!-- Password -->
-        <div class="form-group">
-          <label for="password"></label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            class="form-control"
-            required
-            placeholder="Enter your password"
-          />
-          <div class="invalid-feedback">Please enter a strong password</div>
-        </div>
+      <!-- Password -->
+      <div class="form-group">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control"
+          required
+        />
+        <label for="password">Password</label>
+      </div>
 
-        <!-- Signup Button -->
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-      </form>
-    </div>
+      <!-- Signup Button -->
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
   </div>
 </div>

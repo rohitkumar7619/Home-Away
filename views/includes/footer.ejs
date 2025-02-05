@@ -1,22 +1,23 @@
 <div class="main">
   <footer class="footer">
-    <div class="content">
-      <div>
-        <div>
-          <b>Home Away</b>
-          <a href="#" class="footer-link">Privacy</a>
-          <a href="#" class="footer-link">Terms</a>
-          <a href="#" class="footer-link">Sitemap</a>
-          <a href="#" class="footer-link">Company details</a>
-        </div>
-        <div>
-          <span class="language">
-            <span class="globe-icon">🌐</span> English (IN)
-          </span>
+    <div class="footer-content">
+      <!-- Left Section -->
+      <div class="footer-section">
+        <b>Home Away</b>
+        <a href="#" class="footer-link">Privacy</a>
+        <a href="#" class="footer-link">Terms</a>
+        <a href="#" class="footer-link">Sitemap</a>
+        <a href="#" class="footer-link">Company details</a>
+      </div>
+
+      <!-- Right Section -->
+      <div class="footer-section">
+        <div class="language-currency">
+          <span class="language"
+            ><span class="globe-icon">🌐</span> English (IN)</span
+          >
           <span class="currency">₹ INR</span>
         </div>
-      </div>
-      <div>
         <div class="social-icons">
           <a href="#" class="social-icon"
             ><i class="fa-brands fa-facebook"></i
@@ -35,73 +36,109 @@
 </div>
 
 <style>
-  /* Ensure the footer sticks to the bottom */
+  /* Global Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Fullscreen Centering */
   html,
   body {
     height: 100%;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
   }
 
   .main {
-    flex: 1; /* Pushes the footer to the bottom */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
+  /* Footer Styling */
   .footer {
-    --footer-background: #ed5565;
-    position: relative;
-    bottom: 0;
+    background: #d8767f;
+    color: #fff;
     width: 100%;
-    min-height: 5rem; /* Reduced height */
-    z-index: 1;
-  }
-
-  .content {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem; /* Reduced gap */
     padding: 1rem; /* Reduced padding */
-    background: var(--footer-background);
-    color: #f5f7fa;
+    text-align: center;
+    margin-top: auto;
   }
 
-  .content a {
-    color: #f5f7fa;
+  /* Footer Content Grid */
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem; /* Reduced gap */
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; /* Reduced gap */
+  }
+
+  /* Links */
+  .footer-link {
+    color: #fff;
     text-decoration: none;
-    margin-right: 0.75rem; /* Reduced margin */
-    font-size: 0.9rem; /* Smaller font size */
+    font-size: 0.8rem; /* Smaller font size */
   }
 
-  .social-icons {
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Language & Currency */
+  .language-currency {
     display: flex;
     gap: 0.75rem; /* Reduced gap */
+    align-items: center;
+    font-size: 0.8rem; /* Smaller font size */
+  }
+
+  .globe-icon {
+    font-size: 0.9rem; /* Smaller icon size */
+  }
+
+  /* Social Icons */
+  .social-icons {
+    display: flex;
+    gap: 0.5rem; /* Reduced gap */
     justify-content: center;
-    margin-bottom: 0.25rem; /* Reduced margin */
+    margin-top: 0.25rem; /* Reduced margin */
   }
 
   .social-icon i {
     font-size: 1rem; /* Smaller icon size */
+    transition: transform 0.2s ease-in-out;
   }
 
-  .language,
-  .currency {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem; /* Reduced gap */
-    margin: 0.25rem 0; /* Reduced margin */
-    font-size: 0.9rem; /* Smaller font size */
+  .social-icon:hover i {
+    transform: scale(1.1);
   }
 
-  .content b {
-    font-size: 1rem; /* Adjusted font size for the brand name */
+  /* Copyright */
+  .footer p {
+    font-size: 0.75rem; /* Smaller font size */
+    margin-top: 0.25rem; /* Reduced margin */
   }
 
-  .content p {
-    font-size: 0.8rem; /* Smaller font size for the copyright text */
-    margin: 0; /* Remove default margin */
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .language-currency {
+      justify-content: center;
+    }
   }
 </style>

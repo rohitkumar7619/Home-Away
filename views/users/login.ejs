@@ -1,27 +1,60 @@
 <% layout("layouts/boilerplate") %>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+  body {
+    background-color: #bae3f3c9; /* Sky blue */
+    margin: 0;
+    font-family: "Quicksand", sans-serif;
+  }
+
+  /* Wrapper to center the form container */
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 0 20px; /* Optional: for better responsiveness */
+  }
 
   .form-container {
     padding: 40px;
     width: 100%;
     max-width: 400px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .centered-heading {
-    font-size: 2.2em;
+    font-size: 2.2rem;
     font-weight: 700;
-    margin-bottom: 25px;
+    margin-bottom: 24px;
     color: #333;
+    position: relative;
+    display: inline-block;
+  }
+
+  .centered-heading::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: #ff357a;
+    border-radius: 2px;
+    animation: underline 1.5s ease-in-out infinite;
   }
 
   .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     text-align: left;
   }
 
@@ -30,27 +63,29 @@
     font-weight: 600;
     color: #555;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .form-group input {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1em;
-    transition: border 0.3s ease-in-out;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     outline: none;
+    background: #f9f9f9;
   }
 
   .form-group input:focus {
     border-color: #ff357a;
-    box-shadow: 0 0 8px rgba(255, 53, 122, 0.5);
+    box-shadow: 0 0 12px rgba(255, 53, 122, 0.3);
+    background: #fff;
   }
 
   .btn-primary {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     font-size: 1.1em;
     font-weight: 600;
     background: #ff357a;
@@ -58,50 +93,117 @@
     border-radius: 8px;
     color: #fff;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0) 70%
+    );
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+    border-radius: 50%;
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 53, 122, 0.3);
+    box-shadow: 0 8px 20px rgba(255, 53, 122, 0.4);
+  }
+
+  .btn-primary:active::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
   }
 
   .invalid-feedback {
     color: #ff4d4d;
     font-size: 0.9em;
-    margin-top: 5px;
+    margin-top: 6px;
+    display: block;
+    animation: shake 0.4s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes underline {
+    0% {
+      width: 60px;
+    }
+    50% {
+      width: 80px;
+    }
+    100% {
+      width: 60px;
+    }
+  }
+
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    75% {
+      transform: translateX(-5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
   }
 </style>
 
-<div class="form-container">
-  <h2 class="centered-heading">Login</h2>
-  <form action="/login" method="post" novalidate class="needs-validation">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input
-        type="text"
-        name="username"
-        id="username"
-        class="form-control"
-        required
-        placeholder="Enter your username"
-      />
-      <div class="invalid-feedback">Please enter your username</div>
-    </div>
+<div class="wrapper">
+  <div class="form-container">
+    <h2 class="centered-heading">Login</h2>
+    <form action="/login" method="post" novalidate class="needs-validation">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="form-control"
+          required
+          placeholder="Enter your username"
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        class="form-control"
-        required
-        placeholder="Enter your password"
-      />
-      <div class="invalid-feedback">Please enter password</div>
-    </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control"
+          required
+          placeholder="Enter your password"
+        />
+      </div>
 
-    <button type="submit" class="btn btn-primary">Login</button>
-  </form>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
 </div>
