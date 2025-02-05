@@ -1,75 +1,7 @@
 <% layout("layouts/boilerplate") %>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
-
-  /* Background Image */
-  body {
-    font-family: "Quicksand", sans-serif;
-    background-color: rgba(101, 100, 98, 0.182);
-  }
-
-  /* Ring Container */
-  .ring {
-    position: relative;
-    width: 600px;
-    height: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(
-      255,
-      255,
-      255,
-      0.8
-    ); /* Semi-transparent white background */
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.395);
-  }
-
-  .ring i {
-    position: absolute;
-    inset: 0;
-    border: 2px solid rgba(0, 0, 0, 0.277);
-    transition: 0.5s;
-  }
-
-  .ring i:nth-child(1) {
-    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
-    animation: animate 6s linear infinite;
-  }
-  .ring i:nth-child(2) {
-    border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
-    animation: animate 4s linear infinite;
-  }
-  .ring i:nth-child(3) {
-    border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
-    animation: animate2 10s linear infinite;
-  }
-
-  .ring:hover i {
-    border: 6px solid var(--clr);
-    filter: drop-shadow(0 0 20px var(--clr));
-  }
-
-  @keyframes animate {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes animate2 {
-    0% {
-      transform: rotate(360deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
-  }
+  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap")
 
   /* Form Container */
   .form-container {
@@ -175,10 +107,6 @@
 </style>
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
-  <div class="ring">
-    <i style="--clr: #00ff0a"></i>
-    <i style="--clr: #ff0057"></i>
-    <i style="--clr: #8a00ff"></i>
     <div class="form-container">
       <h2 class="centered-heading">Signup</h2>
       <form action="/signup" method="post" novalidate class="needs-validation">
