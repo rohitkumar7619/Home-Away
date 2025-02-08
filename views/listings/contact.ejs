@@ -1,367 +1,354 @@
 <% layout("layouts/boilerplate") %>
 
 <style>
+  .contact-grid {
+    position: relative;
+    z-index: 2;
+    padding: 4rem 2rem;
+    background: rgba(255, 161, 161, 0.95);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 3rem auto;
+    max-width: 1200px;
+    text-align: center;
+  }
+
+  .contact-header h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+    font-weight: 700;
+  }
+
+  .contact-header p {
+    color: #000000;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .contact-card {
+    flex: 1 1 280px;
+    max-width: 300px;
+    height: 350px;
+    perspective: 1000px;
+    margin: 1rem;
+    overflow: hidden;
+    border-radius: 1rem;
+  }
+
+  .contact-links img {
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+    border-radius: 1rem 1rem 0 0; /* Optional rounded corners for image */
+    transition: transform 0.4s ease;
+  }
+
+  .contact-card:hover .contact-links img {
+    transform: scale(1.05); /* Smooth image scaling */
+  }
+
+  .flip-card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .contact-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    padding: 2rem;
+  }
+
+  .flip-card-front {
+    background: white;
+    color: #2c3e50;
+  }
+
+  .flip-card-back {
+    background: #f8f9fa;
+    color: #2c3e50;
+    transform: rotateY(180deg);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .contact-icon {
+    width: 80px;
+    height: 80px;
+    background: #3498db;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .contact-card:hover .contact-icon {
+    transform: scale(1.1);
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .contact-links a {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .contact-links a:hover {
+    color: #2980b9;
+  }
+
+  .static-card .contact-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
     .contact-grid {
-        position: relative;
-        z-index: 2;
-        padding: 4rem 2rem;
-        background: rgba(255, 161, 161, 0.95);
-        border-radius: 1.5rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        margin: 3rem auto;
-        max-width: 1200px;
-        text-align: center;
+      padding: 2rem 1rem;
     }
 
     .contact-header h1 {
-        font-size: 3rem;
-        color: #2c3e50;
-        font-weight: 700;
-    }
-
-    .contact-header p {
-        color: #000000;
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-    }
-
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2rem;
-        padding: 1rem;
-        width: 100%;
+      font-size: 2.5rem;
     }
 
     .contact-card {
-        flex: 1 1 280px;
-        max-width: 300px;
-        height: 350px;
-        perspective: 1000px;
-        margin: 1rem;
-        overflow: hidden;
-        border-radius: 1rem;
+      flex: 1 1 100%;
+      max-width: 100%;
     }
+  }
 
-    .contact-links img {
-        width: 100%;
-        height: 70%;
-        object-fit: cover;
-        border-radius: 1rem 1rem 0 0; /* Optional rounded corners for image */
-        transition: transform 0.4s ease;
+  .sec-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .sec-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .sec-static-card {
+    text-align: center;
+    flex: 1 1 280px;
+    max-width: 350px;
+    padding: 2rem;
+    background: rgb(255, 255, 255);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .sec-static-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  .sec-contact-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    background: #3498db;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    transition: background 0.9s ease, transform 0.3s ease;
+  }
+
+  .sec-static-card:hover .sec-contact-icon {
+    background: #2980b9;
+    transform: scale(1.1);
+  }
+
+  .sec-static-card a {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  .sec-static-card a:hover {
+    color: #2980b9;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      padding: 2rem 1rem;
     }
-
-    .contact-card:hover .contact-links img {
-        transform: scale(1.05); /* Smooth image scaling */
+    .contact-header h1 {
+      font-size: 2.5rem;
     }
-
-    .flip-card-inner {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        transition: transform 0.8s;
-        transform-style: preserve-3d;
-        border-radius: 1rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .contact-card:hover .flip-card-inner {
-        transform: rotateY(180deg);
-    }
-
-    .flip-card-front,
-    .flip-card-back {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        backface-visibility: hidden;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        border-radius: 1rem;
-        padding: 2rem;
-    }
-
-    .flip-card-front {
-        background: white;
-        color: #2c3e50;
-    }
-
-    .flip-card-back {
-        background: #f8f9fa;
-        color: #2c3e50;
-        transform: rotateY(180deg);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .contact-icon {
-        width: 80px;
-        height: 80px;
-        background: #3498db;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
-        color: white;
-        margin-bottom: 1rem;
-        transition: transform 0.3s ease;
-    }
-
-    .contact-card:hover .contact-icon {
-        transform: scale(1.1);
-    }
-
-    .contact-links {
-       display: flex;
-       flex-direction: column;
-       height: 100%;
-       gap: 1rem;
-       text-align: center;
-    }
-
-    .contact-links a {
-        color: #3498db;
-        text-decoration: none;
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        transition: color 0.3s ease;
-    }
-
-    .contact-links a:hover {
-        color: #2980b9;
-    }
-
-    .static-card .contact-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-    }
-
-    @media (max-width: 768px) {
-        .contact-grid {
-            padding: 2rem 1rem;
-        }
-
-        .contact-header h1 {
-            font-size: 2.5rem;
-        }
-
-        .contact-card {
-            flex: 1 1 100%;
-            max-width: 100%;
-        }
-    }
-    
-    .sec-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        padding: 1rem;
-    }
-
-    .sec-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2rem;
-        width: 100%;
-    }
-
     .sec-static-card {
-        text-align: center;
-        flex: 1 1 280px;
-        max-width: 350px;
-        padding: 2rem;
-        background: rgb(255, 255, 255);
-        border-radius: 1rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      flex: 1 1 100%;
+      max-width: 100%;
     }
-
-    .sec-static-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    }
-
-    .sec-contact-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-        background: #3498db;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1rem;
-        transition: background 0.9s ease, transform 0.3s ease;
-    }
-
-    .sec-static-card:hover .sec-contact-icon {
-        background: #2980b9;
-        transform: scale(1.1);
-    }
-
-    .sec-static-card a {
-        color: #3498db;
-        text-decoration: none;
-        font-size: 1rem;
-        transition: color 0.3s ease;
-    }
-
-    .sec-static-card a:hover {
-        color: #2980b9;
-    }
-
-    @media (max-width: 768px) {
-        .contact-grid {
-            padding: 2rem 1rem;
-        }
-        .contact-header h1 {
-            font-size: 2.5rem;
-        }
-        .sec-static-card {
-            flex: 1 1 100%;
-            max-width: 100%;
-        }
-    }
+  }
 </style>
 
 <div class="contact-section">
-    <div class="contact-grid">
-        <div class="contact-header">
-            <h1>Get in Touch</h1>
-            <p>We'd love to hear from you! Reach out to our team members below.</p>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <!-- Designer -->
-                <div class="contact-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="contact-icon">
-                                <i class="fas fa-palette"></i>
-                            </div>
-                            <h3>Yeshika Arya</h3>
-                            <p>Designer</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <div class="contact-links">
-                                <img src="/images/image (7).png" alt="Yeshika Arya" />
-                                <a href="mailto:Yeshika@gmail.com">
-                                    <i class="fas fa-envelope"></i> Email
-                                </a>
-                                <a href="#">
-                                    <i class="fab fa-linkedin"></i> LinkedIn
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Front-End Developer -->
-                <div class="contact-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="contact-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <h3>Abishek Rawat</h3>
-                            <p>Front-End Developer</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <div class="contact-links">
-                                <img src="/images/image (7).png" alt="Abishek Rawat" />
-                                <a href="mailto:Abishek@gmail.com">
-                                    <i class="fas fa-envelope"></i> Email
-                                </a>
-                                <a href="#">
-                                    <i class="fab fa-linkedin"></i> LinkedIn
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Back-End Developer -->
-                <div class="contact-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="contact-icon">
-                                <i class="fas fa-server"></i>
-                            </div>
-                            <h3>Rohit Kumar</h3>
-                            <p>Back-End Developer</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <div class="contact-links">
-                                <img src="/images/image (7).png" alt="Rohit Kumar" />
-                                <a href="mailto:rohit76kumargupta@gmail.com">
-                                    <i class="fas fa-envelope"></i> Email
-                                </a>
-                                <a href="#">
-                                    <i class="fab fa-linkedin"></i> LinkedIn
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tester -->
-                <div class="contact-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="contact-icon">
-                                <i class="fas fa-bug"></i>
-                            </div>
-                            <h3>Vikas Gaund</h3>
-                            <p>Tester</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <div class="contact-links">
-                                <img src="/images/image (7).png" alt="Vikas Gaund" />
-                                <a href="mailto:Vikas@gmail.com">
-                                    <i class="fas fa-envelope"></i> Email
-                                </a>
-                                <a href="#">
-                                    <i class="fab fa-linkedin"></i> LinkedIn
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Second Row: Github link, Inspired By -->
-            <div class="sec-container">
-                <div class="sec-row">
-                    <div class="sec-static-card">
-                        <div class="sec-contact-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <h3>Github Link</h3>
-                        <p><a href="#"><i class="fab fa-github"></i> Special Education Abhay</a></p>
-                    </div>
-
-                    <div class="sec-static-card">
-                        <div class="sec-contact-icon">
-                            <i class="fab fa-airbnb"></i>
-                        </div>
-                        <h3>Inspired By</h3>
-                        <p><a href="#"><i class="fab fa-airbnb"></i> AirBnb</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="contact-grid">
+    <div class="contact-header">
+      <h1>Get in Touch</h1>
+      <p>We'd love to hear from you! Reach out to our team members below.</p>
     </div>
-</div>
 
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <div class="container">
+      <div class="row">
+        <!-- Designer -->
+        <div class="contact-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="contact-icon">
+                <i class="fas fa-palette"></i>
+              </div>
+              <h3>Vikesh</h3>
+              <p>Designer and Tester</p>
+            </div>
+            <div class="flip-card-back">
+              <div class="contact-links">
+                <img src="/images/IMG-20250208-WA0001.jpg" alt="Vikesh" />
+                <a href="vikaskumar4mrj@gmail.com">
+                  <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="https://www.linkedin.com/in/kumarvikas47/">
+                  <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Front-End Developer -->
+        <div class="contact-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="contact-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <h3>Abishek Rawat</h3>
+              <p>Front-End Developer</p>
+            </div>
+            <div class="flip-card-back">
+              <div class="contact-links">
+                <img
+                  src="/images/IMG-20250205-WA0006.jpg"
+                  alt="Abishek Rawat"
+                />
+                <a href="abhirawatar.1@gmail.com">
+                  <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="https://www.linkedin.com/in/abhishek-rawat-759b63341/">
+                  <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back-End Developer -->
+        <div class="contact-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="contact-icon">
+                <i class="fas fa-server"></i>
+              </div>
+              <h3>Rohit Kumar</h3>
+              <p>Back-End Developer</p>
+            </div>
+            <div class="flip-card-back">
+              <div class="contact-links">
+                <img src="/images/image (7).png" alt="Rohit Kumar" />
+                <a href="mailto:rohit76kumargupta@gmail.com">
+                  <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="https://www.linkedin.com/in/rohit-kumar-gupta-r7/">
+                  <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Second Row: Github link, Inspired By -->
+        <div class="sec-container">
+          <div class="sec-row">
+            <div class="sec-static-card">
+              <div class="sec-contact-icon">
+                <i class="fab fa-github"></i>
+              </div>
+              <h3>Github Link</h3>
+              <p>
+                <a href="https://github.com/rohitkumar7619/Home-Away"
+                  ><i class="fab fa-github"></i> Home Away</a
+                >
+              </p>
+            </div>
+
+            <div class="sec-static-card">
+              <div class="sec-contact-icon">
+                <i class="fab fa-airbnb"></i>
+              </div>
+              <h3>Inspired By</h3>
+              <p>
+                <a href="https://www.airbnb.co.in/"
+                  ><i class="fab fa-airbnb"></i> AirBnb</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</div>

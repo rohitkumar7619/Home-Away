@@ -50,16 +50,18 @@
         >
       </div>
 
-      <!-- Search Box -->
-      <form class="d-flex">
-        <input
-          class="form-control me-2 bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-primary" type="submit">Search</button>
-      </form>
+      <!-- Search Box and Show All Bookings Button -->
+      <div class="d-flex align-items-center">
+        <form class="d-flex me-2">
+          <input
+            class="form-control me-2 bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+      </div>
 
       <!-- Right-aligned links -->
       <div class="navbar-nav ms-auto">
@@ -98,78 +100,3 @@
     </div>
   </div>
 </nav>
-
-<style>
-  :root {
-    --bg-color: #ffffff;
-    --text-color: #212529;
-    --nav-bg: #f8f9fa;
-  }
-
-  .dark-mode {
-    --bg-color: #1a1a1a;
-    --text-color: #f8f9fa;
-    --nav-bg: #2d2d2d;
-
-    background-color: var(--bg-color);
-    color: var(--text-color);
-  }
-
-  .dark-mode .navbar {
-    background-color: var(--nav-bg);
-  }
-
-  .dark-mode .form-control {
-    background-color: #333;
-    color: #fff;
-    border-color: #555;
-  }
-
-  .dark-mode .btn-primary {
-    background-color: #0056b3;
-    border-color: #004085;
-  }
-
-  #darkModeToggle {
-    cursor: pointer;
-  }
-
-  .dark-mode #darkModeToggle i {
-    color: #ffd700;
-  }
-</style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const darkModeToggle = document.getElementById("darkModeToggle");
-    const body = document.body;
-    const modeText = darkModeToggle.querySelector("span");
-    const modeIcon = darkModeToggle.querySelector("i");
-
-    // Apply dark mode immediately if stored in localStorage
-    if (localStorage.getItem("darkMode") === "enabled") {
-      body.classList.add("dark-mode");
-      modeText.textContent = "Light";
-      modeIcon.classList.replace("fa-moon", "fa-sun");
-    }
-
-    darkModeToggle.addEventListener("click", () => {
-      body.classList.toggle("dark-mode");
-
-      if (body.classList.contains("dark-mode")) {
-        localStorage.setItem("darkMode", "enabled");
-        modeText.textContent = "Light";
-        modeIcon.classList.replace("fa-moon", "fa-sun");
-      } else {
-        localStorage.setItem("darkMode", "disabled");
-        modeText.textContent = "Dark";
-        modeIcon.classList.replace("fa-sun", "fa-moon");
-      }
-    });
-  });
-
-  // Ensure dark mode applies immediately on page load before styles are applied
-  if (localStorage.getItem("darkMode") === "enabled") {
-    document.body.classList.add("dark-mode");
-  }
-</script>
