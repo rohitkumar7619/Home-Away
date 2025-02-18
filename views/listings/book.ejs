@@ -1,0 +1,123 @@
+<% layout("layouts/boilerplate") %>
+
+<style>
+  /* General Styles */
+  .booking-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f9f9f9;
+  }
+
+  .booking-form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .booking-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  /* Button Styles */
+  .submit-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background-color: #0056b3;
+  }
+
+  /* Hover Effects */
+  .form-group input:hover {
+    border-color: #007bff;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 480px) {
+    .booking-form {
+      padding: 1.5rem;
+    }
+
+    .booking-form h2 {
+      font-size: 1.5rem;
+    }
+
+    .form-group input {
+      padding: 0.5rem;
+    }
+
+    .submit-btn {
+      padding: 0.5rem;
+    }
+  }
+</style>
+
+<div class="booking-section">
+  <div class="booking-form">
+    <h2>Book This Listing</h2>
+    <form action="/listings/<%= listing._id %>/booking" method="POST">
+      <div class="form-group">
+        <label for="guests">Guests:</label>
+        <input type="number" id="guests" name="guests" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required />
+      </div>
+      <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required />
+      </div>
+      <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required />
+      </div>
+      <button type="submit" class="submit-btn">Book Now</button>
+    </form>
+  </div>
+</div>
