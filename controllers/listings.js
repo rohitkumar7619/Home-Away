@@ -50,16 +50,12 @@ module.exports.createListing = async (req, res, next) => {
 
 module.exports.book = async (req, res) => {
   const { id } = req.params;
-  console.log("Fetching listing with ID:", id); // Debugging
   const listing = await Listing.findById(id);
 
   if (!listing) {
-    console.log("Listing not found"); // Debugging
     req.flash("error", "Cannot find that Listing");
     return res.redirect("/listings");
   }
-
-  console.log("Listing found:", listing); // Debugging
   res.render("listings/book.ejs", { listing });
 };
 

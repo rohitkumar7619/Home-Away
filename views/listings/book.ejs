@@ -112,12 +112,29 @@
 <div class="booking-section">
   <div class="booking-form">
     <h2>Book This Listing</h2>
-    <form action="/listings/<%= listing._id %>/booking" method="POST">
+    <form
+      action="/listings/<%= listing._id %>/booking"
+      method="POST"
+      onsubmit="return validateGuests()"
+    >
       <!-- Guests and Phone in One Row -->
       <div class="form-row">
         <div class="form-group">
           <label for="guests">Guests:</label>
-          <input type="number" id="guests" name="guests" required />
+          <input
+            type="number"
+            id="guests"
+            name="guests"
+            min="0"
+            max="10"
+            required
+          />
+          <small
+            id="guests-error"
+            class="error-message"
+            style="color: red; display: none"
+            >Guests must be between 0 and 10.</small
+          >
         </div>
         <div class="form-group">
           <label for="phone">Phone:</label>
@@ -148,3 +165,19 @@
     </form>
   </div>
 </div>
+
+<script>
+  function validateGuests() {
+    const guestsInput = document.getElementById("guests");
+    const guestsError = document.getElementById("guests-error");
+    const guestsValue = parseInt(guestsInput.value, 10);
+
+    if (guestsValue < 0 || guestsValue > 10) {
+      guestsError.style.display = "block";
+      return false; // Prevent form submission
+    } else {
+      guestsError.style.display = "none";
+      return true; // Allow form submission
+    }
+  }
+</script>
