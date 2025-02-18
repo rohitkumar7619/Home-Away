@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
+const Booking = require("../models/booking.js");
 const Schema = mongoose.Schema;
 const Review = require("./review");
-const { number, required } = require("joi");
 
 const listingSchema = new Schema({
   title: {
@@ -22,14 +22,15 @@ const listingSchema = new Schema({
       ref: "Review",
     },
   ],
+  bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Booking" }],
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
   geometry: {
     type: {
-      type: String, // Don't do `{ location: { type: String } }`
-      enum: ["Point"], // 'location.type' must be 'Point'
+      type: String,
+      enum: ["Point"],
       required: true,
     },
     coordinates: {
@@ -45,6 +46,7 @@ listingSchema.post("findOneAndDelete", async (listing) => {
   }
 });
 
-const Listing = mongoose.model("listing", listingSchema);
+// Register the Listing model
+const Listing = mongoose.model("Listing", listingSchema);
 
 module.exports = Listing;
