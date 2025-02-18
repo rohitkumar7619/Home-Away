@@ -1,0 +1,162 @@
+<% layout("layouts/boilerplate") %>
+
+<style>
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  h2 {
+    color: #007bff;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  h2 i {
+    margin-right: 8px;
+  }
+
+  p {
+    color: #555;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+  }
+
+  p i {
+    margin-right: 6px;
+  }
+
+  form {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+  }
+
+  button i {
+    margin-right: 8px;
+  }
+
+  button:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+  }
+
+  .no-bookings {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    font-size: 1.2em;
+  }
+
+  @media (max-width: 600px) {
+    li {
+      padding: 15px;
+    }
+    h2 {
+      font-size: 1.2em;
+    }
+    p {
+      font-size: 0.9em;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 0.9em;
+    }
+  }
+</style>
+
+</head>
+
+<body>
+  <h1>My Bookings</h1>
+
+  <% if (bookings.length > 0) { %>
+  <ul>
+    <% bookings.forEach(function(booking) { %>
+    <li>
+      <h2><i class="fas fa-home"></i> <%= booking.listing.title %></h2>
+
+      <p><i class="fas fa-calendar-alt"></i> From: <%= booking.startDate.toDateString() %></p>
+      <p><i class="fas fa-calendar-alt"></i> To: <%= booking.endDate.toDateString() %></p>
+      <p><i class="fas fa-user"></i> Guests: <%= booking.guests %></p>
+      <p><i class="fas fa-phone"></i> Phone: <%= booking.phone %></p>
+      <p><i class="fas fa-envelope"></i> Email: <%= booking.email %></p>
+
+      <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST">
+        <button type="submit">
+          <i class="fas fa-trash"></i> Delete Booking
+        </button>
+      </form>
+    </li>
+    <% }); %>
+  </ul>
+  <% } else { %>
+  <p class="no-bookings">You have no bookings yet.</p>
+  <% } %>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
