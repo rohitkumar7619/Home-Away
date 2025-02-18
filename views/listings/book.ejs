@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    background-color: #f9f9f9;
+    background-color: #c5d6ff;
   }
 
   .booking-form {
@@ -15,7 +15,7 @@
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    max-width: 500px;
     width: 100%;
   }
 
@@ -51,6 +51,16 @@
     outline: none;
   }
 
+  /* Flexbox for Rows */
+  .form-row {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .form-row .form-group {
+    flex: 1;
+  }
+
   /* Button Styles */
   .submit-btn {
     width: 100%;
@@ -61,11 +71,12 @@
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
   }
 
   .submit-btn:hover {
     background-color: #0056b3;
+    transform: translateY(-2px);
   }
 
   /* Hover Effects */
@@ -90,6 +101,11 @@
     .submit-btn {
       padding: 0.5rem;
     }
+
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+    }
   }
 </style>
 
@@ -97,26 +113,37 @@
   <div class="booking-form">
     <h2>Book This Listing</h2>
     <form action="/listings/<%= listing._id %>/booking" method="POST">
-      <div class="form-group">
-        <label for="guests">Guests:</label>
-        <input type="number" id="guests" name="guests" required />
+      <!-- Guests and Phone in One Row -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="guests">Guests:</label>
+          <input type="number" id="guests" name="guests" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input type="text" id="phone" name="phone" required />
+        </div>
       </div>
+
+      <!-- Email Field -->
       <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required />
       </div>
-      <div class="form-group">
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" required />
+
+      <!-- Start Date and End Date in One Row -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate">Start Date:</label>
+          <input type="date" id="startDate" name="startDate" required />
+        </div>
+        <div class="form-group">
+          <label for="endDate">End Date:</label>
+          <input type="date" id="endDate" name="endDate" required />
+        </div>
       </div>
-      <div class="form-group">
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate" required />
-      </div>
-      <div class="form-group">
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate" required />
-      </div>
+
+      <!-- Submit Button -->
       <button type="submit" class="submit-btn">Book Now</button>
     </form>
   </div>
