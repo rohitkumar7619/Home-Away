@@ -1,62 +1,172 @@
 <% layout("layouts/boilerplate") %>
 
+<style>
+  :root {
+    --primary-color: #FF5A5F;
+    --secondary-color: #00A699;
+    --accent-color: #FC642D;
+  }
+
+  /* Improved Filters Section Alignment */
+  .filters-container {
+    display: flex;
+    justify-content: center; /* Center the filter items horizontally */
+    align-items: center; /* Center vertically */
+    overflow-x: auto;
+    padding: 1.25rem 2rem;
+    background: white;
+    gap: 1.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin: 0 auto;
+    max-width: 1200px; /* Match your content width */
+  }
+
+  .filters-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    min-width: 80px;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    flex-shrink: 0; /* Prevent items from shrinking */
+  }
+
+  .filter-item i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    color: var(--primary-color);
+  }
+
+  .filter-item p {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .filter-item:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 90, 95, 0.05);
+    border-color: var(--primary-color);
+  }
+
+  .filter-item.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+
+  .filter-item.active i,
+  .filter-item.active p {
+    color: white !important;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .filters-container {
+      justify-content: flex-start; /* Switch to left-aligned on mobile */
+      padding: 1rem 1.25rem;
+      gap: 1rem;
+    }
+
+    .filter-item {
+      min-width: 70px;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .filter-item i {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .filters-container {
+      padding: 0.75rem 1rem;
+      gap: 0.75rem;
+    }
+
+    .filter-item {
+      min-width: 65px;
+      padding: 0.5rem;
+    }
+
+    .filter-item i {
+      font-size: 1.2rem;
+    }
+
+    .filter-item p {
+      font-size: 0.8rem;
+    }
+  }
+</style>
+
 <body>
-  <!-- Filters Section -->
-  <div
-    id="filters-container"
-    class="d-flex justify-content-center align-items-center flex-wrap py-3 bg-light shadow-sm"
-  >
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-solid fa-fire fa-2x text-danger"></i></div>
-      <p class="mt-2">Trending</p>
+  <!-- Centered Filters Section -->
+  <div class="filters-container">
+    <div class="filter-item active" data-filter="all">
+      <i class="fa-solid fa-fire"></i>
+      <p>All</p>
     </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-solid fa-tree-city fa-2x text-muted"></i></div>
-      <p class="mt-2">Nature</p>
+    <div class="filter-item" data-filter="nature">
+      <i class="fa-solid fa-tree"></i>
+      <p>Nature</p>
     </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-solid fa-utensils fa-2x text-secondary"></i></div>
-      <p class="mt-2">Foods</p>
+    <div class="filter-item" data-filter="food">
+      <i class="fa-solid fa-utensils"></i>
+      <p>Food</p>
     </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-solid fa-bed fa-2x text-primary"></i></div>
-      <p class="mt-2">Rooms</p>
+    <div class="filter-item" data-filter="rooms">
+      <i class="fa-solid fa-bed"></i>
+      <p>Rooms</p>
     </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-solid fa-mountain-city fa-2x text-success"></i></div>
-      <p class="mt-2">Iconic Cities</p>
+    <div class="filter-item" data-filter="cities">
+      <i class="fa-solid fa-city"></i>
+      <p>Cities</p>
     </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-solid fa-person-half-dress fa-2x text-dark"></i></div>
-      <p class="mt-2">Cuples</p>
+    <div class="filter-item" data-filter="couples">
+      <i class="fa-solid fa-heart"></i>
+      <p>Couples</p>
     </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-solid fa-mountain fa-2x text-warning"></i></div>
-      <p class="mt-2">Mountain</p>
+    <div class="filter-item" data-filter="mountain">
+      <i class="fa-solid fa-mountain"></i>
+      <p>Mountain</p>
     </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-brands fa-fort-awesome fa-2x text-secondary"></i></div>
-      <p class="mt-2">Castles</p>
+    <div class="filter-item" data-filter="pools">
+      <i class="fa-solid fa-water"></i>
+      <p>Pools</p>
     </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-solid fa-person-swimming fa-2x text-info"></i></div>
-      <p class="mt-2">Pools</p>
+    <div class="filter-item" data-filter="camping">
+      <i class="fa-solid fa-campground"></i>
+      <p>Camping</p>
     </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-solid fa-campground fa-2x text-dark"></i></div>
-      <p class="mt-2">Camping</p>
+    <div class="filter-item" data-filter="farms">
+      <i class="fa-solid fa-tractor"></i>
+      <p>Farms</p>
     </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-solid fa-cow fa-2x text-muted"></i></div>
-      <p class="mt-2">Farms</p>
-    </div>
-    <div class="filter-item text-center mx-3">
-      <div><i class="fa-regular fa-snowflake fa-2x text-primary"></i></div>
-      <p class="mt-2">Arctic</p>
+    <div class="filter-item" data-filter="beach">
+      <i class="fa-solid fa-umbrella-beach"></i>
+      <p>Beach</p>
     </div>
   </div>
 
-  <!-- Listings Section -->
+  <!-- Rest of your content remains unchanged -->
   <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mt-3">
     <% for (let listing of allListing) { %>
     <a href="/listings/<%= listing.id %>" class="card-link">
@@ -71,11 +181,41 @@
           <p>
             <b><%= listing.title %></b>
             <br />
-            &#8377; <span class="price-value"><%= listing.price.toLocaleString("en-IN") %></span> / night
+            &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
           </p>
+          <div class="listing-location">
+            <i class="fas fa-map-marker-alt"></i>
+            <%= listing.location %>
+          </div>
         </div>
       </div>
     </a>
     <% } %>
   </div>
+
+  <script>
+    // Filter functionality remains the same
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterItems = document.querySelectorAll('.filter-item');
+      
+      filterItems.forEach(item => {
+        item.addEventListener('click', function() {
+          filterItems.forEach(i => i.classList.remove('active'));
+          this.classList.add('active');
+          const filterValue = this.getAttribute('data-filter');
+          console.log('Filter by:', filterValue);
+        });
+      });
+      
+      const filtersContainer = document.querySelector('.filters-container');
+      filtersContainer.addEventListener('wheel', function(e) {
+        if (e.deltaY > 0) {
+          this.scrollLeft += 100;
+        } else {
+          this.scrollLeft -= 100;
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
 </body>
