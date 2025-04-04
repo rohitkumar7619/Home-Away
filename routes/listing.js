@@ -36,6 +36,17 @@ router.get("/contact", (req, res) => {
   res.render("listings/contact");
 });
 
+
+
+// footer
+router.get("/support", (req, res) => {
+  res.render("footerListings/support");
+});
+
+router.get("/safety", (req, res) => {
+  res.render("footerListings/safety");
+});
+
 // Individual Listing Routes
 router
   .route("/listings/:id")
