@@ -1,162 +1,540 @@
 <% layout("layouts/boilerplate") %>
 
 <style>
-  h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
+  :root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4895ef;
+    --danger-color: #f72585;
+    --success-color: #4cc9f0;
+    --warning-color: #f8961e;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --text-color: #495057;
+    --border-radius: 12px;
+    --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-    max-width: 800px;
+  .bookings-container {
+    max-width: 1300px;
     margin: 0 auto;
+    padding: 2rem;
   }
 
-  li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .page-title {
+    font-size: 2.8rem;
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .page-subtitle {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .bookings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .booking-card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    height: 100%;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
 
-  li:hover {
+  .booking-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
   }
 
-  h2 {
-    color: #007bff;
-    margin-top: 0;
-    display: flex;
-    align-items: center;
+  .booking-media {
+    height: 220px;
+    overflow: hidden;
+    position: relative;
   }
 
-  h2 i {
-    margin-right: 8px;
-  }
-
-  p {
-    color: #555;
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-  }
-
-  p i {
-    margin-right: 6px;
-  }
-
-  form {
-    margin-top: 15px;
+  .booking-media img {
     width: 100%;
-    display: flex;
-    justify-content: flex-start;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
   }
 
-  button {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  .booking-card:hover .booking-media img {
+    transform: scale(1.05);
+  }
+
+  .booking-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.35rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .booking-content {
+    padding: 1.75rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .booking-header {
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 1rem;
+  }
+
+  .booking-title {
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    margin: 0 0 0.5rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
-    font-size: 1em;
+    gap: 0.75rem;
   }
 
-  button i {
-    margin-right: 8px;
+  .booking-location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 0.95rem;
   }
 
-  button:hover {
-    background-color: #cc0000;
-    transform: scale(1.05);
+  .booking-details {
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.85rem;
+    color: var(--text-color);
+    line-height: 1.5;
+    gap: 0.75rem;
+  }
+
+  .detail-item i {
+    color: var(--accent-color);
+    font-size: 1rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  .detail-label {
+    font-weight: 500;
+    margin-right: 0.5rem;
+    color: var(--dark-color);
+  }
+
+  .booking-price {
+    background-color: var(--light-color);
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .price-label {
+    font-weight: 600;
+    color: var(--dark-color);
+  }
+
+  .price-amount {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+  }
+
+  .booking-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  .btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+    font-size: 0.95rem;
+    gap: 0.5rem;
+    text-decoration: none;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+
+  .btn-outline:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+    transform: translateY(-2px);
+  }
+
+  .btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background-color: #d1146a;
+    transform: translateY(-2px);
   }
 
   .no-bookings {
     text-align: center;
-    color: #777;
-    font-style: italic;
-    font-size: 1.2em;
+    padding: 4rem 2rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 600px;
+    margin: 2rem auto;
   }
 
-  @media (max-width: 600px) {
-    li {
-      padding: 15px;
+  .no-bookings-icon {
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+
+  .no-bookings-title {
+    font-size: 1.8rem;
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .no-bookings-text {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-explore {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+  }
+
+  .btn-explore:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+  }
+
+  .status-upcoming {
+    background-color: var(--warning-color);
+    color: white;
+  }
+
+  .status-completed {
+    background-color: var(--success-color);
+    color: white;
+  }
+
+  .status-cancelled {
+    background-color: var(--danger-color);
+    color: white;
+  }
+
+  .booking-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #ffc107;
+    font-weight: 500;
+  }
+
+  .rating-count {
+    color: var(--text-color);
+    font-size: 0.85rem;
+  }
+
+  .host-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+  }
+
+  .host-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 992px) {
+    .bookings-grid {
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     }
-    h2 {
-      font-size: 1.2em;
+  }
+
+  @media (max-width: 768px) {
+    .bookings-container {
+      padding: 1.5rem;
     }
-    p {
-      font-size: 0.9em;
+    
+    .page-title {
+      font-size: 2.2rem;
     }
-    button {
-      padding: 8px 16px;
-      font-size: 0.9em;
+    
+    .booking-actions {
+      flex-direction: column;
     }
+    
+    .btn {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .bookings-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .page-title {
+      font-size: 2rem;
+    }
+    
+    .booking-media {
+      height: 200px;
+    }
+  }
+
+  /* Animation for empty state */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .no-bookings-icon {
+    animation: float 3s ease-in-out infinite;
   }
 </style>
 
-</head>
-
 <body>
-  <h1>My Bookings</h1>
+  <div class="bookings-container">
+    <header class="page-header">
+      <h1 class="page-title">
+        <i class="fas fa-calendar-check"></i> My Bookings
+      </h1>
+      <p class="page-subtitle">
+        Here's a list of all your upcoming and past bookings. Manage your reservations and explore new stays.
+      </p>
+    </header>
 
-  <% if (bookings.length > 0) { %>
-  <ul>
-    <% bookings.forEach(function(booking) { %>
-    <li>
-      <h2><i class="fas fa-home"></i> <%= booking.listing.title %></h2>
+    <% if (bookings.length > 0) { %>
+      <div class="bookings-grid">
+        <% bookings.forEach(function(booking) { 
+          const nights = Math.ceil((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24));
+          const totalPrice = booking.listing.price * nights;
+          const isUpcoming = new Date(booking.startDate) > new Date();
+          %>
+          
+          <div class="booking-card">
+            <% if (isUpcoming) { %>
+              <span class="booking-badge status-upcoming">Upcoming</span>
+            <% } else { %>
+              <span class="booking-badge status-completed">Completed</span>
+            <% } %>
+            
+            <div class="booking-media">
+              <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>">
+            </div>
+            
+            <div class="booking-content">
+              <div class="booking-header">
+                <h3 class="booking-title">
+                  <i class="fas fa-home"></i> <%= booking.listing.title %>
+                </h3>
+                <div class="booking-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <%= booking.listing.location || 'Location not specified' %>
+                </div>
+                
+                <div class="booking-meta">
+                  <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <span><%= booking.listing.rating || '4.8' %></span>
+                    <span class="rating-count">(<%= booking.listing.reviews || '24' %>)</span>
+                  </div>
+                  <div class="host-info">
+                    <p>Review</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="booking-details">
+                <div class="detail-item">
+                  <i class="fas fa-calendar-day"></i>
+                  <div>
+                    <span class="detail-label">Dates:</span>
+                    <%= booking.startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %> - 
+                    <%= booking.endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+                    <div class="text-muted" style="font-size: 0.85rem; margin-top: 0.25rem;">
+                      <%= nights %> night<%= nights !== 1 ? 's' : '' %> stay
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="detail-item">
+                  <i class="fas fa-user-friends"></i>
+                  <div>
+                    <span class="detail-label">Guests:</span>
+                    <%= booking.guests %> guest<%= booking.guests !== 1 ? 's' : '' %>
+                  </div>
+                </div>
+                
+                <div class="detail-item">
+                  <i class="fas fa-phone-alt"></i>
+                  <div>
+                    <span class="detail-label">Contact:</span>
+                    <%= booking.phone %>
+                    <div class="text-muted" style="font-size: 0.85rem; margin-top: 0.25rem;">
+                      <%= booking.email %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="booking-price">
+                <span class="price-label">Total Cost</span>
+                <span class="price-amount">₹<%= totalPrice.toLocaleString('en-IN') %></span>
+              </div>
+              
+              <div class="booking-actions">
+                <a href="/listings/<%= booking.listing._id %>" class="btn btn-primary">
+                  <i class="fas fa-eye"></i> See Reviews
+                </a>
+                <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST">
+                  <button type="submit" class="btn btn-delete">
+                    <i class="fas fa-trash"></i> Cancel
+                  </button>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="no-bookings">
+        <div class="no-bookings-icon">
+          <i class="far fa-calendar-times"></i>
+        </div>
+        <h3 class="no-bookings-title">No Bookings Found</h3>
+        <p class="no-bookings-text">
+          You haven't made any bookings yet. Start exploring amazing stays and plan your next adventure!
+        </p>
+        <a href="/listings" class="btn-explore">
+          <i class="fas fa-search"></i> Explore Listings
+        </a>
+      </div>
+    <% } %>
+  </div>
 
-      <p><i class="fas fa-calendar-alt"></i> From: <%= booking.startDate.toDateString() %></p>
-      <p><i class="fas fa-calendar-alt"></i> To: <%= booking.endDate.toDateString() %></p>
-      <p><i class="fas fa-user"></i> Guests: <%= booking.guests %></p>
-      <p><i class="fas fa-phone"></i> Phone: <%= booking.phone %></p>
-      <p><i class="fas fa-envelope"></i> Email: <%= booking.email %></p>
+  <script>
+    // Add interactive elements
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add confirmation for cancellation
+      const deleteForms = document.querySelectorAll('form[action*="/bookings/"]');
+      deleteForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+          if (!confirm('Are you sure you want to cancel this booking?')) {
+            e.preventDefault();
+          }
+        });
+      });
 
-      <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST">
-        <button type="submit">
-          <i class="fas fa-trash"></i> Delete Booking
-        </button>
-      </form>
-    </li>
-    <% }); %>
-  </ul>
-  <% } else { %>
-  <p class="no-bookings">You have no bookings yet.</p>
-  <% } %>
+      // Add animation to booking cards when they come into view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.booking-card').forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
