@@ -1,144 +1,234 @@
-<div class="main">
-  <footer class="footer">
-    <div class="footer-content">
-      <!-- Left Section -->
-      <div class="footer-section">
-        <b>Home Away</b>
-        <a href="#" class="footer-link">Privacy</a>
-        <a href="#" class="footer-link">Terms</a>
-        <a href="#" class="footer-link">Sitemap</a>
-        <a href="#" class="footer-link">Company details</a>
-      </div>
-
-      <!-- Right Section -->
-      <div class="footer-section">
-        <div class="language-currency">
-          <span class="language"
-            ><span class="globe-icon">🌐</span> English (IN)</span
-          >
-          <span class="currency">₹ INR</span>
-        </div>
-        <div class="social-icons">
-          <a href="#" class="social-icon"
-            ><i class="fa-brands fa-facebook"></i
-          ></a>
-          <a href="#" class="social-icon"
-            ><i class="fa-brands fa-twitter"></i
-          ></a>
-          <a href="#" class="social-icon"
-            ><i class="fa-brands fa-instagram"></i
-          ></a>
-        </div>
-        <p>©2025 Home Away</p>
-      </div>
-    </div>
-  </footer>
-</div>
+<!-- FontAwesome CDN (required for icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 <style>
-  /* Global Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  /* Fullscreen Centering */
-  html,
-  body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Footer Styling */
   .footer {
-    background: #d8767f;
+    background: linear-gradient(135deg, #2c3e50, #4a6491);
     color: #fff;
-    width: 100%;
-    padding: 1rem; /* Reduced padding */
-    text-align: center;
+    padding: 2rem 1rem;
+    font-family: 'Poppins', sans-serif;
     margin-top: auto;
   }
 
-  /* Footer Content Grid */
   .footer-content {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem; /* Reduced gap */
-    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: start;
+    gap: 2rem;
+    max-width: 1200px;
     margin: 0 auto;
+    padding-bottom: 0.2rem;
   }
 
-  .footer-section {
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .link-column {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem; /* Reduced gap */
+    gap: 0.6rem;
   }
 
-  /* Links */
+  .link-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
   .footer-link {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
-    font-size: 0.8rem; /* Smaller font size */
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
   }
 
   .footer-link:hover {
-    text-decoration: underline;
+    color: #fff;
   }
 
-  /* Language & Currency */
-  .language-currency {
+  .selectors {
     display: flex;
-    gap: 0.75rem; /* Reduced gap */
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .selector {
+    display: flex;
     align-items: center;
-    font-size: 0.8rem; /* Smaller font size */
+    gap: 0.5rem;
   }
 
-  .globe-icon {
-    font-size: 0.9rem; /* Smaller icon size */
+  .language-select,
+  .currency-select {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    appearance: none;
+    cursor: pointer;
+    min-width: 150px;
   }
 
-  /* Social Icons */
+  .language-select:hover,
+  .currency-select:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .social-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .social-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: right;
+  }
+
   .social-icons {
     display: flex;
-    gap: 0.5rem; /* Reduced gap */
+    gap: 0.8rem;
+  }
+
+  .social-icon {
+    display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 0.25rem; /* Reduced margin */
+    width: 34px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    color: #fff;
+    transition: all 0.2s ease;
   }
 
-  .social-icon i {
-    font-size: 1rem; /* Smaller icon size */
-    transition: transform 0.2s ease-in-out;
+  .social-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
   }
 
-  .social-icon:hover i {
-    transform: scale(1.1);
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 1.2rem auto 0;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
   }
 
-  /* Copyright */
-  .footer p {
-    font-size: 0.75rem; /* Smaller font size */
-    margin-top: 0.25rem; /* Reduced margin */
+  .footer-bottom a {
+    color: inherit;
+    margin-left: 1rem;
+    text-decoration: none;
   }
 
-  /* Responsive Design */
+  .footer-bottom a:hover {
+    color: #fff;
+  }
+
   @media (max-width: 768px) {
     .footer-content {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
     }
 
-    .language-currency {
-      justify-content: center;
+    .footer-links {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .selectors {
+      padding: 0;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .social-section {
+      align-items: flex-start;
+    }
+
+    .social-heading {
+      text-align: left;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-links {
+      grid-template-columns: 1fr;
+    }
+
+    .selectors {
+      flex-direction: column;
     }
   }
 </style>
+
+<footer class="footer">
+  <div class="footer-content">
+    <!-- Left Section - Links -->
+    <div class="footer-links">
+      <div class="link-column">
+        <h4 class="link-heading">Company</h4>
+        <a href="/about" class="footer-link">About Us</a>
+        <a href="/cancellation" class="footer-link">Cancellation</a>
+      </div>
+      <div class="link-column">
+        <h4 class="link-heading">Support</h4>
+        <a href="/support" class="footer-link">Help Center</a>
+        <a href="/safety" class="footer-link">Safety</a>
+      </div>
+      <div class="link-column">
+        <h4 class="link-heading">Legal</h4>
+        <a href="/terms" class="footer-link">Terms</a>
+        <a href="/privacy" class="footer-link">Privacy</a>
+      </div>
+    </div>
+
+    <!-- Middle Section - Selectors -->
+    <div class="selectors">
+      <div class="selector">
+        <i class="fas fa-globe"></i>
+        <select class="language-select">
+          <option value="en">English (IN)</option>
+          <option value="hi">हिंदी</option>
+          <option value="es">Español</option>
+        </select>
+      </div>
+      <div class="selector">
+        <i class="fas fa-money-bill-wave"></i>
+        <select class="currency-select">
+          <option value="inr">₹ INR</option>
+          <option value="usd">$ USD</option>
+          <option value="eur">€ EUR</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Right Section - Social -->
+    <div class="social-section">
+      <h4 class="social-heading">Connect with us</h4>
+      <div class="social-icons">
+        <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>

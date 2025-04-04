@@ -1,0 +1,512 @@
+<% layout("layouts/boilerplate") %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-color: #FF5A5F;
+        --secondary-color: #00A699;
+        --accent-color: #FC642D;
+        --dark-color: #222222;
+        --light-color: #FFFFFF;
+        --background-light: #F9F9F9;
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+        --shadow-md: 0 6px 20px rgba(0,0,0,0.12);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        color: var(--dark-color);
+    }
+
+    /* Hero Section */
+    .support-hero {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        text-align: center;
+        padding: 6rem 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .support-hero:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+        opacity: 0.1;
+    }
+
+    .support-hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        position: relative;
+        animation: fadeInDown 0.8s ease-out;
+    }
+
+    .support-hero p {
+        font-size: 1.25rem;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        opacity: 0.9;
+        position: relative;
+        animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        opacity: 0;
+    }
+
+    .support-illustration {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        animation: bounceIn 1s ease-out 0.4s forwards;
+        opacity: 0;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        padding: 5rem 0;
+        background: var(--background-light);
+    }
+
+    .contact-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 2.5rem;
+        box-shadow: var(--shadow-md);
+        height: 100%;
+        transition: var(--transition);
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .contact-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-form {
+        background: #fff;
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+    }
+
+    .contact-form:hover {
+        box-shadow: var(--shadow-md);
+    }
+
+    .form-control {
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid rgba(0,0,0,0.1);
+        transition: var(--transition);
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(255, 90, 95, 0.2);
+    }
+
+    .btn-primary {
+        background: var(--primary-color);
+        border: none;
+        padding: 0.75rem 2rem;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .btn-primary:hover {
+        background: #ff3b41;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+        padding: 5rem 0;
+        background: linear-gradient(to bottom, var(--background-light), #fff);
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .section-title:after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        margin: 1rem auto 0;
+        border-radius: 2px;
+    }
+
+    .accordion-item {
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 8px !important;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .accordion-button {
+        font-weight: 500;
+        padding: 1.25rem;
+        transition: var(--transition);
+    }
+
+    .accordion-button:not(.collapsed) {
+        background: rgba(255, 90, 95, 0.05);
+        color: var(--primary-color);
+    }
+
+    .accordion-button:focus {
+        box-shadow: none;
+        border-color: transparent;
+    }
+
+    .accordion-body {
+        padding: 1.25rem;
+    }
+
+    /* Contact Methods */
+    .contact-method {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-method i {
+        color: var(--primary-color);
+        font-size: 1.25rem;
+        margin-top: 0.25rem;
+    }
+
+    .contact-method-content h4 {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .contact-method-content p {
+        color: var(--dark-color);
+        opacity: 0.8;
+        margin-bottom: 0;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes bounceIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+        60% {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .support-hero h1 {
+            font-size: 2.2rem;
+        }
+        
+        .support-hero p {
+            font-size: 1.1rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="support-hero">
+    <div class="container">
+        <div class="support-illustration">
+            <i class="fas fa-headset"></i>
+        </div>
+        <h1>We're Here to Help, 24/7</h1>
+        <p>Our dedicated support team is available around the clock to assist you with any questions or concerns.</p>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h2>Send Us a Message</h2>
+                    <p class="mb-4">Fill out the form and we'll get back to you within 24 hours.</p>
+                    
+                    <form class="contact-form">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <select class="form-select" id="subject" required>
+                                <option value="" selected disabled>Select an option</option>
+                                <option value="booking">Booking Assistance</option>
+                                <option value="property">Property Listing</option>
+                                <option value="payment">Payment Issues</option>
+                                <option value="other">Other Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea class="form-control" id="message" rows="4" placeholder="How can we help you?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h2>Other Ways to Reach Us</h2>
+                    <p class="mb-4">Prefer to contact us directly? Here are all our contact methods.</p>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-phone"></i>
+                        <div class="contact-method-content">
+                            <h4>Phone Support</h4>
+                            <p>+1 (800) 123-4567</p>
+                            <small class="text-muted">Available 24/7</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <div class="contact-method-content">
+                            <h4>Email Us</h4>
+                            <p>support@homeaway.com</p>
+                            <small class="text-muted">Typically responds within 4 hours</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="contact-method-content">
+                            <h4>Visit Us</h4>
+                            <p>123 Vacation Street, Suite 100<br>New York, NY 10001</p>
+                            <small class="text-muted">Open Mon-Fri, 9AM-5PM</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-comment-dots"></i>
+                        <div class="contact-method-content">
+                            <h4>Live Chat</h4>
+                            <p>Click the chat icon in the bottom right</p>
+                            <small class="text-muted">Available 8AM-10PM EST</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                <i class="fas fa-home me-2"></i> How do I list my property on HomeAway?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Listing your property is easy! Simply click on "List Your Property" at the top of any page and follow the step-by-step process. You'll need to provide:</p>
+                                <ul>
+                                    <li>Property details (type, bedrooms, amenities)</li>
+                                    <li>High-quality photos of your space</li>
+                                    <li>Availability calendar</li>
+                                    <li>Pricing information</li>
+                                </ul>
+                                <p>Our team reviews all new listings within 24 hours to ensure quality standards are met.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                <i class="fas fa-calendar-check me-2"></i> How do I manage bookings and availability?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>You can manage all your bookings through your Host Dashboard. Key features include:</p>
+                                <ul>
+                                    <li>Interactive calendar to set availability</li>
+                                    <li>Instant booking approval settings</li>
+                                    <li>Automated messaging templates</li>
+                                    <li>Payment tracking and reporting</li>
+                                </ul>
+                                <p>Our mobile app also allows you to manage bookings on the go.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                <i class="fas fa-shield-alt me-2"></i> What safety measures are in place for guests and hosts?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Your safety is our top priority. We offer:</p>
+                                <ul>
+                                    <li>Verified guest and host profiles</li>
+                                    <li>Secure payment processing</li>
+                                    <li>$1M host guarantee for property damage</li>
+                                    <li>24/7 emergency support line</li>
+                                    <li>Neighborhood safety information for guests</li>
+                                </ul>
+                                <p>We also provide safety tips and checklists for both hosts and guests.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                <i class="fas fa-credit-card me-2"></i> When and how do I get paid as a host?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Payments are processed as follows:</p>
+                                <ul>
+                                    <li>Guests pay upfront when booking</li>
+                                    <li>Hosts receive payment 24 hours after guest check-in</li>
+                                    <li>Multiple payout methods available (bank transfer, PayPal, etc.)</li>
+                                    <li>Detailed earnings reports available in your dashboard</li>
+                                </ul>
+                                <p>Our standard service fee is 10% of the booking total.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                <i class="fas fa-undo me-2"></i> What is your cancellation policy?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>We offer flexible cancellation options:</p>
+                                <ul>
+                                    <li><strong>Flexible:</strong> Full refund 24 hours before check-in</li>
+                                    <li><strong>Moderate:</strong> Full refund 5 days before check-in</li>
+                                </ul>
+                                <p>Hosts can choose the policy that works best for their property. Some special events may have different policies.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <p>Didn't find what you're looking for?</p>
+                    <a href="#contact" class="btn btn-outline-primary">Contact Our Support Team</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Simple animation trigger
+    document.addEventListener('DOMContentLoaded', function() {
+        const animatedElements = document.querySelectorAll('.contact-card, .accordion-item');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animatedElements.forEach(element => {
+            element.style.opacity = 0;
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+    });
+</script>
