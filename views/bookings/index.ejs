@@ -323,19 +323,12 @@
     font-size: 0.85rem;
   }
 
-  .host-info {
+  .total-reviews {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.25rem;
     font-size: 0.9rem;
     color: var(--text-color);
-  }
-
-  .host-avatar {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    object-fit: cover;
   }
 
   @media (max-width: 992px) {
@@ -431,10 +424,10 @@
                   <div class="rating">
                     <i class="fas fa-star"></i>
                     <span><%= booking.listing.rating || '4.8' %></span>
-                    <span class="rating-count">(<%= booking.listing.reviews || '24' %>)</span>
                   </div>
-                  <div class="host-info">
-                    <p>Review</p>
+                  <div class="total-reviews">
+                    <i class="fas fa-comment"></i>
+                    <span><%= booking.listing.reviews || '24' %> reviews</span>
                   </div>
                 </div>
               </div>
@@ -479,12 +472,13 @@
               
               <div class="booking-actions">
                 <a href="/listings/<%= booking.listing._id %>" class="btn btn-primary">
-                  <i class="fas fa-eye"></i> See Reviews
+                  <i class="fas fa-eye"></i> View Details
                 </a>
                 <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST">
-                  <button type="submit" class="btn btn-delete">
-                    <i class="fas fa-trash"></i> Cancel
+                  <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-times"></i> Cancel
                   </button>
+                </form>
               </div>
             </div>
           </div>
