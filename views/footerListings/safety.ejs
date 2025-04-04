@@ -1,0 +1,329 @@
+<% layout("layouts/boilerplate") %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-color: #FF5A5F;
+        --secondary-color: #00A699;
+        --accent-color: #FC642D;
+        --dark-color: #222222;
+        --light-color: #FFFFFF;
+        --background-light: #F9F9F9;
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+        --shadow-md: 0 6px 20px rgba(0,0,0,0.12);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        color: var(--dark-color);
+    }
+
+    /* Hero Section */
+    .safety-hero {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        text-align: center;
+        padding: 6rem 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .safety-hero:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+        opacity: 0.1;
+    }
+
+    .safety-hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    .safety-hero p {
+        font-size: 1.25rem;
+        max-width: 700px;
+        margin: 0 auto 2rem;
+        opacity: 0.9;
+        position: relative;
+    }
+
+    /* Safety Features */
+    .safety-features {
+        padding: 5rem 0;
+        background: var(--background-light);
+    }
+
+    .feature-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: var(--shadow-sm);
+        height: 100%;
+        transition: var(--transition);
+        border: 1px solid rgba(0,0,0,0.05);
+        text-align: center;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 1.5rem;
+        box-shadow: 0 5px 15px rgba(255,90,95,0.3);
+    }
+
+    /* Safety Tips */
+    .safety-tips {
+        padding: 5rem 0;
+        background: #fff;
+    }
+
+    .tip-card {
+        background: var(--background-light);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    /* Emergency Section */
+    .emergency-section {
+        padding: 5rem 0;
+        background: linear-gradient(135deg, #2c3e50, #4a6491);
+        color: white;
+    }
+
+    .emergency-card {
+        background: rgba(255,255,255,0.1);
+        border-radius: 12px;
+        padding: 2rem;
+        border: 1px solid rgba(255,255,255,0.2);
+        transition: var(--transition);
+    }
+
+    .emergency-card:hover {
+        background: rgba(255,255,255,0.15);
+        transform: translateY(-3px);
+    }
+
+    /* Section Titles */
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .section-title:after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        margin: 1rem auto 0;
+        border-radius: 2px;
+    }
+
+    .section-title.light {
+        color: white;
+    }
+
+    .section-title.light:after {
+        background: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .safety-hero h1 {
+            font-size: 2.2rem;
+        }
+        
+        .safety-hero p {
+            font-size: 1.1rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="safety-hero">
+    <div class="container">
+        <h1>Your Safety is Our Priority</h1>
+        <p>At HomeAway, we're committed to creating a safe and trusted community for both guests and hosts. Explore our safety features, tips, and resources below.</p>
+    </div>
+</section>
+
+<!-- Safety Features -->
+<section class="safety-features">
+    <div class="container">
+        <h2 class="section-title">Our Safety Features</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Verified Profiles</h3>
+                    <p>All hosts and guests must verify their identity with government-issued ID and phone number before booking or listing.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Secure Payments</h3>
+                    <p>All transactions are processed through our secure platform. Never pay or communicate outside of HomeAway.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our global safety team is available around the clock to assist with any issues or concerns.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Safety Tips -->
+<section class="safety-tips">
+    <div class="container">
+        <h2 class="section-title">Safety Tips for Everyone</h2>
+        
+        <div class="row">
+            <div class="col-lg-6">
+                <h3><i class="fas fa-home text-primary me-2"></i> For Hosts</h3>
+                
+                <div class="tip-card">
+                    <h4>Secure Your Property</h4>
+                    <p>Install quality locks, security cameras in common areas, and consider a safe for valuables.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Screen Guests Carefully</h4>
+                    <p>Review profiles, read reviews, and communicate through HomeAway's messaging system before accepting bookings.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Set Clear House Rules</h4>
+                    <p>Clearly outline expectations regarding guests, noise levels, and property use in your listing.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <h3><i class="fas fa-user text-primary me-2"></i> For Guests</h3>
+                
+                <div class="tip-card">
+                    <h4>Research Listings Thoroughly</h4>
+                    <p>Read reviews carefully, verify the location on maps, and look for properties with multiple positive reviews.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Communicate Through HomeAway</h4>
+                    <p>Keep all communication and payments on the platform to ensure you're protected by our policies.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Check Safety Features</h4>
+                    <p>Look for listings that mention smoke detectors, first aid kits, and emergency contact information.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Emergency Section -->
+<section class="emergency-section">
+    <div class="container">
+        <h2 class="section-title light">Emergency Resources</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="emergency-card">
+                    <h3><i class="fas fa-phone-alt me-2"></i> Emergency Contacts</h3>
+                    <p>For immediate assistance, contact our 24/7 safety line:</p>
+                    <p class="h4 mt-3">+1 (800) 555-SAFE</p>
+                    <p class="small mt-2">Available in multiple languages</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="emergency-card">
+                    <h3><i class="fas fa-map-marked-alt me-2"></i> Local Authorities</h3>
+                    <p>Know how to contact local emergency services in your area:</p>
+                    <ul class="mt-3">
+                        <li>Police: 911 (US) or local equivalent</li>
+                        <li>Medical: 911 (US) or local equivalent</li>
+                        <li>Fire: 911 (US) or local equivalent</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="emergency-card">
+                    <h3><i class="fas fa-file-alt me-2"></i> Safety Documents</h3>
+                    <p>Download our safety guides:</p>
+                    <div class="mt-3">
+                        <a href="#" class="btn btn-outline-light me-2 mb-2">Host Safety PDF</a>
+                        <a href="#" class="btn btn-outline-light mb-2">Guest Safety PDF</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trust & Verification -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2>Our Commitment to Trust</h2>
+                <p class="lead">Every HomeAway booking comes with:</p>
+                <ul class="fa-ul">
+                    <li><span class="fa-li"><i class="fas fa-check text-success"></i></span>$1,000,000 host guarantee for property damage</li>
+                    <li><span class="fa-li"><i class="fas fa-check text-success"></i></span>Secure payment protection</li>
+                    <li><span class="fa-li"><i class="fas fa-check text-success"></i></span>Verified guest and host profiles</li>
+                    <li><span class="fa-li"><i class="fas fa-check text-success"></i></span>24/7 customer support</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Safe and secure home">
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
