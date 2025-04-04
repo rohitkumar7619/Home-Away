@@ -63,10 +63,10 @@
     gap: 0.5rem;
   }
 
-  .language-select,
+  .tex-select,
   .currency-select {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    background: rgb(255, 255, 255);
+    color: #070606;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     padding: 0.4rem 1rem;
@@ -76,7 +76,7 @@
     min-width: 150px;
   }
 
-  .language-select:hover,
+  .tex-select:hover,
   .currency-select:hover {
     border-color: rgba(255, 255, 255, 0.4);
   }
@@ -205,20 +205,21 @@
     <div class="selectors">
       <div class="selector">
         <i class="fas fa-globe"></i>
-        <select class="language-select">
-          <option value="en">English (IN)</option>
-          <option value="hi">हिंदी</option>
-          <option value="es">Español</option>
+        <select class="tex-select">
+          <option value="en">Without Tex</option>
+          <option value="hi">With Tex</option>
         </select>
       </div>
       <div class="selector">
         <i class="fas fa-money-bill-wave"></i>
-        <select class="currency-select">
+        <select class="currency-select" id="changePrice">
           <option value="inr">₹ INR</option>
           <option value="usd">$ USD</option>
           <option value="eur">€ EUR</option>
         </select>
       </div>
+
+      
     </div>
 
     <!-- Right Section - Social -->
@@ -231,4 +232,85 @@
       </div>
     </div>
   </div>
+
+
+
+  <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const taxSelect = document.querySelector('.tex-select');
+      const currencySelect = document.querySelector('#changePrice');
+      
+      // Prepare price elements - wrap prices in spans and store original values
+      document.querySelectorAll('.card-body p').forEach(p => {
+        const priceMatch = p.innerHTML.match(/&#8377; ([\d,]+)( \/ night)/);
+        if (priceMatch) {
+          const originalPrice = priceMatch[1].replace(/,/g, '');
+          p.innerHTML = `
+            ${p.querySelector('b') ? p.querySelector('b').outerHTML : ''}
+            <br>
+            &#8377; <span class="price-value" data-original-price="${originalPrice}">${priceMatch[1]}</span> / night
+          `;
+        }
+      });
+
+      // Function to update prices based on tax and currency
+      function updatePrices() {
+        const withTax = taxSelect.value === 'hi';
+        const currency = currencySelect.value;
+        
+        const currencySymbols = {
+          'inr': '₹',
+          'usd': '$',
+          'eur': '€'
+        };
+        
+        const exchangeRates = {
+          'inr': 1,
+          'usd': 0.012,
+          'eur': 0.011
+        };
+        
+        document.querySelectorAll('.card-body p').forEach(p => {
+          const priceElement = p.querySelector('.price-value');
+          if (!priceElement) return;
+          
+          const originalPrice = parseInt(priceElement.dataset.originalPrice);
+          let displayPrice = originalPrice;
+          
+          // Apply tax if needed
+          if (withTax) {
+            displayPrice = originalPrice * 1.18;
+          }
+          
+          // Convert currency
+          displayPrice = displayPrice * exchangeRates[currency];
+          
+          // Format based on currency
+          let formattedValue;
+          if (currency === 'inr') {
+            formattedValue = Math.round(displayPrice).toLocaleString('en-IN');
+          } else {
+            formattedValue = displayPrice.toLocaleString('en-US', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            });
+          }
+          
+          // Update the display while maintaining structure
+          const title = p.querySelector('b') ? p.querySelector('b').outerHTML : '';
+          p.innerHTML = `
+            ${title}
+            <br>
+            ${currencySymbols[currency]} <span class="price-value" data-original-price="${originalPrice}">${formattedValue}</span> / night
+          `;
+        });
+      }
+
+      // Event listeners
+      taxSelect.addEventListener('change', updatePrices);
+      currencySelect.addEventListener('change', updatePrices);
+    });
+  </script>
+
 </footer>
