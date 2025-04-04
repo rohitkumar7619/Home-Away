@@ -243,17 +243,19 @@
       
       // Prepare price elements - wrap prices in spans and store original values
       document.querySelectorAll('.card-body p').forEach(p => {
-        const priceMatch = p.innerHTML.match(/&#8377; ([\d,]+)( \/ night)/);
-        if (priceMatch) {
-          const originalPrice = priceMatch[1].replace(/,/g, '');
+        // Find the price element
+        const priceText = p.textContent.match(/₹ ([\d,]+)/);
+        if (priceText) {
+          const originalPrice = parseFloat(priceText[1].replace(/,/g, ''));
+          // Store original price in data attribute
           p.innerHTML = `
             ${p.querySelector('b') ? p.querySelector('b').outerHTML : ''}
             <br>
-            &#8377; <span class="price-value" data-original-price="${originalPrice}">${priceMatch[1]}</span> / night
+            ₹ <span class="price-value" data-original-price="${originalPrice}">${priceText[1]}</span> / night
           `;
         }
       });
-
+  
       // Function to update prices based on tax and currency
       function updatePrices() {
         const withTax = taxSelect.value === 'hi';
@@ -273,9 +275,12 @@
         
         document.querySelectorAll('.card-body p').forEach(p => {
           const priceElement = p.querySelector('.price-value');
-          if (!priceElement) return;
+          if (!priceElement || !priceElement.dataset.originalPrice) return;
           
-          const originalPrice = parseInt(priceElement.dataset.originalPrice);
+          // Get original price from data attribute
+          const originalPrice = parseFloat(priceElement.dataset.originalPrice);
+          if (isNaN(originalPrice)) return;
+          
           let displayPrice = originalPrice;
           
           // Apply tax if needed
@@ -306,7 +311,7 @@
           `;
         });
       }
-
+  
       // Event listeners
       taxSelect.addEventListener('change', updatePrices);
       currencySelect.addEventListener('change', updatePrices);
