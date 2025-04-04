@@ -23,4 +23,81 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="/js/script.js"></script>
 </body>
+
+<script>
+  // Initialize currency/tax settings from localStorage or default
+  document.addEventListener('DOMContentLoaded', function() {
+    const currencySelect = document.querySelector('#changePrice');
+    const taxSelect = document.querySelector('.tex-select');
+    
+    // Load saved preferences
+    if (localStorage.getItem('currency')) {
+      currencySelect.value = localStorage.getItem('currency');
+    }
+    if (localStorage.getItem('taxPreference')) {
+      taxSelect.value = localStorage.getItem('taxPreference');
+    }
+    
+    // Save preferences when changed
+    currencySelect.addEventListener('change', function() {
+      localStorage.setItem('currency', this.value);
+      updatePricesOnPage();
+    });
+    
+    taxSelect.addEventListener('change', function() {
+      localStorage.setItem('taxPreference', this.value);
+      updatePricesOnPage();
+    });
+    
+    // Initialize prices on page load
+    updatePricesOnPage();
+  });
+
+  function updatePricesOnPage() {
+    const currency = localStorage.getItem('currency') || 'inr';
+    const withTax = localStorage.getItem('taxPreference') === 'hi';
+    
+    const currencySymbols = {
+      'inr': '₹',
+      'usd': '$',
+      'eur': '€'
+    };
+    
+    const exchangeRates = {
+      'inr': 1,
+      'usd': 0.012,
+      'eur': 0.011
+    };
+    
+    // Process all price elements on the page
+    document.querySelectorAll('[data-price]').forEach(priceElement => {
+      const originalPrice = parseFloat(priceElement.dataset.price);
+      if (isNaN(originalPrice)) return;
+      
+      let displayPrice = originalPrice;
+      
+      // Apply tax if needed
+      if (withTax) {
+        displayPrice = originalPrice * 1.18;
+      }
+      
+      // Convert currency
+      displayPrice = displayPrice * exchangeRates[currency];
+      
+      // Format based on currency
+      let formattedValue;
+      if (currency === 'inr') {
+        formattedValue = Math.round(displayPrice).toLocaleString('en-IN');
+      } else {
+        formattedValue = displayPrice.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      }
+      
+      // Update the display
+      priceElement.innerHTML = `${currencySymbols[currency]} ${formattedValue}`;
+    });
+  }
+</script>
 </html>
