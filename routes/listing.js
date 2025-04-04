@@ -47,6 +47,10 @@ router.get("/safety", (req, res) => {
   res.render("footerListings/safety");
 });
 
+router.get("/privacy", (req, res) => {
+  res.render("footerListings/privacy");
+});
+
 // Individual Listing Routes
 router
   .route("/listings/:id")
