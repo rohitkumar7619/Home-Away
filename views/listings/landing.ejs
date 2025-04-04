@@ -4,95 +4,488 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HomeAway - Your Vacation Rental Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #ff385c;
-            --secondary-color: #004aad;
-            --text-dark: #333;
-            --text-light: #666;
+            --primary-color: #FF5A5F;
+            --primary-light: #FF7E82;
+            --secondary-color: #00A699;
+            --secondary-light: #00C2B1;
+            --accent-color: #FC642D;
+            --accent-light: #FD8A5E;
+            --dark-color: #222222;
+            --darker-color: #111111;
+            --light-color: #FFFFFF;
+            --background-light: #F9F9F9;
+            --background-dark: #1A1A1A;
+            --text-dark: #333333;
+            --text-medium: #555555;
+            --text-light: #777777;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 6px 20px rgba(0,0,0,0.12);
+            --shadow-lg: 0 15px 40px rgba(0,0,0,0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
         }
 
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background-color: var(--background-light);
+            overflow-x: hidden;
+        }
+
+        .btn {
+            border-radius: var(--border-radius-sm);
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline-primary {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Hero Section */
         .hero-section {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             height: 80vh;
+            min-height: 600px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), 
+                        url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') 
+                        center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
             color: white;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
             padding: 2rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-content {
-            text-align: center;
-            animation: fadeInUp 1s ease;
+            max-width: 800px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
         }
 
         .hero-title {
             font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            line-height: 1.2;
         }
 
-        .search-box {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.9);
-            padding: 1.5rem;
-            border-radius: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.2);
         }
 
+        .hero-scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-20px) translateX(-50%);}
+            60% {transform: translateY(-10px) translateX(-50%);}
+        }
+
+
+        /* Features Section */
         .features-section {
-            padding: 4rem 2rem;
-            background: #f9f9f9;
+            padding: 10rem 2rem 8rem;
+            background: var(--background-light);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--dark-color);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            margin: 1.5rem auto 0;
+            border-radius: 5px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+            color: var(--text-medium);
+            font-size: 1.2rem;
         }
 
         .feature-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 2.5rem 2rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-lg);
         }
 
-        .cta-section {
-            background: var(--secondary-color);
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: white;
-            padding: 4rem 2rem;
-            text-align: center;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 25px rgba(255,90,95,0.3);
+            transition: var(--transition);
         }
 
-        .property-card {
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s;
+        .feature-card:hover .feature-icon {
+            transform: rotateY(180deg);
+        }
+
+        .feature-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .feature-text {
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Property Showcase */
+        .property-section {
+            padding: 8rem 2rem;
+            background: var(--light-color);
             position: relative;
         }
 
-        .property-card:hover {
-            transform: scale(1.03);
+        .property-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--background-light);
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
         }
 
-        .property-card::before {
-            content: "";
+        .property-card {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            margin-bottom: 1.5rem;
+            background: var(--light-color);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .property-image-container {
+            height: 260px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .property-image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .property-card:hover .property-image {
+            transform: scale(1.1);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .property-details {
+            padding: 1.75rem;
+        }
+
+        .property-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .property-location {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .property-location i {
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .property-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+
+        .property-rating {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .property-rating i {
+            color: var(--accent-color);
+            margin-right: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .property-rating-count {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-color);
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section:before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(transparent 60%, rgba(0,0,0,0.7));
+            background: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 1;
         }
 
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .cta-text {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            background: var(--light-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 1.2rem 3.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .cta-button:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+            padding: 0 1.5rem;
+        }
+
+        .stat-item:not(:last-child):after {
+            content: '';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--light-color), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        /* Animation */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -100,11 +493,147 @@
             }
         }
 
-        .wave-divider {
-            height: 100px;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23ffffff' d='M0,160L48,138.7C96,117,192,75,288,80C384,85,480,139,576,144C672,149,768,107,864,106.7C960,107,1056,149,1152,165.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'/%3E%3C/svg%3E");
-            background-size: cover;
-            margin-top: -1px;
+        .animate {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 2.4rem;
+            }
+            
+            .cta-title {
+                font-size: 2.5rem;
+            }
+            
+            .cta-text {
+                font-size: 1.2rem;
+            }
+            
+            .stat-item:not(:last-child):after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 90vh;
+                min-height: 700px;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .search-box {
+                padding: 1.5rem;
+                bottom: -100px;
+            }
+            
+            .search-tab {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .feature-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+            
+            .feature-title {
+                font-size: 1.4rem;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .cta-button {
+                padding: 1rem 2.5rem;
+                font-size: 1.1rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .search-box {
+                bottom: -120px;
+            }
+            
+            .search-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .search-tab {
+                flex: 1 0 33%;
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .property-section:before {
+                height: 60px;
+            }
+            
+            .stats-container {
+                gap: 2rem;
+            }
+            
+            .stat-item {
+                padding: 0 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -112,43 +641,47 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-content">
-            <h1 class="hero-title">Discover Your Perfect Stay</h1>
-            <p class="lead fs-4 mb-4">Book unique homes, vacation rentals, and more across the world</p>
-            <div class="search-box">
-                <form action="/listings" method="GET" class="d-flex gap-2">
-                    <input type="text" class="form-control py-3" placeholder="Search destinations...">
-                    <button class="btn btn-danger px-4 py-3">Search</button>
-                </form>
-            </div>
+            <h1 class="hero-title animate">Find Your Perfect Vacation Rental</h1>
+            <p class="hero-subtitle animate delay-1">Discover unique homes and experiences around the world</p>
+            <a href="#featured" class="btn btn-outline-light btn-lg mt-4 animate delay-2">Explore Listings</a>
         </div>
+        
     </section>
 
-    <div class="wave-divider"></div>
-
     <!-- Features Section -->
-    <section class="features-section">
+    <section class="features-section" id="featured">
         <div class="container">
-            <h2 class="text-center mb-3 fw-bold">Why Choose HomeAway?</h2>
+            <h2 class="section-title">Why Choose HomeAway?</h2>
+            <p class="section-subtitle">We provide the best vacation rental experience with unique properties, top-notch service, and unforgettable memories.</p>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="feature-card">
-                        <i class="fas fa-home fa-3x text-primary mb-3"></i>
-                        <h3>Unique Properties</h3>
-                        <p>Discover homes you won't find anywhere else</p>
+                    <div class="feature-card animate">
+                        <div class="feature-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3 class="feature-title">Unique Properties</h3>
+                        <p class="feature-text">From beachfront villas to treehouses, find spaces that are anything but ordinary.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-auto">Learn More</a>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="feature-card">
-                        <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
-                        <h3>Secure Booking</h3>
-                        <p>Protected payments and verified listings</p>
+                    <div class="feature-card animate delay-1">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Secure Booking</h3>
+                        <p class="feature-text">Our secure payment system and verified listings ensure peace of mind.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-auto">Learn More</a>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="feature-card">
-                        <i class="fas fa-headset fa-3x text-primary mb-3"></i>
-                        <h3>24/7 Support</h3>
-                        <p>Round-the-clock customer service</p>
+                    <div class="feature-card animate delay-2">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="feature-title">24/7 Support</h3>
+                        <p class="feature-text">Our global team is always here to help, day or night.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-auto">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -156,40 +689,125 @@
     </section>
 
     <!-- Property Showcase -->
-<section class="py-5">
-    <div class="container">
-        <h2 class="text-center mb-5 fw-bold">Featured Listings</h2>
-        <div class="row g-4">
-            <% let images = ["images/photo-1499793983690-e29da59ef1c2.jpg", "/images/photo-1587381420270-3e1a5b9e6904.jpg", "/images/photo-1480796927426-f609979314bd.jpg"]; %>
-            <% for (let i = 0; i < images.length; i++) { %>
-                <div class="col-md-4">
-                    <div class="property-card">
-                        <img src="<%= images[i] %>" class="img-fluid" alt="Property Image">
-                        <div class="position-absolute bottom-0 start-0 p-3 text-white">
-                            <h4>Beautiful Vacation Home</h4>
-                            <p>$<%= Math.floor(Math.random() * 200 + 100) %>/night</p>
+    <section class="property-section">
+        <div class="container">
+            <h2 class="section-title">Featured Listings</h2>
+            <p class="section-subtitle">Handpicked selections of our most exceptional properties</p>
+            <div class="row g-4">
+                <% const listings = [
+                    {
+                        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                        title: "Beachfront Villa in Bali",
+                        location: "Canggu, Indonesia",
+                        price: 250,
+                        rating: 4.9,
+                        reviews: 128,
+                        type: "Entire villa"
+                    },
+                    {
+                        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                        title: "Modern Loft in Downtown",
+                        location: "New York, USA",
+                        price: 180,
+                        rating: 4.8,
+                        reviews: 95,
+                        type: "Entire apartment"
+                    },
+                    {
+                        image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                        title: "Mountain View Cabin",
+                        location: "Aspen, Colorado",
+                        price: 210,
+                        rating: 4.95,
+                        reviews: 76,
+                        type: "Entire cabin"
+                    }
+                ]; %>
+                
+                <% listings.forEach((listing, index) => { %>
+                    <div class="col-md-4">
+                        <div class="property-card animate delay-<%= index %>">
+                            <div class="property-badge"><%= listing.type %></div>
+                            <div class="property-image-container">
+                                <img src="<%= listing.image %>" class="property-image" alt="<%= listing.title %>">
+                            </div>
+                            <div class="property-details">
+                                <h4 class="property-title"><%= listing.title %></h4>
+                                <div class="property-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <%= listing.location %>
+                                </div>
+                                <div class="property-price">$<%= listing.price %> <span>/ night</span></div>
+                                <div class="property-rating">
+                                    <i class="fas fa-star"></i>
+                                    <%= listing.rating %>
+                                    <span class="property-rating-count">(<%= listing.reviews %> reviews)</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <% } %>
-        </div>
-    </div>
-</section>
-
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2 class="mb-4">Ready to List Your Property?</h2>
-            <p class="fs-5 mb-4">Join thousands of hosts earning extra income</p>
-            <a href="/listings/new" class="btn btn-light btn-lg px-5 py-3">Get Started</a>
-            <div class="mt-4">
-                <p class="mb-0"><i class="fas fa-star"></i> 4.9/5 average host rating</p>
-                <p class="mb-0"><i class="fas fa-home"></i> 10,000+ active listings</p>
+                <% }); %>
+            </div>
+            <div class="text-center mt-5 animate delay-3">
+                <a href="/listings" class="btn btn-primary btn-lg px-5 py-3">View All Listings</a>
             </div>
         </div>
     </section>
 
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2 class="cta-title animate">Ready to Earn From Your Property?</h2>
+            <p class="cta-text animate delay-1">Join our community of hosts and start welcoming guests to your space.</p>
+            <a href="/listings/new" class="cta-button btn btn-light btn-lg px-5 py-3">List Your Property</a>
 
+
+            <div class="stats-container">
+                <div class="stat-item animate">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">Active Listings</div>
+                </div>
+                <div class="stat-item animate delay-1">
+                    <div class="stat-number">4.9</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+                <div class="stat-item animate delay-2">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-label">Happy Guests</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple animation trigger on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(element);
+            });
+
+            // Smooth scroll for hero button
+            document.querySelector('.hero-scroll-down').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('#featured').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
