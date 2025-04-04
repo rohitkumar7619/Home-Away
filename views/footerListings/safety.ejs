@@ -23,12 +23,13 @@
 
     /* Hero Section */
     .safety-hero {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: linear-gradient(135deg, #FF5A5F, #E74C3C);
         color: white;
         text-align: center;
-        padding: 6rem 2rem;
+        padding: 8rem 2rem 6rem;
         position: relative;
         overflow: hidden;
+        clip-path: ellipse(100% 80% at 50% 20%);
     }
 
     .safety-hero:before {
@@ -38,23 +39,91 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
-        opacity: 0.1;
+        background: 
+            radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 30%),
+            radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 30%);
+    }
+
+    .safety-hero .container {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
     }
 
     .safety-hero h1 {
-        font-size: 3rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        position: relative;
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        animation: fadeInDown 0.8s ease-out;
     }
 
     .safety-hero p {
-        font-size: 1.25rem;
+        font-size: 1.3rem;
         max-width: 700px;
-        margin: 0 auto 2rem;
+        margin: 0 auto 3rem;
         opacity: 0.9;
         position: relative;
+        animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        opacity: 0;
+    }
+
+    .safety-hero .cta-button {
+        display: inline-block;
+        background: white;
+        color: #FF5A5F;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        opacity: 0;
+    }
+
+    .safety-hero .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .safety-hero {
+            padding: 6rem 1.5rem 4rem;
+            clip-path: ellipse(120% 80% at 50% 20%);
+        }
+        
+        .safety-hero h1 {
+            font-size: 2.5rem;
+        }
+        
+        .safety-hero p {
+            font-size: 1.1rem;
+        }
     }
 
     /* Safety Features */
@@ -173,8 +242,9 @@
 <!-- Hero Section -->
 <section class="safety-hero">
     <div class="container">
-        <h1>Your Safety is Our Priority</h1>
-        <p>At HomeAway, we're committed to creating a safe and trusted community for both guests and hosts. Explore our safety features, tips, and resources below.</p>
+        <h1>Experience Peace of Mind with HomeAway</h1>
+        <p>Your safety is our top priority. Discover our comprehensive safety features and resources designed to protect both guests and hosts.</p>
+        <a href="#safety-features" class="cta-button">Explore Safety Features</a>
     </div>
 </section>
 
