@@ -12,7 +12,21 @@ router.get(
     isLoggedIn,
     isAdmin,
     wrapAsync(async (req, res) => {
+      // Get counts for dashboard
+      const userCount = await User.countDocuments();
+      const listingCount = await Listing.countDocuments();
+      const bookingCount = await Booking.countDocuments();
+      const recentBookings = await Booking.find()
+        .sort({ createdAt: -1 })
+        .limit(5)
+        .populate("user")
+        .populate("listing");
+  
       res.render("admin/dashboard", {
+        userCount,
+        listingCount,
+        bookingCount,
+        recentBookings
       });
     })
   );
