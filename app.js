@@ -19,6 +19,7 @@ const localStrategy = require("passport-local");
 const userSchema = require("./models/user.js");
 
 const listings = require("./routes/listing.js");
+const adminRouter = require("./routes/admin");
 const bookingRouter = require("./routes/booking.js");
 const Booking = require("./models/booking.js");
 const reviewsRouter = require("./routes/review.js");
@@ -97,6 +98,7 @@ app.use((req, res, next) => {
 // Mount routers correctly
 app.use("/", listings); // Landing page and static pages
 app.use("/listings", listings); // Listings routes
+app.use("/", adminRouter);
 app.use("/", bookingRouter); // Booking routes (handles POST /listings/:id/book)
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);

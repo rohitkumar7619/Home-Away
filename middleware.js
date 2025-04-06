@@ -1,6 +1,7 @@
+const { required } = require("joi");
 const Listing = require("./models/listing");
 const Review = require("./models/review");
-const user = require("./models/user");
+const user  = require("./models/user");
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -54,8 +55,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
   next();
 };
 
-
-// admin 
+// admin
 module.exports.isAdmin = (req, res, next) => {
   if (req.isAuthenticated() && req.user.isAdmin) {
     return next();
