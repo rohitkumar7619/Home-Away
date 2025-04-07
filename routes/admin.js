@@ -32,6 +32,16 @@ router.get(
   })
 );
 
+// Manage Users
+router.get(
+  "/admin/users",
+  isLoggedIn,
+  isAdmin,
+  wrapAsync(async (req, res) => {
+    const users = await User.find();
+    res.render("admin/users", { users });
+  })
+);
 
 
 module.exports = router;
