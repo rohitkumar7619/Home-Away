@@ -1,0 +1,81 @@
+<% layout("layouts/boilerplate") %>
+
+<style>
+  .admin-bookings {
+    padding: 2rem;
+  }
+  
+  .booking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .booking-table th, .booking-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .booking-table th {
+    background-color: #4361ee;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .booking-table tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+</style>
+
+<div class="admin-bookings">
+  <h1>Manage Bookings</h1>
+  
+  <table class="booking-table">
+    <thead>
+      <tr>
+        <th>Listing</th>
+        <th>User</th>
+        <th>Dates</th>
+        <th>Guests</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% bookings.forEach(booking => { %>
+        <tr>
+          <td><%= booking.listing.title %></td>
+          <td><%= booking.user.username %></td>
+          <td>
+            <%= booking.startDate.toLocaleDateString() %> - 
+            <%= booking.endDate.toLocaleDateString() %>
+          </td>
+          <td><%= booking.guests %></td>
+          <td>
+            <% const isUpcoming = new Date(booking.startDate) > new Date(); %>
+            <span class="badge <%= isUpcoming ? 'bg-success' : 'bg-secondary' %>">
+              <%= isUpcoming ? 'Upcoming' : 'Completed' %>
+            </span>
+          </td>
+          <td>
+            <a href="/bookings" class="btn btn-sm btn-primary">View</a>
+            <form action="/admin/bookings/<%= booking._id %>" method="POST" class="d-inline">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
