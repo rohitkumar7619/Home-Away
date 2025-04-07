@@ -97,4 +97,17 @@ router.post(
   })
 );
 
+// Delete Listing (Admin)
+router.delete(
+  "/admin/listings/:id",
+  isLoggedIn,
+  isAdmin,
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    await Listing.findByIdAndDelete(id);
+    req.flash("success", "Listing deleted successfully");
+    res.redirect("/admin/listings");
+  })
+);
+
 module.exports = router;
