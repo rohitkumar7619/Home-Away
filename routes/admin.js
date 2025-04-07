@@ -110,4 +110,17 @@ router.delete(
   })
 );
 
+// Delete Booking (Admin)
+router.delete(
+  "/admin/bookings/:id",
+  isLoggedIn,
+  isAdmin,
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    await Booking.findByIdAndDelete(id);
+    req.flash("success", "Booking deleted successfully");
+    res.redirect("/admin/bookings");
+  })
+);
+
 module.exports = router;
