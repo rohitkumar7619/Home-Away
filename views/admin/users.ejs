@@ -1,0 +1,86 @@
+<% layout("layouts/boilerplate") %>
+
+<style>
+  .admin-users {
+    padding: 2rem;
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-table th, .user-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .user-table th {
+    background-color: #4361ee;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .user-table tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .admin-badge {
+    background-color: #4361ee;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+</style>
+
+<div class="admin-users">
+  <h1>Manage Users</h1>
+  
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.username %></td>
+          <td><%= user.email %></td>
+          <td>
+            <% if (user.isAdmin) { %>
+              <span class="admin-badge">Admin</span>
+            <% } else { %>
+              User
+            <% } %>
+          </td>
+          <td>
+            <% if (!user._id.equals(currUser._id)) { %>
+              <form action="/admin/users/<%= user._id %>/toggle-admin" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-sm <%= user.isAdmin ? 'btn-warning' : 'btn-success' %>">
+                  <%= user.isAdmin ? 'Demote' : 'Promote' %>
+                </button>
+              </form>
+            <% } %>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
