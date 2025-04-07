@@ -69,4 +69,32 @@ router.get(
 );
 
 
+// Promote/Demote User
+router.post(
+  "/admin/users/:id/toggle-admin",
+  isLoggedIn,
+  isAdmin,
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    
+    if (!user) {
+      req.flash("error", "User not found");
+      return res.redirect("/admin/users");
+    }
+    
+    // Can't modify own admin status
+    if (user._id.equals(req.user._id)) {
+      req.flash("error", "You cannot modify your own admin status");
+      return res.redirect("/admin/users");
+    }
+    
+    user.isAdmin = !user.isAdmin;
+    await user.save();
+    
+    req.flash("success", `User ${user.username} ${user.isAdmin ? "promoted to admin" : "demoted from admin"}`);
+    res.redirect("/admin/users");
+  })
+);
+
 module.exports = router;
