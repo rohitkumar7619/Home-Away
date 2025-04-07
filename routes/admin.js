@@ -55,5 +55,18 @@ router.get(
 );
 
 
+// Manage Bookings
+router.get(
+  "/admin/bookings",
+  isLoggedIn,
+  isAdmin,
+  wrapAsync(async (req, res) => {
+    const bookings = await Booking.find()
+      .populate("user")
+      .populate("listing");
+    res.render("admin/bookings", { bookings });
+  })
+);
+
 
 module.exports = router;
