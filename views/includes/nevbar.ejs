@@ -1,6 +1,4 @@
-<nav
-  class="navbar navbar-expand-md sticky-top bg-white border-bottom shadow-sm dark:bg-gray-900"
->
+<nav class="navbar navbar-expand-md sticky-top bg-white border-bottom shadow-sm dark:bg-gray-900">
   <div class="container-fluid">
     <!-- Brand -->
     <a class="navbar-brand d-flex align-items-center" href="/">
@@ -22,10 +20,7 @@
     </button>
 
     <!-- Navbar Links -->
-    <div
-      class="collapse navbar-collapse justify-between"
-      id="navbarNavAltMarkup"
-    >
+    <div class="collapse navbar-collapse justify-between" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a
           class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500"
@@ -70,31 +65,39 @@
         </a>
 
         <% if (user) { %>
-        <a
-          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 fw-bold"
-          href="/bookings"
-        >
-          <i class="fas fa-calendar-check"></i> My Bookings
-        </a>
-        <a
-          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 fw-bold"
-          href="/logout"
-        >
-          <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
+          <% if (user.isAdmin) { %>
+            <a
+              class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 fw-bold"
+              href="/admin/dashboard"
+            >
+              <i class="fas fa-user-shield"></i> Admin
+            </a>
+          <% } %>
+          <a
+            class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 fw-bold"
+            href="/bookings"
+          >
+            <i class="fas fa-calendar-check"></i> My Bookings
+          </a>
+          <a
+            class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 fw-bold"
+            href="/logout"
+          >
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
         <% } else { %>
-        <a
-          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 fw-bold"
-          href="/signup"
-        >
-          <i class="fas fa-user-plus"></i> Signup
-        </a>
-        <a
-          class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 fw-bold"
-          href="/login"
-        >
-          <i class="fas fa-sign-in-alt"></i> Login
-        </a>
+          <a
+            class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 fw-bold"
+            href="/signup"
+          >
+            <i class="fas fa-user-plus"></i> Signup
+          </a>
+          <a
+            class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 fw-bold"
+            href="/login"
+          >
+            <i class="fas fa-sign-in-alt"></i> Login
+          </a>
         <% } %>
       </div>
     </div>
