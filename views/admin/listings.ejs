@@ -1,0 +1,82 @@
+<% layout("layouts/boilerplate") %>
+
+<style>
+  .admin-listings {
+    padding: 2rem;
+  }
+  
+  .listing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .listing-table th, .listing-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .listing-table th {
+    background-color: #4361ee;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .listing-table tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .listing-image {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+</style>
+
+<div class="admin-listings">
+  <h1>Manage Listings</h1>
+  
+  <table class="listing-table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Location</th>
+        <th>Price</th>
+        <th>Owner</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% listings.forEach(listing => { %>
+        <tr>
+          <td>
+            <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="listing-image">
+          </td>
+          <td><%= listing.title %></td>
+          <td><%= listing.location %></td>
+          <td>₹<%= listing.price.toLocaleString("en-IN") %></td>
+          <td><%= listing.owner.username %></td>
+          <td>
+            <a href="/listings/<%= listing._id %>" class="btn btn-sm btn-primary">View</a>
+            <form action="/admin/listings/<%= listing._id %>" method="POST" class="d-inline">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
