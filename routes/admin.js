@@ -43,5 +43,17 @@ router.get(
   })
 );
 
+// Manage Listings
+router.get(
+  "/admin/listings",
+  isLoggedIn,
+  isAdmin,
+  wrapAsync(async (req, res) => {
+    const listings = await Listing.find().populate("owner");
+    res.render("admin/listings", { listings });
+  })
+);
+
+
 
 module.exports = router;
