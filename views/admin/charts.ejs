@@ -1,0 +1,345 @@
+<% layout("layouts/boilerplate") %>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  :root {
+    --primary-color: #4CAF50; /* Green color scheme */
+    --secondary-color: #8BC34A;
+    --accent-color: #CDDC39;
+    --dark-color: #1e293b;
+    --light-color: #f8fafc;
+    --success-color: #4CAF50;
+    --warning-color: #FFC107;
+    --danger-color: #F44336;
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --border-radius: 12px;
+  }
+
+  .admin-dashboard {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: var(--light-color);
+  }
+
+  .dashboard-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .dashboard-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .dashboard-header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
+  }
+
+  .dashboard-header p {
+    color: #64748b;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Stats Cards */
+  .stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .stat-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .stat-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(76, 175, 80, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    transition: var(--transition);
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin: 0.5rem 0;
+  }
+
+  .stat-label {
+    color: #64748b;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Chart Containers */
+  .chart-container {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2rem;
+  }
+
+  .chart-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--dark-color);
+  }
+
+  .chart-wrapper {
+    position: relative;
+    height: 400px;
+    width: 100%;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .stats-container {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .chart-wrapper {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .stats-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .admin-dashboard {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<div class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1>Revenue & Bookings Analytics</h1>
+    <p>Detailed insights into your business performance</p>
+  </div>
+
+  <!-- Key Metrics -->
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-rupee-sign"></i>
+      </div>
+      <div class="stat-number">₹<%= typeof totalRevenue !== 'undefined' ? totalRevenue.toLocaleString('en-IN') : '0' %></div>
+      <div class="stat-label">Total Revenue</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-calendar-check"></i>
+      </div>
+      <div class="stat-number"><%= totalBookings %></div>
+      <div class="stat-label">Total Bookings</div>
+    </div>
+  </div>
+
+  <!-- Revenue Chart -->
+  <div class="chart-container">
+    <h3 class="chart-title">Monthly Revenue</h3>
+    <div class="chart-wrapper">
+      <canvas id="revenueChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Bookings Chart -->
+  <div class="chart-container">
+    <h3 class="chart-title">Bookings Overview</h3>
+    <div class="chart-wrapper">
+      <canvas id="bookingsChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Revenue by Listing Type -->
+  <div class="chart-container">
+    <h3 class="chart-title">Revenue by Listing Type</h3>
+    <div class="chart-wrapper">
+      <canvas id="listingTypeChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: 'Revenue (₹)',
+          data: [120000, 190000, 150000, 250000, 220000, 300000, 280000, 320000, 290000, 350000, 380000, 420000],
+          backgroundColor: '#4CAF50',
+          borderColor: '#388E3C',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return '₹' + context.raw.toLocaleString('en-IN');
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return '₹' + value.toLocaleString('en-IN');
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Bookings Chart
+    const bookingsCtx = document.getElementById('bookingsChart').getContext('2d');
+    new Chart(bookingsCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [
+          {
+            label: 'Completed Bookings',
+            data: [12, 19, 15, 25, 22, 30, 28, 32, 29, 35, 38, 42],
+            borderColor: '#4CAF50',
+            backgroundColor: 'rgba(76, 175, 80, 0.1)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true
+          },
+          {
+            label: 'Cancelled Bookings',
+            data: [2, 3, 1, 4, 2, 5, 3, 4, 5, 3, 4, 6],
+            borderColor: '#F44336',
+            backgroundColor: 'rgba(244, 67, 54, 0.1)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Listing Type Chart
+    const listingTypeCtx = document.getElementById('listingTypeChart').getContext('2d');
+    new Chart(listingTypeCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Apartments', 'Villas', 'Beach Houses', 'Cabins', 'City Lofts'],
+        datasets: [{
+          data: [35, 25, 20, 10, 10],
+          backgroundColor: [
+            '#4CAF50',
+            '#8BC34A',
+            '#CDDC39',
+            '#FFC107',
+            '#FF9800'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                const percentage = Math.round((value / total) * 100);
+                return `${label}: ₹${(value * 10000).toLocaleString('en-IN')} (${percentage}%)`;
+              }
+            }
+          }
+        }
+      }
+    });
+  });
+</script>

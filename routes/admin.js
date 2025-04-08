@@ -189,4 +189,55 @@ router.delete(
   })
 );
 
+
+// Admin Charts Dashboard
+router.get(
+  "/admin/charts",
+  isLoggedIn,
+  isAdmin,
+  wrapAsync(async (req, res) => {
+    // Get counts for dashboard
+    const totalBookings = await Booking.countDocuments();
+    const totalUsers = await User.countDocuments();
+    const activeListings = await Listing.countDocuments({ isActive: true });
+    
+    // Calculate total revenue
+    const bookings = await Booking.find();
+    const totalRevenue = bookings.reduce((sum, booking) => sum + (booking.totalPrice || 0), 0);
+    
+    // Get booking status counts
+    const now = new Date();
+    const upcomingBookings = await Booking.countDocuments({ startDate: { $gt: now } });
+    const completedBookings = await Booking.countDocuments({ endDate: { $lt: now } });
+    const cancelledBookings = await Booking.countDocuments({ status: "cancelled" });
+    
+    // Get recent transactions with proper error handling
+    const recentTransactions = await Booking.find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .populate("user")
+      .populate("listing")
+      .lean(); // Convert to plain JavaScript objects
+    
+    // Ensure all transactions have required fields
+    const safeTransactions = recentTransactions.map(t => ({
+      ...t,
+      totalPrice: t.totalPrice || 0, // Default to 0 if undefined
+      startDate: t.startDate || new Date(),
+      createdAt: t.createdAt || new Date()
+    }));
+
+    res.render("admin/charts", {
+      totalBookings,
+      totalRevenue,
+      activeListings,
+      totalUsers,
+      upcomingBookings,
+      completedBookings,
+      cancelledBookings,
+      recentTransactions: safeTransactions
+    });
+  })
+);
+
 module.exports = router;
