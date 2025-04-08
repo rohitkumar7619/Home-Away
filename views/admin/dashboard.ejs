@@ -1,130 +1,840 @@
 <% layout("layouts/boilerplate") %>
 
+<!-- Add Chart.js for data visualization -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
+  :root {
+    --primary-color: #4361ee;
+    --primary-light: #5a72f0;
+    --secondary-color: #3f37c9;
+    --accent-color: #4cc9f0;
+    --dark-color: #1e293b;
+    --light-color: #f8fafc;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --border-radius: 12px;
+  }
+
   .admin-dashboard {
     padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: var(--light-color);
   }
-  
+
+  .dashboard-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .dashboard-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .dashboard-header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
+  }
+
+  .dashboard-header p {
+    color: #64748b;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Stats Cards */
   .stats-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
     margin-bottom: 3rem;
   }
-  
+
   .stat-card {
     background: white;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
-  
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  }
+
   .stat-card:hover {
     transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
   }
-  
+
+  .stat-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(67, 97, 238, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    transition: var(--transition);
+  }
+
+  .stat-card:hover .stat-icon {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+  }
+
   .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #4361ee;
+    color: var(--dark-color);
     margin: 0.5rem 0;
+    transition: var(--transition);
   }
-  
+
+  .stat-card:hover .stat-number {
+    color: var(--primary-color);
+  }
+
   .stat-label {
-    color: #6c757d;
+    color: #64748b;
     font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
-  
+
+  .stat-actions {
+    margin-top: auto;
+  }
+
+  .stat-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .stat-btn:hover {
+    background: linear-gradient(to right, var(--primary-light), var(--primary-color));
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  /* Quick Actions */
+  .quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .action-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .action-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(67, 97, 238, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    transition: var(--transition);
+  }
+
+  .action-card:hover .action-icon {
+    background: var(--primary-color);
+    color: white;
+    transform: rotate(15deg) scale(1.1);
+  }
+
+  .action-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+  }
+
+  .action-card p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Recent Activity Sections */
+  .dashboard-section {
+    margin-bottom: 3rem;
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
+  }
+
+  .view-all-btn {
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+  }
+
+  .view-all-btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Recent Bookings */
   .recent-bookings {
     background: white;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
-  
+
   .booking-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid #eee;
+    padding: 1.25rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    margin-bottom: 0.75rem;
   }
-  
-  .booking-item:last-child {
-    border-bottom: none;
+
+  .booking-item:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+    transform: translateX(5px);
   }
-  
+
   .booking-info {
     flex: 1;
   }
-  
-  .booking-actions {
-    margin-left: 1rem;
+
+  .booking-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.25rem;
   }
-  
-  .admin-section-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: #343a40;
-    border-bottom: 2px solid #4361ee;
-    padding-bottom: 0.5rem;
-    display: inline-block;
+
+  .booking-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  .booking-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .booking-meta i {
+    font-size: 0.8rem;
+    color: var(--primary-color);
+  }
+
+  .booking-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .btn-outline:hover {
+    background: rgba(67, 97, 238, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .btn-danger {
+    background: var(--danger-color);
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Recent Users */
+  .recent-users {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    margin-bottom: 0.75rem;
+  }
+
+  .user-item:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+    transform: translateX(5px);
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .user-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .user-details h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--dark-color);
+  }
+
+  .user-details p {
+    color: #64748b;
+    font-size: 0.85rem;
+  }
+
+  .user-status {
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .status-admin {
+    background: rgba(67, 97, 238, 0.1);
+    color: var(--primary-color);
+  }
+
+  .status-user {
+    background: rgba(100, 116, 139, 0.1);
+    color: #64748b;
+  }
+
+  /* Mini Chart */
+  .mini-chart-container {
+    height: 60px;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .dashboard-header h1 {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stats-container {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .quick-actions {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .booking-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .booking-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .stats-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .quick-actions {
+      grid-template-columns: 1fr;
+    }
+    
+    .admin-dashboard {
+      padding: 1.5rem;
+    }
   }
 </style>
 
 <div class="admin-dashboard">
-  <h1>Admin Dashboard</h1>
-  
-  <div class="stats-container">
-    <div class="stat-card">
-      <div class="stat-icon">
-        <i class="fas fa-users fa-2x"></i>
-      </div>
-      <div class="stat-number"><%= userCount %></div>
-      <div class="stat-label">Total Users</div>
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome back! Here's what's happening with your business today.</p>
+  </div>
+
+  <!-- Quick Actions Section -->
+  <div class="dashboard-section">
+    <div class="section-header">
+      <h2 class="section-title">Quick Actions</h2>
     </div>
-    
-    <div class="stat-card">
-      <div class="stat-icon">
-        <i class="fas fa-home fa-2x"></i>
-      </div>
-      <div class="stat-number"><%= listingCount %></div>
-      <div class="stat-label">Total Listings</div>
-    </div>
-    
-    <div class="stat-card">
-      <div class="stat-icon">
-        <i class="fas fa-calendar-check fa-2x"></i>
-      </div>
-      <div class="stat-number"><%= bookingCount %></div>
-      <div class="stat-label">Total Bookings</div>
+    <div class="quick-actions">
+      <a href="/admin/users" class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-user-cog"></i>
+        </div>
+        <h3 class="action-title">Manage Users</h3>
+        <p>View, edit, and manage all user accounts</p>
+        <div class="mini-chart-container">
+          <canvas id="usersChart"></canvas>
+        </div>
+      </a>
+      
+      <a href="/admin/listings" class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-home"></i>
+        </div>
+        <h3 class="action-title">Manage Listings</h3>
+        <p>View and manage all property listings</p>
+        <div class="mini-chart-container">
+          <canvas id="listingsChart"></canvas>
+        </div>
+      </a>
+      
+      <a href="/admin/bookings" class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <h3 class="action-title">Manage Bookings</h3>
+        <p>View and manage all bookings</p>
+        <div class="mini-chart-container">
+          <canvas id="bookingsChart"></canvas>
+        </div>
+      </a>
+      
+      <a href="/admin/users/new" class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <h3 class="action-title">Create New User</h3>
+        <p>Add a new user account manually</p>
+        <div class="mini-chart-container">
+          <canvas id="newUsersChart"></canvas>
+        </div>
+      </a>
     </div>
   </div>
   
-  <div class="recent-bookings mt-5">
-    <h2 class="admin-section-title">Recent Bookings</h2>
-    
-    <% if (recentBookings.length > 0) { %>
-      <% recentBookings.forEach(booking => { %>
-        <div class="booking-item">
-          <div class="booking-info">
-            <h5><%= booking.listing.title %></h5>
-            <p>
-              <strong>User:</strong> <%= booking.user.username %> |
-              <strong>Dates:</strong> 
-              <%= booking.startDate.toLocaleDateString() %> - 
-              <%= booking.endDate.toLocaleDateString() %>
-            </p>
-          </div>
-          <div class="booking-actions">
-            <a href="/admin/bookings" class="btn btn-sm btn-primary">View</a>
-          </div>
+  <!-- Statistics Cards -->
+  <div class="dashboard-section">
+    <div class="section-header">
+      <h2 class="section-title">Business Overview</h2>
+    </div>
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
         </div>
-      <% }); %>
-    <% } else { %>
-      <p>No recent bookings found.</p>
-    <% } %>
+        <div class="stat-number"><%= userCount %></div>
+        <div class="stat-label">Total Users</div>
+        <div class="stat-actions">
+          <a href="/admin/users" class="stat-btn">
+            <i class="fas fa-arrow-right"></i> View All
+          </a>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-home"></i>
+        </div>
+        <div class="stat-number"><%= listingCount %></div>
+        <div class="stat-label">Active Listings</div>
+        <div class="stat-actions">
+          <a href="/admin/listings" class="stat-btn">
+            <i class="fas fa-arrow-right"></i> View All
+          </a>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-calendar-check"></i>
+        </div>
+        <div class="stat-number"><%= bookingCount %></div>
+        <div class="stat-label">Total Bookings</div>
+        <div class="stat-actions">
+          <a href="/admin/bookings" class="stat-btn">
+            <i class="fas fa-arrow-right"></i> View All
+          </a>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-rupee-sign"></i>
+        </div>
+        <div class="stat-number">₹<%= typeof totalRevenue !== 'undefined' ? totalRevenue.toLocaleString('en-IN') : '0' %></div>
+        <div class="stat-label">Total Revenue</div>
+        <div class="stat-actions">
+          <a href="/admin/reports" class="stat-btn">
+            <i class="fas fa-arrow-right"></i> View Reports
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Recent Bookings Section -->
+  <div class="dashboard-section">
+    <div class="recent-bookings">
+      <div class="section-header">
+        <h2 class="section-title">Recent Bookings</h2>
+        <a href="/admin/bookings" class="view-all-btn">View All</a>
+      </div>
+      
+      <% if (recentBookings.length > 0) { %>
+        <% recentBookings.forEach(booking => { %>
+          <div class="booking-item">
+            <div class="booking-info">
+              <h4 class="booking-title"><%= booking.listing.title %></h4>
+              <div class="booking-meta">
+                <span>
+                  <i class="fas fa-user"></i> <%= booking.user.username %>
+                </span>
+                <span>
+                  <i class="fas fa-calendar"></i> 
+                  <%= booking.startDate.toLocaleDateString() %> - <%= booking.endDate.toLocaleDateString() %>
+                </span>
+                <span>
+                  <i class="fas fa-rupee-sign"></i> 
+                  ₹<%= (booking.listing.price * ((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24))).toLocaleString('en-IN') %>
+                </span>
+              </div>
+            </div>
+            <div class="booking-actions">
+              <a href="/admin/bookings/<%= booking._id %>" class="btn btn-primary">
+                <i class="fas fa-eye"></i> View
+              </a>
+              <form action="/admin/bookings/<%= booking._id %>/cancel" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger">
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+              </form>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="text-center py-4">
+          <i class="fas fa-calendar-times fa-2x text-muted mb-3"></i>
+          <p class="text-muted">No recent bookings found</p>
+        </div>
+      <% } %>
+    </div>
+  </div>
+  
+  <!-- Recent Users Section -->
+  <div class="dashboard-section">
+    <div class="recent-users">
+      <div class="section-header">
+        <h2 class="section-title">Recent Users</h2>
+        <a href="/admin/users" class="view-all-btn">View All</a>
+      </div>
+      
+      <% if (typeof recentUsers !== 'undefined' && recentUsers.length > 0) { %>
+        <% recentUsers.forEach(user => { %>
+          <div class="user-item">
+            <div class="user-info">
+              <div class="user-avatar">
+                <%= user.username.charAt(0).toUpperCase() %>
+              </div>
+              <div class="user-details">
+                <h5><%= user.username %></h5>
+                <p><%= user.email %></p>
+              </div>
+            </div>
+            <div>
+              <% if (user.isAdmin) { %>
+                <span class="user-status status-admin">Admin</span>
+              <% } else { %>
+                <span class="user-status status-user">User</span>
+              <% } %>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="text-center py-4">
+          <i class="fas fa-user-slash fa-2x text-muted mb-3"></i>
+          <p class="text-muted">No recent users found</p>
+        </div>
+      <% } %>
+    </div>
   </div>
 </div>
+
+<script>
+  // Initialize mini charts
+  document.addEventListener('DOMContentLoaded', function() {
+    // Users Chart
+    const usersCtx = document.getElementById('usersChart').getContext('2d');
+    new Chart(usersCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          data: [12, 19, 15, 25, 22, 30],
+          borderColor: '#4361ee',
+          borderWidth: 2,
+          tension: 0.4,
+          fill: false,
+          pointRadius: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: { display: false },
+          y: { display: false }
+        }
+      }
+    });
+
+    // Listings Chart
+    const listingsCtx = document.getElementById('listingsChart').getContext('2d');
+    new Chart(listingsCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          data: [5, 10, 8, 15, 12, 18],
+          borderColor: '#4361ee',
+          borderWidth: 2,
+          tension: 0.4,
+          fill: false,
+          pointRadius: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: { display: false },
+          y: { display: false }
+        }
+      }
+    });
+
+    // Bookings Chart
+    const bookingsCtx = document.getElementById('bookingsChart').getContext('2d');
+    new Chart(bookingsCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          data: [3, 8, 5, 12, 10, 15],
+          borderColor: '#4361ee',
+          borderWidth: 2,
+          tension: 0.4,
+          fill: false,
+          pointRadius: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: { display: false },
+          y: { display: false }
+        }
+      }
+    });
+
+    // New Users Chart
+    const newUsersCtx = document.getElementById('newUsersChart').getContext('2d');
+    new Chart(newUsersCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          data: [2, 5, 3, 8, 6, 10],
+          borderColor: '#4361ee',
+          borderWidth: 2,
+          tension: 0.4,
+          fill: false,
+          pointRadius: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: { display: false },
+          y: { display: false }
+        }
+      }
+    });
+
+    // Add confirmation for booking cancellation
+    document.querySelectorAll('form[action*="/cancel"]').forEach(form => {
+      form.addEventListener('submit', function(e) {
+        if (!confirm('Are you sure you want to cancel this booking?')) {
+          e.preventDefault();
+        }
+      });  
+    });
+
+    // Add animations to dashboard sections
+    const sections = document.querySelectorAll('.dashboard-section');
+    sections.forEach((section, index) => {
+      section.style.animationDelay = `${index * 0.1}s`;
+    });
+  });
+</script>
