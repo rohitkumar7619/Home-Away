@@ -20,8 +20,9 @@
     </button>
 
     <!-- Navbar Links -->
-    <div class="collapse navbar-collapse justify-between" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <!-- Left-aligned links -->
+      <div class="navbar-nav me-auto">
         <a
           class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500"
           href="/listings"
@@ -42,21 +43,19 @@
         </a>
       </div>
 
-      <!-- Search Box and Show All Bookings Button -->
-      <div class="d-flex align-items-center">
-        <form class="d-flex me-2">
-          <input
-            class="form-control me-2 bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-primary" type="submit">Search</button>
-        </form>
-      </div>
+      <!-- Search Box -->
+      <form class="d-flex my-2 my-lg-0 mx-lg-2">
+        <input
+          class="form-control me-2 bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
 
       <!-- Right-aligned links -->
-      <div class="navbar-nav ms-auto align-items-center">
+      <div class="navbar-nav">
         <a
           class="nav-link text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500"
           href="/contact"
