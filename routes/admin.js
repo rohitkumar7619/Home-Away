@@ -7,7 +7,7 @@ const User = require("../models/user");
 const Listing = require("../models/listing");
 const Booking = require("../models/booking");
 
-// Admin Dashboard
+// Update the dashboard route in routes/admin.js
 router.get(
   "/admin/dashboard",
   isLoggedIn,
@@ -17,43 +17,83 @@ router.get(
     const userCount = await User.countDocuments();
     const listingCount = await Listing.countDocuments();
     const bookingCount = await Booking.countDocuments();
+    
+    // Get recent bookings with populated data
     const recentBookings = await Booking.find()
       .sort({ createdAt: -1 })
       .limit(5)
       .populate("user")
       .populate("listing");
+    
+    // Get recent users (5 most recently created)
+    const recentUsers = await User.find()
+      .sort({ createdAt: -1 })
+      .limit(5);
+    
+    // Calculate total revenue from all bookings
+    const allBookings = await Booking.find().populate("listing");
+    let totalRevenue = 0;
+    
+    allBookings.forEach(booking => {
+      const nights = Math.ceil(
+        (new Date(booking.endDate) - new Date(booking.startDate)) / 
+        (1000 * 60 * 60 * 24)
+      );
+      totalRevenue += booking.listing.price * nights;
+    });
 
     res.render("admin/dashboard", {
       userCount,
       listingCount,
       bookingCount,
-      recentBookings
+      recentBookings,
+      recentUsers, // Make sure this is included
+      totalRevenue: totalRevenue || 0 // Ensure it's always defined
     });
   })
 );
 
+
 // Manage Users
+// In your route, manually add createdAt if it doesn't exist
 router.get(
   "/admin/users",
   isLoggedIn,
   isAdmin,
   wrapAsync(async (req, res) => {
-    const users = await User.find();
-    res.render("admin/users", { users });
+    let users = await User.find().sort({ _id: -1 }); // Sort by ID as fallback
+    
+    // Add default createdAt if missing
+    users = users.map(user => {
+      if (!user.createdAt) {
+        user.createdAt = new Date(); // Or use some other default date
+        // Note: This doesn't save to DB, just for display purposes
+      }
+      return user;
+    });
+    
+    res.render("admin/users", { 
+      users,
+      currUser: req.user
+    });
   })
 );
 
 // Manage Listings
+
 router.get(
   "/admin/listings",
   isLoggedIn,
   isAdmin,
   wrapAsync(async (req, res) => {
     const listings = await Listing.find().populate("owner");
-    res.render("admin/listings", { listings });
+    res.render("admin/listings", { 
+      listings,
+      currUser: req.user,
+      currentPage: 'admin' // Add this line to identify the current page
+    });
   })
 );
-
 
 // Manage Bookings
 router.get(
@@ -120,6 +160,32 @@ router.delete(
     await Booking.findByIdAndDelete(id);
     req.flash("success", "Booking deleted successfully");
     res.redirect("/admin/bookings");
+  })
+);
+
+// Add this to your admin routes
+router.delete(
+  "/admin/users/:id/delete",
+  isLoggedIn,
+  isAdmin,
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    
+    if (!user) {
+      req.flash("error", "User not found");
+      return res.redirect("/admin/users");
+    }
+    
+    // Can't delete yourself
+    if (user._id.equals(req.user._id)) {
+      req.flash("error", "You cannot delete your own account");
+      return res.redirect("/admin/users");
+    }
+    
+    await User.findByIdAndDelete(id);
+    req.flash("success", "User deleted successfully");
+    res.redirect("/admin/users");
   })
 );
 
