@@ -161,6 +161,11 @@
     margin-bottom: 1rem;
   }
 
+  .phone-number {
+    font-family: monospace;
+    white-space: nowrap;
+  }
+
   @media (max-width: 768px) {
     .action-buttons {
       flex-direction: column;
@@ -193,6 +198,7 @@
         <tr>
           <th>User</th>
           <th>Email</th>
+          <th>Phone</th>
           <th>Role</th>
           <th>Actions</th>
         </tr>
@@ -207,7 +213,6 @@
               </div>
               <div>
                 <div><%= user.username %></div>
-
                 <small class="text-muted"
                   >Joined: <%= user.createdAt ?
                   user.createdAt.toLocaleDateString() : 'Date not available'
@@ -217,6 +222,9 @@
             </div>
           </td>
           <td><%= user.email %></td>
+          <td class="phone-number">
+            <%= user.phone || 'N/A' %>
+          </td>
           <td>
             <% if (user.isAdmin) { %>
             <span class="admin-badge">Admin</span>

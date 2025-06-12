@@ -1,28 +1,80 @@
 <% layout("layouts/boilerplate") %>
 
 <style>
+  .contact-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #ffeef1 100%);
+    padding: 2rem 0;
+    min-height: 100vh;
+  }
+
   .contact-grid {
-    position: relative;
-    z-index: 2;
     padding: 4rem 2rem;
-    background: rgba(255, 161, 161, 0.95);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 1.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     margin: 3rem auto;
     max-width: 1200px;
     text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   .contact-header h1 {
     font-size: 3rem;
     color: #2c3e50;
     font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, #3498db, #e74c3c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .contact-header p {
-    color: #000000;
-    font-size: 1.1rem;
+    color: #7f8c8d;
+    font-size: 1.2rem;
     margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .about-project, .about-me {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .about-project h2, .about-me h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+
+  .about-project p, .about-me p {
+    color: #34495e;
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .project-features, .skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .feature-badge, .skill-badge {
+    background: #3498db;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .skill-badge {
+    background: #2ecc71;
   }
 
   .row {
@@ -31,166 +83,73 @@
     justify-content: center;
     gap: 2rem;
     padding: 1rem;
-    width: 100%;
   }
 
   .contact-card {
     flex: 1 1 280px;
     max-width: 300px;
-    height: 350px;
-    perspective: 1000px;
-    margin: 1rem;
-    overflow: hidden;
-    border-radius: 1rem;
-  }
-
-  .contact-links img {
-    width: 100%;
-    height: 200px; /* Set a fixed height for the images */
-    object-fit: cover; /* Ensures the image covers the area without distortion */
-    border-radius: 1rem 1rem 0 0; /* Optional rounded corners for image */
-    transition: transform 0.4s ease;
-  }
-
-  .contact-card:hover .contact-links img {
-    transform: scale(1.05); /* Smooth image scaling */
-  }
-
-  .flip-card-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
+    background: white;
     border-radius: 1rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 2rem 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
 
-  .contact-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-
-  .flip-card-front,
-  .flip-card-back {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 1rem;
-    padding: 2rem;
-  }
-
-  .flip-card-front {
-    background: white;
-    color: #2c3e50;
-  }
-
-  .flip-card-back {
-    background: #f8f9fa;
-    color: #2c3e50;
-    transform: rotateY(180deg);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .contact-links img {
-    width: 100%;
-    height: 150px; /* Fixed height */
-    object-fit: cover; /* Ensures images scale properly */
-    border-radius: 1rem 1rem 0 0; /* Optional rounded corners for consistency */
-    transition: transform 0.4s ease;
+  .contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
   }
 
   .contact-icon {
     width: 80px;
     height: 80px;
-    background: #3498db;
+    background: linear-gradient(45deg, #3498db, #2ecc71);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
     color: white;
-    margin-bottom: 1rem;
-    transition: transform 0.3s ease;
-  }
-
-  .contact-card:hover .contact-icon {
-    transform: scale(1.1);
+    margin: 0 auto 1rem;
   }
 
   .contact-links {
     display: flex;
-    flex-direction: column;
-    height: 100%;
+    justify-content: center;
     gap: 1rem;
-    text-align: center;
+    margin-top: 1.5rem;
   }
 
   .contact-links a {
     color: #3498db;
-    text-decoration: none;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    transition: color 0.3s ease;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
   }
 
   .contact-links a:hover {
-    color: #2980b9;
+    color: #e74c3c;
+    transform: translateY(-3px);
   }
 
-  .static-card .contact-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: 768px) {
-    .contact-grid {
-      padding: 2rem 1rem;
-    }
-
-    .contact-header h1 {
-      font-size: 2.5rem;
-    }
-
-    .contact-card {
-      flex: 1 1 100%;
-      max-width: 100%;
-    }
-  }
-
-  .sec-container {
+  .sec-container, .sec-row {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100%;
+    flex-wrap: wrap;
+    gap: 2rem;
     padding: 1rem;
   }
 
-  .sec-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    width: 100%;
-  }
-
   .sec-static-card {
-    text-align: center;
     flex: 1 1 280px;
     max-width: 350px;
     padding: 2rem;
-    background: rgb(255, 255, 255);
+    background: white;
     border-radius: 1rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: center;
   }
 
   .sec-static-card:hover {
@@ -202,42 +161,53 @@
     width: 60px;
     height: 60px;
     font-size: 1.5rem;
-    background: #3498db;
+    background: linear-gradient(45deg, #e74c3c, #f39c12);
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1rem;
-    transition: background 0.9s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   .sec-static-card:hover .sec-contact-icon {
-    background: #2980b9;
-    transform: scale(1.1);
+    background: linear-gradient(45deg, #c0392b, #d35400);
+    transform: scale(1.1) rotate(10deg);
+  }
+
+  .sec-static-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+
+  .sec-static-card p {
+    color: #7f8c8d;
   }
 
   .sec-static-card a {
     color: #3498db;
     text-decoration: none;
     font-size: 1rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
   }
 
   .sec-static-card a:hover {
-    color: #2980b9;
+    color: white;
+    background: #3498db;
+    transform: translateY(-3px);
   }
 
   @media (max-width: 768px) {
-    .contact-grid {
-      padding: 2rem 1rem;
+    .contact-card, .sec-static-card {
+      max-width: 100%;
     }
+
     .contact-header h1 {
       font-size: 2.5rem;
-    }
-    .sec-static-card {
-      flex: 1 1 100%;
-      max-width: 100%;
     }
   }
 </style>
@@ -246,114 +216,101 @@
   <div class="contact-grid">
     <div class="contact-header">
       <h1>Get in Touch</h1>
-      <p>We'd love to hear from you! Reach out to our team members below.</p>
+      <p>We'd love to hear from you! Reach out to our team members below or explore more about this project.</p>
     </div>
 
-    <div class="container">
-      <div class="row">
-        <!-- Designer -->
-        <div class="contact-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <div class="contact-icon">
-                <i class="fas fa-palette"></i>
-              </div>
-              <h3>Vikas Kumar</h3>
-              <p>Designer and Tester</p>
-            </div>
-            <div class="flip-card-back">
-              <div class="contact-links">
-                <img src="/images/WhatsApp Image 2025-04-09 at 09.02.54_07bf37cd.jpg" alt="Vikas Kumar" />
-                <a href="mailto:vikaskumar4mrj@gmail.com">
-                  <i class="fas fa-envelope"></i> Email
-                </a>
-                <a href="https://www.linkedin.com/in/kumarvikas47/">
-                  <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="about-project">
+      <h2>About Home Away</h2>
+      <p>Home Away is a full-stack vacation rental web application inspired by Airbnb, built with modern web technologies to provide a seamless experience for both property owners and travelers.</p>
+      <p>Key features include property listings with search functionality, user authentication, booking system, reviews, and interactive maps. The application is deployed at <a href="https://home-away-8bn7.onrender.com" target="_blank">https://home-away-8bn7.onrender.com</a>.</p>
+      <div class="project-features">
+        <span class="feature-badge">Node.js Backend</span>
+        <span class="feature-badge">Express Framework</span>
+        <span class="feature-badge">MongoDB Database</span>
+        <span class="feature-badge">EJS Templating</span>
+        <span class="feature-badge">RESTful API</span>
+        <span class="feature-badge">User Authentication</span>
+        <span class="feature-badge">Interactive Maps</span>
+        <span class="feature-badge">Responsive Design</span>
+      </div>
+    </div>
 
-        <div class="contact-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <div class="contact-icon">
-                <i class="fas fa-code"></i>
-              </div>
-              <h3>Abishek Rawat</h3>
-              <p>Front-End Developer</p>
-            </div>
-            <div class="flip-card-back">
-              <div class="contact-links">
-                <img
-                  src="/images/IMG-20250205-WA0006.jpg"
-                  alt="Abishek Rawat"
-                />
-                <a href="mailto:abhirawatar.1@gmail.com">
-                  <i class="fas fa-envelope"></i> Email
-                </a>
-                <a href="https://www.linkedin.com/in/abhishek-rawat-759b63341/">
-                  <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="about-me">
+      <h2>About Me</h2>
+      <p>Hello! I'm Rohit Kumar, a passionate full-stack developer with expertise in JavaScript, Node.js, and modern web technologies. I built Home Away as a demonstration of my skills in creating complete, production-ready web applications.</p>
+      <p>With a strong foundation in both front-end and back-end development, I enjoy solving complex problems and creating user-friendly experiences. When I'm not coding, you can find me contributing to open-source projects or learning new technologies.</p>
+      <div class="skills">
+        <span class="skill-badge">JavaScript</span>
+        <span class="skill-badge">Node.js</span>
+        <span class="skill-badge">Express</span>
+        <span class="skill-badge">MongoDB</span>
+        <span class="skill-badge">React</span>
+        <span class="skill-badge">HTML/CSS</span>
+        <span class="skill-badge">REST APIs</span>
+        <span class="skill-badge">Git</span>
+      </div>
+    </div>
 
-        <div class="contact-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <div class="contact-icon">
-                <i class="fas fa-server"></i>
-              </div>
-              <h3>Rohit Kumar</h3>
-              <p>Back-End Developer</p>
-            </div>
-            <div class="flip-card-back">
-              <div class="contact-links">
-                <img src="/images/image (7).png" alt="Rohit Kumar" />
-                <a href="mailto:rohit76kumargupta@gmail.com">
-                  <i class="fas fa-envelope"></i> Email
-                </a>
-                <a href="https://www.linkedin.com/in/rohit-kumar-gupta-r7/">
-                  <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
-              </div>
-            </div>
-          </div>
+    <div class="row">
+      <div class="contact-card">
+        <div class="contact-icon">
+          <i class="fas fa-user"></i>
         </div>
-        <!-- Second Row: Github link, Inspired By -->
-        <div class="sec-container">
-          <div class="sec-row">
-            <div class="sec-static-card">
-              <div class="sec-contact-icon">
-                <i class="fab fa-github"></i>
-              </div>
-              <h3>Github Link</h3>
-              <p>
-                <a href="https://github.com/rohitkumar7619/Home-Away"
-                  ><i class="fab fa-github"></i> Home Away</a
-                >
-              </p>
-            </div>
-
-            <div class="sec-static-card">
-              <div class="sec-contact-icon">
-                <i class="fab fa-airbnb"></i>
-              </div>
-              <h3>Inspired By</h3>
-              <p>
-                <a href="https://www.airbnb.co.in/"
-                  ><i class="fab fa-airbnb"></i> AirBnb</a
-                >
-              </p>
-            </div>
-          </div>
+        <h3>Rohit Kumar</h3>
+        <p>Full Stack Developer</p>
+        <p>Project Creator</p>
+        <div class="contact-links">
+          <a href="mailto:rohit76kumargupta@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+          <a href="https://www.linkedin.com/in/rohit-kumar-gupta-r7/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/rohitkumar7619" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
         </div>
       </div>
     </div>
-  </div>  
+
+    <div class="sec-container">
+      <div class="sec-row">
+        <div class="sec-static-card">
+          <div class="sec-contact-icon">
+            <i class="fab fa-github"></i>
+          </div>
+          <h3>Project Repository</h3>
+          <p>Explore the complete source code, contribute to the project, and enhance its features.</p>
+          <a href="https://github.com/rohitkumar7619/Home-Away" target="_blank">
+            <i class="fab fa-github"></i> View on GitHub
+          </a>
+        </div>
+
+        <div class="sec-static-card">
+          <div class="sec-contact-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3>Contact Info</h3>
+          <p>Feel free to reach out for collaborations, questions, or feedback.</p>
+          <a href="mailto:rohit76kumargupta@gmail.com">
+            <i class="fas fa-envelope"></i> Email Me
+          </a>
+           <a href="tel:+917619853390">
+    <i class="fas fa-phone"></i> Call Me
+  </a>
+  <a href="https://wa.me/917619853390" target="_blank">
+    <i class="fab fa-whatsapp"></i> WhatsApp
+  </a>
+        </div>
+
+        <div class="sec-static-card">
+          <div class="sec-contact-icon">
+            <i class="fab fa-airbnb"></i>
+          </div>
+          <h3>Inspired By</h3>
+          <p>This project draws inspiration <br> from the popular global hospitality platform.</p>
+          <a href="https://www.airbnb.co.in/" target="_blank">
+            <i class="fab fa-airbnb"></i> Airbnb
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </div>

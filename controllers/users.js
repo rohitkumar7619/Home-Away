@@ -7,15 +7,15 @@ module.exports.signupForm = (req, res) => {
 
 module.exports.signup = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, phone, email, password } = req.body;
 
     // Validate user input (e.g., non-empty username/email/password)
-    if (!username || !email || !password) {
+    if (!username || !phone || !email || !password) {
       req.flash("error", "All fields are required.");
       return res.redirect("/signup");
     }
 
-    const newUser = new User({ username, email });
+    const newUser = new User({ username, phone, email });
 
     // Register the user and hash the password
     const registeredUser = await User.register(newUser, password);
