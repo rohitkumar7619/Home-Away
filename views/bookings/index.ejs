@@ -48,7 +48,7 @@
 
   .bookings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
   }
@@ -159,6 +159,8 @@
     font-weight: 500;
     margin-right: 0.5rem;
     color: var(--dark-color);
+    min-width: 70px;
+    display: inline-block;
   }
 
   .booking-price {
@@ -331,9 +333,55 @@
     color: var(--text-color);
   }
 
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .contact-phone {
+    font-weight: 500;
+  }
+
+  .contact-email {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    word-break: break-all;
+  }
+
+  .date-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .date-range {
+    font-weight: 500;
+  }
+
+  .nights-count {
+    font-size: 0.85rem;
+    color: var(--text-color);
+  }
+
+  .email-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .email-address {
+    font-weight: 500;
+  }
+
+  .email-label {
+    font-size: 0.85rem;
+    color: var(--text-color);
+  }
+
   @media (max-width: 992px) {
     .bookings-grid {
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     }
   }
 
@@ -367,6 +415,15 @@
     .booking-media {
       height: 200px;
     }
+    
+    .detail-item {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    
+    .detail-label {
+      margin-bottom: 0.25rem;
+    }
   }
 
   /* Animation for empty state */
@@ -394,9 +451,13 @@
     <% if (bookings.length > 0) { %>
       <div class="bookings-grid">
         <% bookings.forEach(function(booking) { 
-          const nights = Math.ceil((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24));
+          // Fix for days calculation - ensure dates are properly parsed
+          const startDate = new Date(booking.startDate);
+          const endDate = new Date(booking.endDate);
+          const timeDiff = endDate - startDate;
+          const nights = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
           const totalPrice = booking.listing.price * nights;
-          const isUpcoming = new Date(booking.startDate) > new Date();
+          const isUpcoming = startDate > new Date();
           %>
           
           <div class="booking-card">
@@ -407,7 +468,7 @@
             <% } %>
             
             <div class="booking-media">
-              <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>">
+              <img src="<%= booking.listing.image.url || '/images/default-listing.jpg' %>" alt="<%= booking.listing.title %>">
             </div>
             
             <div class="booking-content">
@@ -423,7 +484,7 @@
                 <div class="booking-meta">
                   <div class="rating">
                     <i class="fas fa-star"></i>
-                    <span><%= booking.listing.rating || '4.8' %></span>
+                    <span><%= booking.listing.rating?.toFixed(1) || '4.8' %></span>
                   </div>
                   <div class="total-reviews">
                     <i class="fas fa-comment"></i>
@@ -435,12 +496,13 @@
               <div class="booking-details">
                 <div class="detail-item">
                   <i class="fas fa-calendar-day"></i>
-                  <div>
-                    <span class="detail-label">Dates:</span>
-                    <%= booking.startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %> - 
-                    <%= booking.endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
-                    <div class="text-muted" style="font-size: 0.85rem; margin-top: 0.25rem;">
-                      <%= nights %> night<%= nights !== 1 ? 's' : '' %> stay
+                  <div class="date-info">
+                    <div class="date-range">
+                      <%= startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %> - 
+                      <%= endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+                    </div>
+                    <div class="nights-count">
+                      <i class="fas fa-moon"></i> <%= nights %> night<%= nights !== 1 ? 's' : '' %> stay
                     </div>
                   </div>
                 </div>
@@ -455,30 +517,53 @@
                 
                 <div class="detail-item">
                   <i class="fas fa-phone-alt"></i>
-                  <div>
-                    <span class="detail-label">Contact:</span>
-                    <%= booking.phone %>
-                    <div class="text-muted" style="font-size: 0.85rem; margin-top: 0.25rem;">
-                      <%= booking.email %>
+                  <div class="contact-info">
+                    <div class="contact-phone">
+                      <%= booking.phone || 'Not provided' %>
                     </div>
+                  </div>
+                </div>
+                
+                <div class="detail-item">
+                  <i class="fas fa-envelope"></i>
+                  <div class="email-info">
+                    <% if (booking.user && booking.user.email) { %>
+                      <div class="email-address">
+                        <%= booking.user.email %>
+                      </div>
+                    <% } else if (booking.email) { %>
+                      <div class="email-address">
+                        <%= booking.email %>
+                      </div>
+                    <% } else { %>
+                      <div class="email-label">
+                        Email not provided
+                      </div>
+                    <% } %>
                   </div>
                 </div>
               </div>
               
               <div class="booking-price">
                 <span class="price-label">Total Cost</span>
-                <span class="price-amount" data-price="<%= totalPrice %>">₹<%= totalPrice.toLocaleString('en-IN') %></span>
+                <span class="price-amount">₹<%= totalPrice.toLocaleString('en-IN') %></span>
               </div>
               
               <div class="booking-actions">
                 <a href="/listings/<%= booking.listing._id %>" class="btn btn-primary">
                   <i class="fas fa-eye"></i> View Details
                 </a>
-                <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST">
-                  <button type="submit" class="btn btn-danger">
-                    <i class="fas fa-times"></i> Cancel
-                  </button>
-                </form>
+                <% if (isUpcoming) { %>
+                  <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fas fa-times"></i> Cancel
+                    </button>
+                  </form>
+                <% } else { %>
+                  <a href="/listings/<%= booking.listing._id %>#reviews" class="btn btn-outline">
+                    <i class="fas fa-star"></i> Leave Review
+                  </a>
+                <% } %>
               </div>
             </div>
           </div>
@@ -507,7 +592,7 @@
       const deleteForms = document.querySelectorAll('form[action*="/bookings/"]');
       deleteForms.forEach(form => {
         form.addEventListener('submit', function(e) {
-          if (!confirm('Are you sure you want to cancel this booking?')) {
+          if (!confirm('Are you sure you want to cancel this booking? This action cannot be undone.')) {
             e.preventDefault();
           }
         });

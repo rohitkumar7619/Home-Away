@@ -1,136 +1,153 @@
 <% layout("layouts/boilerplate") %>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap");
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
 
   body {
-    background-color: #bae3f3c9; /* Sky blue */
+    background-color: #b6e0f2;
     margin: 0;
     font-family: "Quicksand", sans-serif;
   }
 
-  /* Wrapper to center the form container */
   .wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
-    padding: 0 20px; /* Optional: for better responsiveness */
+    min-height: 90vh;
+    padding: 20px;
   }
 
   .form-container {
-    padding: 40px;
-    width: 100%;
-    max-width: 400px;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 16px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    text-align: center;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 500px;
     animation: fadeIn 0.6s ease-in-out;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .centered-heading {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
     color: #333;
+    text-align: center;
     position: relative;
-    display: inline-block;
   }
 
   .centered-heading::after {
     content: "";
     position: absolute;
-    bottom: -8px;
+    bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
     width: 60px;
-    height: 4px;
+    height: 3px;
     background: #ff357a;
-    border-radius: 2px;
-    animation: underline 1.5s ease-in-out infinite;
+    border-radius: 3px;
+    animation: underline 2s ease-in-out infinite;
   }
 
   .form-group {
-    margin-bottom: 24px;
-    text-align: left;
+    margin-bottom: 20px;
+    position: relative;
   }
 
   .form-group label {
-    font-size: 1em;
-    font-weight: 600;
-    color: #555;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #444;
   }
 
   .form-group input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
+    padding: 12px 40px 12px 14px;
     border-radius: 8px;
+    border: 1px solid #ccc;
     font-size: 1em;
-    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    outline: none;
-    background: #f9f9f9;
+    background: #fdfdfd;
+    transition: border 0.3s ease;
   }
 
   .form-group input:focus {
     border-color: #ff357a;
-    box-shadow: 0 0 12px rgba(255, 53, 122, 0.3);
-    background: #fff;
+    outline: none;
+    box-shadow: 0 0 6px rgba(255, 53, 122, 0.3);
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  @media (min-width: 600px) {
+    .form-row {
+      flex-direction: row;
+    }
+    .form-row .form-group {
+      flex: 1;
+    }
+  }
+
+  .password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 38px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #777;
+    font-size: 1.1em;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .password-toggle:hover {
+    color: #ff357a;
   }
 
   .btn-primary {
     width: 100%;
     padding: 14px;
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 600;
     background: #ff357a;
     border: none;
     border-radius: 8px;
     color: #fff;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+    transition: background 0.3s ease;
     position: relative;
-    overflow: hidden;
-  }
-
-  .btn-primary::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300%;
-    height: 300%;
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.3),
-      rgba(255, 255, 255, 0) 70%
-    );
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.5s ease;
-    border-radius: 50%;
   }
 
   .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 53, 122, 0.4);
+    background: #e8326b;
   }
 
-  .btn-primary:active::before {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
+  .login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.95em;
+    color: #555;
   }
 
-  .invalid-feedback {
-    color: #ff4d4d;
-    font-size: 0.9em;
-    margin-top: 6px;
-    display: block;
-    animation: shake 0.4s ease-in-out;
+  .login-link a {
+    color: #ff357a;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .login-link a:hover {
+    text-decoration: underline;
   }
 
   @keyframes fadeIn {
@@ -145,78 +162,109 @@
   }
 
   @keyframes underline {
-    0% {
-      width: 60px;
-    }
-    50% {
-      width: 80px;
-    }
-    100% {
-      width: 60px;
-    }
-  }
-
-  @keyframes shake {
-    0% {
-      transform: translateX(0);
-    }
-    25% {
-      transform: translateX(-5px);
-    }
-    50% {
-      transform: translateX(5px);
-    }
-    75% {
-      transform: translateX(-5px);
-    }
-    100% {
-      transform: translateX(0);
-    }
+    0%, 100% { width: 60px; }
+    50% { width: 80px; }
   }
 </style>
 
 <div class="wrapper">
   <div class="form-container">
-    <h2 class="centered-heading">Signup</h2>
+    <h2 class="centered-heading">NEW ACCOUNT?</h2>
     <form action="/signup" method="post" novalidate class="needs-validation">
-      <!-- Username -->
       <div class="form-group">
+        <label for="username">Username</label>
         <input
           type="text"
           name="username"
           id="username"
-          class="form-control"
           required
+          placeholder="Enter your username"
         />
-        <label for="username">Username</label>
       </div>
 
-      <!-- Email -->
-      <div class="form-group">
-        <input
-          type="email"
-          name="email"
-          id="email"
-          class="form-control"
-          required
-        />
-        <label for="email">Email</label>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            required
+            placeholder="Phone number"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            required
+            placeholder="Email address"
+          />
+        </div>
       </div>
 
-      <!-- Password -->
       <div class="form-group">
+        <label for="password">Password</label>
         <input
           type="password"
           name="password"
           id="password"
-          class="form-control"
           required
+          placeholder="Enter your password"
         />
-        <label for="password">Password</label>
+        <button type="button" class="password-toggle" id="togglePassword">
+          <i class="far fa-eye"></i>
+        </button>
       </div>
 
-      <!-- Signup Button -->
-      <button type="submit" class="btn btn-primary">Sign Up</button>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          required
+          placeholder="Confirm your password"
+        />
+        <button type="button" class="password-toggle" id="toggleConfirmPassword">
+          <i class="far fa-eye"></i>
+        </button>
+      </div>
+
+      <button type="submit" class="btn-primary">REGISTER</button>
+
+      <div class="login-link">
+        Already have an account? <a href="/login">Login here</a>
+      </div>
     </form>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    const passwordIcon = togglePassword.querySelector('i');
+
+    togglePassword.addEventListener('click', function () {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      passwordIcon.classList.toggle('fa-eye');
+      passwordIcon.classList.toggle('fa-eye-slash');
+    });
+
+    const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+    const confirmPassword = document.querySelector('#confirmPassword');
+    const confirmPasswordIcon = toggleConfirmPassword.querySelector('i');
+
+    toggleConfirmPassword.addEventListener('click', function () {
+      const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+      confirmPassword.setAttribute('type', type);
+      confirmPasswordIcon.classList.toggle('fa-eye');
+      confirmPasswordIcon.classList.toggle('fa-eye-slash');
+    });
+  });
+</script>
