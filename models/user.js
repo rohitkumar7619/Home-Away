@@ -10,6 +10,9 @@ const userSchema = new Schema({
     required: true,
     unique: true
   },
+  phone: {
+    type: Number, // ✅ Corrected here
+  },
   isAdmin: {
     type: Boolean,
     default: false
@@ -17,6 +20,5 @@ const userSchema = new Schema({
 }, { timestamps: true });
 
 userSchema.plugin(passportLocalMongoose);
-
 
 module.exports = mongoose.model("User", userSchema);
