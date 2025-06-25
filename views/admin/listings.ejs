@@ -155,12 +155,16 @@
           <% listings.forEach(listing => { %>
             <tr>
               <td>
-                <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="listing-image">
+                <% if (listing.image && listing.image.url) { %>
+                  <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="listing-image">
+                <% } else { %>
+                  <div class="no-image">No Image</div>
+                <% } %>
               </td>
               <td><%= listing.title %></td>
               <td><%= listing.location %></td>
               <td>₹<%= listing.price.toLocaleString("en-IN") %></td>
-              <td><%= listing.owner.username %></td>
+              <td><%= listing.owner ? listing.owner.username : 'N/A' %></td>
               <td>
                 <div class="action-buttons">
                   <a href="/listings/<%= listing._id %>" class="btn btn-view">
@@ -195,8 +199,8 @@
 
 <script>
   // Add confirmation for delete actions
-  document.querySelectorAll('form[action*="/delete"]').forEach(form => {
-    form.addEventListener('submit', function(e) {
+  document.querySelectorAll('.btn-delete').forEach(button => {
+    button.addEventListener('click', function(e) {
       if (!confirm('Are you sure you want to delete this listing? This action cannot be undone.')) {
         e.preventDefault();
       }
